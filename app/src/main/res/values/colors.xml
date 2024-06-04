@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta de Morados -->
+    <color name="morado_claro">#FFBB86FC</color>
+    <color name="morado_medio">#FF6200EE</color>
+    <color name="morado_oscuro">#FF3700B3</color>
+
+    <!-- Paleta de Azules Verdoso -->
+    <color name="azul_verdoso_claro">#FF03DAC5</color>
+    <color name="azul_verdoso_oscuro">#FF018786</color>
+
+    <!-- Colores Estándar -->
+    <color name="negro">#FF000000</color>
+    <color name="blanco">#FFFFFFFF</color>
+
+    <!-- Gamas de Grises -->
+    <color name="gris_claro">#E8E1F1</color>
+    <color name="gris_medio">#888888</color>
+    <color name="gris_oscuro">#2A3742</color>
+    <color name="gris_seleccionado">#A3A3A3</color> <!-- Gris claro para ítems seleccionados -->
+    <color name="gris_no_seleccionado">#2E803C</color> <!-- Gris oscuro para ítems no seleccionados -->
+
+    <!-- Azules -->
+    <color name="azul_suave">#0048FF</color>
+    <color name="azul_personalizado">#1566e0</color>
+    <color name="azul_oscuro_personalizado">#303F9F</color>
+    <color name="azul_general">#005d15</color> <!-- Azul adicional agregado -->
+    <color name="azul_oscuro">#073066</color>
+
+    <!-- Verdes -->
+    <color name="verde_oscuro">#115e39</color>
+
+    <!-- Rojos -->
+    <color name="rojo_brillante">#D50000</color>
+    <color name="rojo_oscuro">#C64949</color>
+
+    <!-- Otros -->
+    <color name="azul_general_claro">#3F51B5</color> <!-- Tono de azul usado generalmente en la app -->
+    <color name="grisaceo_oscuro">#3A3A3A</color> <!-- Otro tono de gris -->
+
+    <color name="high_contrast_text">#000000</color>  <!-- Un negro más fuerte puede ser mejor para el contraste -->
+    <color name="azul_transparente">#CC004D40</color>
+    <color name="blanco_transparente">#80FFFFFF</color>
+    <color name="azul_claro">#FFB3E5FC</color>
+    <color name="light_blue">#B3E5FC</color>
+
+</resources>

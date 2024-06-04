@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/card_background">
+
+    <!-- Fila para el Nombre del Equipo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/nombre_de_equipo"
+            android:textStyle="bold"
+            android:textColor="@color/azul_general"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtNombreEquipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dell"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_marginStart="3dp"/>
+    </LinearLayout>
+
+    <!-- Fila para el Tipo de Equipo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tipo de Equipo:"
+            android:textStyle="bold"
+            android:textColor="@color/azul_general"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtTipoEquipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Computadora"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_marginStart="3dp"/>
+    </LinearLayout>
+
+    <!-- Fila para el Código Patrimonial -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/codigo_patrimonial"
+            android:textStyle="bold"
+            android:textColor="@color/azul_general"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtCodigoPatrimonial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C1234567"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_marginStart="3dp"/>
+    </LinearLayout>
+
+    <!-- Fila para la Fecha de Compra -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/fecha_compra"
+            android:textStyle="bold"
+            android:textColor="@color/azul_general"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtFechaCompra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01-01-2021"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_marginStart="3dp"/>
+    </LinearLayout>
+
+    <!-- Fila para el Estado -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Estado:"
+            android:textStyle="bold"
+            android:textColor="@color/azul_general"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtEstado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nuevo"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_marginStart="3dp"/>
+    </LinearLayout>
+
+    <!-- Fila para los botones de acción -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="8dp">
+
+        <ImageView
+            android:id="@+id/ic_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_view"
+            android:contentDescription="@string/ver"
+            android:layout_marginEnd="16dp"/>
+
+        <ImageView
+            android:id="@+id/ic_edit"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_edit"
+            android:contentDescription="@string/editar"
+            android:layout_marginEnd="16dp"/>
+        <ImageView
+            android:id="@+id/ic_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_delete"
+            android:contentDescription="@string/eliminar"/>
+    </LinearLayout>
+</LinearLayout>

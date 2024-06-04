@@ -1,0 +1,137 @@
+<resources>
+    <!-- General -->
+    <string name="app_name">FM_App</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="background_image">Imagen de fondo</string>
+
+    <!-- Navigation Header -->
+    <string name="nav_header_title">Quispe Cueva Manuel</string>
+    <string name="nav_header_subtitle">mquispecueva1@upao.edu.pe</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <!-- Authentication -->
+    <string name="label_bienvenida">Hola ! - Identifíquese para iniciar sesión</string>
+    <string name="label_usuario">Correo Electrónico</string>
+    <string name="label_password">Contraseña</string>
+    <string name="label_start_session">Iniciar Sesión</string>
+    <string name="action_settings">Cerrar Sesión</string>
+    <string name="logout_icon">Cerrar Sesión</string>
+
+    <!-- Inventario -->
+    <string name="gestion_de_inventario_buen_pastor">Gestión de Inventario Buen Pastor</string>
+    <string name="Agregar_productos">Agregar Productos</string>
+    <string name="descripcion_agregar_productos">Agregar Productos</string>
+    <string name="Tipo_de_equipo">Tipo de Equipo</string>
+    <string name="codigo_patrimonial">Codigo Patrimonial</string>
+    <string name="descripcion">Descripción</string>
+    <string name="estado">Estado</string>
+    <string name="fecha_compra">Fecha de Compra</string>
+    <string name="marca">Marca</string>
+    <string name="modelo">Modelo</string>
+    <string name="nombre_de_equipo">Nombre de Equipo</string>
+    <string name="numero_de_orden">Numero de Orden</string>
+    <string name="serie">Numero de Serie</string>
+    <string name="responsable">Nombre del Responsable</string>
+    <string name="ubicacion">Lugar de Ubicacion</string>
+    <string name="selecciona_un_estado">Selecciona un Estado</string>
+
+    <!-- Equipment Management -->
+    <string name="agregar_equipo">Agregar Equipo</string>
+    <string name="descripcion_añadir_nuevo_equipo_al_inventario">Añadir un nuevo equipo al inventario de equipos</string>
+
+    <string name="eliminar_equipo">Eliminar Equipo</string>
+    <string name="descripcion_remover_equipo_del_inventario">Remover un nuevo equipo del inventario de iquipos</string>
+
+    <string name="listar_equipos">Listar Equipos</string>
+    <string name="Descripcion_ver_lista_completa_de_equipos">Ver Lista completa de todos los equipos del iventario</string>
+
+    <string name="modificar_equipo">Modificar Equipo</string>
+    <string name="descripcion_actualizar_datos_de_un_equipo_existente">Modificar la informacion de un equipo del inventario de equipo</string>
+
+    <string name="buscar_equipo_por_codigo">Buscar equipo por código</string>
+    <string name="descripcion_encuentra_equipos_mediante_su_codigo_patrimonial">Buscar un equipo del inventario de equipo Por codigo patrimonial</string>
+
+    <string name="agregar_articulo_historico">Agregar productos al histórico</string>
+    <string name="descripcion_incorporar_un_nuevo_articulo_al_inventario_historico">Agregar un articulo al inventario historico permanente</string>
+
+    <string name="listar_articulos_historicos">Listar todos los artículos de inventario histórico</string>
+    <string name="descrpcion_consulta_la_lista_completa_de_articulos">Listar todos los equipos del inventario Historico Permanente</string>
+
+    <string name="escanear_codigo_barras">Escanear Código de Barras</string>
+    <string name="descripcion_utiliza_la_camara_para_escanear_codigos">Utiliza la cámara para Escanear Códigos de Barras para Agregar un nuevo Equipo</string>
+
+
+    <string name="volver">Volver</string>
+    <string name="nombre_equipo">Nombre del Equipo:</string>
+
+
+    <!-- Closure -->
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="modificar_productos">Modificar Equipos</string>
+    <string name="descripcion_modificar_productos">Aqui se podrá modificar los equipos solicitados</string>
+    <string name="ver">Ver equipo</string>
+    <string name="editar">Editar Equipo</string>
+    <string name="eliminar">Eliminar Equipo</string>
+    <string name="view_codigo_barras">"Codigo de Barras : "</string>
+    <string name="view_tipo_equipo">"Tipo de Equipo : "</string>
+    <string name="detalle_de_equipo">Detalle del Equipo</string>
+    <string name="view_codigo_patrimonial">"Codigo Patrimonial : "</string>
+    <string name="view_descripcion">Descripción :</string>
+    <string name="view_estado">"Estado : "</string>
+    <string name="view_fecha_compra">"Fecha de Compra : "</string>
+    <string name="view_marca">"Marca : "</string>
+    <string name="view_modelo">"Modelo : "</string>
+    <string name="view_nombre_de_equipo">"Nombre del Equipo : "</string>
+    <string name="view_numero_de_orden">"Numero de Orden : "</string>
+    <string name="view_serie">"Serie : "</string>
+    <string name="total_detalles">Total Detalles</string>
+    <string name="view_nombre">"Nombre del Responsable : "</string>
+    <string name="view_cargo">"Cargo : "</string>
+    <string name="detalle_del_responsable">Detalles del Responsable</string>
+    <string name="detalle_de_ubicacion">Detalle de Ubicación</string>
+    <string name="view_ambiente">"Ambiente : "</string>
+    <string name="view_ubicacion_fisica">Ubicacion Fisica</string>
+
+
+    <!-- Detalles del equipo -->
+    <string name="tipo_equipo_value">Impresora</string>
+    <string name="codigo_barra_value">1000234321</string>
+    <string name="codigo_patrimonial_value">CPAT20242401</string>
+    <string name="descripcion_value">Impresora láser color, modelo avanzado con capacidad de red.</string>
+    <string name="estado_value">Operativo</string>
+    <string name="fecha_compra_value">15-05-2024</string>
+    <string name="marca_value">Brother</string>
+    <string name="modelo_value">HL-L8360CDW</string>
+    <string name="nombre_equipo_value">Impresora Secretaría</string>
+    <string name="numero_orden_value">ORD-99281</string>
+    <string name="serie_value">BRT20290017</string>
+
+    <!-- Detalles del responsable -->
+    <string name="nombre_responsable_value">Julio Mendoza</string>
+    <string name="cargo_responsable_value">Jefe de Operaciones</string>
+
+    <!-- Detalles de la ubicación -->
+    <string name="ambiente_value">Oficina de Administración</string>
+    <string name="ubicacion_fisica_value">Edificio Central, Piso 2</string>
+    <string name="listar_nombre_equipo">Listar Por nombre de Equipo</string>
+    <string name="listar_nombre_de_equipo">Listar Por Nombre de Equipo</string>
+    <string name="descripcion_listar_nombre_del_equipo">Listar por el nombre completo del equipo a buscar</string>
+    <string name="listar_codigo_patrimonial">listar por codigo patrimonial</string>
+    <string name="titulo_listar_codigo_patrimonial">Listar Por Codigo Patrimonial</string>
+    <string name="descripcion_listar_codigo_patrimonial">Listar los equipos en base al codigo patrimonial</string>
+    <string name="listar_por_fechas">listar por fechas</string>
+    <string name="titulo_listar_por_fechas">Listar Equipos Por Fechas</string>
+    <string name="descripcion_listar_por_fechas">Listar los equipos entre 2 fechas respectivas de inicio y fin</string>
+    <string name="buscar_por_nombre">Buscar Equipo Por Nombre</string>
+    <string name="buscar_por_codigo_patrimonial">Buscar Por Codigo Patrimonial</string>
+    <string name="fecha_inicio">Fecha Inicio</string>
+    <string name="fecha_fin">Fecha Fin</string>
+    <string name="seleccionar_fecha">seleccionar fecha\n</string>
+    <string name="buscar_por_fechas">Buscar Por Fechas</string>
+    <string name="filtrar">Filtrar</string>
+    <string name="analizar">Analizar Codigo de Barras</string>
+    <string name="reporte_equipos">reporte de equipos</string>
+    <string name="titulo_reporte_equipos">Descargar Reporte de Equipos</string>
+    <string name="descripcion_reporte_equipos">Descarga un reporte en excel de todos los equipos</string>
+
+</resources>
