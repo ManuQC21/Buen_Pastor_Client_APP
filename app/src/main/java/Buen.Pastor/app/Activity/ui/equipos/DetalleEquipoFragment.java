@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.lifecycle.ViewModelProvider;
 import Buen.P.App.R;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
-import Buen.Pastor.app.entity.service.Equipo;
+import Buen.Pastor.app.entity.service.Equipment;
 
 public class DetalleEquipoFragment extends Fragment {
 
@@ -70,30 +70,30 @@ public class DetalleEquipoFragment extends Fragment {
         });
     }
 
-    private void mostrarDetalleEquipo(Equipo equipo) {
-        txtTipoEquipo.setText(equipo.getTipoEquipo() != null ? equipo.getTipoEquipo() : "-");
-        txtCodigoBarra.setText(equipo.getCodigoBarra() != null ? equipo.getCodigoBarra() : "-");
-        txtNombreEquipo.setText(equipo.getNombreEquipo() != null ? equipo.getNombreEquipo() : "-");
-        txtMarca.setText(equipo.getMarca() != null ? equipo.getMarca() : "-");
-        txtModelo.setText(equipo.getModelo() != null ? equipo.getModelo() : "-");
-        txtSerie.setText(equipo.getSerie() != null ? equipo.getSerie() : "-");
-        txtNumeroOrden.setText(equipo.getNumeroOrden() != null ? equipo.getNumeroOrden() : "-");
-        txtDescripcion.setText(equipo.getDescripcion() != null ? equipo.getDescripcion() : "-");
-        txtEstado.setText(equipo.getEstado() != null ? equipo.getEstado() : "-");
-        txtCodigoPatrimonial.setText(equipo.getCodigoPatrimonial() != null ? equipo.getCodigoPatrimonial() : "-");
-        txtFechaCompra.setText(equipo.getFechaCompra() != null ? equipo.getFechaCompra() : "-");
+    private void mostrarDetalleEquipo(Equipment equipo) {
+        txtTipoEquipo.setText(equipo.getEquipmentType() != null ? equipo.getEquipmentType() : "-");
+        txtCodigoBarra.setText(equipo.getBarcode() != null ? equipo.getBarcode() : "-");
+        txtNombreEquipo.setText(equipo.getEquipmentName() != null ? equipo.getEquipmentName() : "-");
+        txtMarca.setText(equipo.getBrand() != null ? equipo.getBrand() : "-");
+        txtModelo.setText(equipo.getModel() != null ? equipo.getModel() : "-");
+        txtSerie.setText(equipo.getSerial() != null ? equipo.getSerial() : "-");
+        txtNumeroOrden.setText(equipo.getOrderNumber() != null ? equipo.getOrderNumber() : "-");
+        txtDescripcion.setText(equipo.getDescription() != null ? equipo.getDescription() : "-");
+        txtEstado.setText(equipo.getStatus() != null ? equipo.getStatus() : "-");
+        txtCodigoPatrimonial.setText(equipo.getAssetCode() != null ? equipo.getAssetCode() : "-");
+        txtFechaCompra.setText(equipo.getPurchaseDate() != null ? equipo.getPurchaseDate() : "-");
 
-        if (equipo.getResponsable() != null) {
-            txtNombreResponsable.setText(equipo.getResponsable().getNombre() != null ? equipo.getResponsable().getNombre() : "-");
-            txtCargoResponsable.setText(equipo.getResponsable().getCargo() != null ? equipo.getResponsable().getCargo() : "-");
+        if (equipo.getResponsible() != null) {
+            txtNombreResponsable.setText(equipo.getResponsible().getFirstName() != null ? equipo.getResponsible().getFirstName() : "-");
+            txtCargoResponsable.setText(equipo.getResponsible().getPosition() != null ? equipo.getResponsible().getPosition() : "-");
         } else {
             txtNombreResponsable.setText("-");
             txtCargoResponsable.setText("-");
         }
 
-        if (equipo.getUbicacion() != null) {
-            txtAmbiente.setText(equipo.getUbicacion().getAmbiente() != null ? equipo.getUbicacion().getAmbiente() : "-");
-            txtUbicacionFisica.setText(equipo.getUbicacion().getUbicacionFisica() != null ? equipo.getUbicacion().getUbicacionFisica() : "-");
+        if (equipo.getLocation() != null) {
+            txtAmbiente.setText(equipo.getLocation().getRoom() != null ? equipo.getLocation().getRoom() : "-");
+            txtUbicacionFisica.setText(equipo.getLocation().getPhysicalLocation() != null ? equipo.getLocation().getPhysicalLocation() : "-");
         } else {
             txtAmbiente.setText("-");
             txtUbicacionFisica.setText("-");

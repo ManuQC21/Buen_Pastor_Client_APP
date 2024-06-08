@@ -23,7 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import java.sql.Date;
 import java.sql.Time;
 import Buen.P.App.R;
-import Buen.Pastor.app.entity.service.Usuario;
+import Buen.Pastor.app.entity.service.Member;
 import Buen.Pastor.app.utils.DateSerializer;
 import Buen.Pastor.app.utils.TimeSerializer;
 import Buen.Pastor.app.viewModel.UsuarioViewModel;
@@ -58,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.login(edtMail.getText().toString(), edtPassword.getText().toString()).observe(this, usuarioGenericResponse -> {
                     if (usuarioGenericResponse.getRpta() == 1) {
                         toastCorrecto(usuarioGenericResponse.getMessage());
-                        Usuario u = usuarioGenericResponse.getBody();
+                        Member u = usuarioGenericResponse.getBody();
                         saveUsuarioPreferences(u);
                         clearFields();
                         Intent intent = new Intent(this, InicioActivity.class);
-                        intent.putExtra("UsuarioJson", new Gson().toJson(u, new TypeToken<Usuario>() {}.getType()));
+                        intent.putExtra("UsuarioJson", new Gson().toJson(u, new TypeToken<Member>() {}.getType()));
                         startActivity(intent);
                     } else {
                         toastIncorrecto(usuarioGenericResponse.getMessage());
@@ -77,14 +77,14 @@ public class MainActivity extends AppCompatActivity {
         edtPassword.addTextChangedListener(new GenericTextWatcher(txtInputPassword));
     }
 
-    private void saveUsuarioPreferences(Usuario u) {
+    private void saveUsuarioPreferences(Member u) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         Gson g = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateSerializer())
                 .registerTypeAdapter(Time.class, new TimeSerializer())
                 .create();
-        editor.putString("UsuarioJson", g.toJson(u, new TypeToken<Usuario>() {}.getType()));
+        editor.putString("UsuarioJson", g.toJson(u, new TypeToken<Member>() {}.getType()));
         editor.apply();
     }
 

@@ -38,7 +38,7 @@ import java.util.concurrent.ExecutionException;
 import Buen.P.App.R;
 import Buen.P.App.databinding.FragmentEscanearCodigoBarrasBinding;
 import Buen.Pastor.app.entity.Global;
-import Buen.Pastor.app.entity.service.Equipo;
+import Buen.Pastor.app.entity.service.Equipment;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -170,7 +170,7 @@ public class EscanearCodigoBarrasFragment extends Fragment {
                 .show();
     }
 
-    private void showCustomDialog(Equipo equipo) {
+    private void showCustomDialog(Equipment equipo) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View customLayout = getLayoutInflater().inflate(R.layout.custom_dialog_equipo, null);
         builder.setView(customLayout);
@@ -180,25 +180,25 @@ public class EscanearCodigoBarrasFragment extends Fragment {
         dialog.show();
 
         // Configuración de los campos de texto para la información del equipo
-        ((TextView) customLayout.findViewById(R.id.tvNombreEquipo)).setText(safeString(equipo.getNombreEquipo()));
-        ((TextView) customLayout.findViewById(R.id.tvTipoEquipo)).setText(safeString(equipo.getTipoEquipo()));
-        ((TextView) customLayout.findViewById(R.id.tvMarca)).setText(safeString(equipo.getMarca()));
-        ((TextView) customLayout.findViewById(R.id.tvModelo)).setText(safeString(equipo.getModelo()));
-        ((TextView) customLayout.findViewById(R.id.tvSerie)).setText(safeString(equipo.getSerie()));
-        ((TextView) customLayout.findViewById(R.id.tvNumeroOrden)).setText(safeString(equipo.getNumeroOrden()));
-        ((TextView) customLayout.findViewById(R.id.tvDescripcion)).setText(safeString(equipo.getDescripcion()));
-        ((TextView) customLayout.findViewById(R.id.tvEstado)).setText(safeString(equipo.getEstado()));
-        ((TextView) customLayout.findViewById(R.id.tvCodigoPatrimonial)).setText(safeString(equipo.getCodigoPatrimonial()));
-        ((TextView) customLayout.findViewById(R.id.tvCodigoBarra)).setText(safeString(equipo.getCodigoBarra()));
-        ((TextView) customLayout.findViewById(R.id.tvFechaCompra)).setText(equipo.getFechaCompra() != null ? equipo.getFechaCompra().toString() : "-");
+        ((TextView) customLayout.findViewById(R.id.tvNombreEquipo)).setText(safeString(equipo.getEquipmentName()));
+        ((TextView) customLayout.findViewById(R.id.tvTipoEquipo)).setText(safeString(equipo.getEquipmentType()));
+        ((TextView) customLayout.findViewById(R.id.tvMarca)).setText(safeString(equipo.getBrand()));
+        ((TextView) customLayout.findViewById(R.id.tvModelo)).setText(safeString(equipo.getModel()));
+        ((TextView) customLayout.findViewById(R.id.tvSerie)).setText(safeString(equipo.getSerial()));
+        ((TextView) customLayout.findViewById(R.id.tvNumeroOrden)).setText(safeString(equipo.getOrderNumber()));
+        ((TextView) customLayout.findViewById(R.id.tvDescripcion)).setText(safeString(equipo.getDescription()));
+        ((TextView) customLayout.findViewById(R.id.tvEstado)).setText(safeString(equipo.getStatus()));
+        ((TextView) customLayout.findViewById(R.id.tvCodigoPatrimonial)).setText(safeString(equipo.getAssetCode()));
+        ((TextView) customLayout.findViewById(R.id.tvCodigoBarra)).setText(safeString(equipo.getBarcode()));
+        ((TextView) customLayout.findViewById(R.id.tvFechaCompra)).setText(equipo.getPurchaseDate() != null ? equipo.getPurchaseDate().toString() : "-");
 
         // Configuración de los campos de texto para la información del responsable
-        ((TextView) customLayout.findViewById(R.id.tvNombreResponsable)).setText(safeString(equipo.getResponsable() != null ? equipo.getResponsable().getNombre() : "-"));
-        ((TextView) customLayout.findViewById(R.id.tvCargoResponsable)).setText(safeString(equipo.getResponsable() != null ? equipo.getResponsable().getCargo() : "-"));
+        ((TextView) customLayout.findViewById(R.id.tvNombreResponsable)).setText(safeString(equipo.getResponsible() != null ? equipo.getResponsible().getFirstName() : "-"));
+        ((TextView) customLayout.findViewById(R.id.tvCargoResponsable)).setText(safeString(equipo.getResponsible() != null ? equipo.getResponsible().getPosition() : "-"));
 
         // Configuración de los campos de texto para la información de la ubicación
-        ((TextView) customLayout.findViewById(R.id.tvAmbiente)).setText(safeString(equipo.getUbicacion() != null ? equipo.getUbicacion().getAmbiente() : "-"));
-        ((TextView) customLayout.findViewById(R.id.tvUbicacionFisica)).setText(safeString(equipo.getUbicacion() != null ? equipo.getUbicacion().getUbicacionFisica() : "-"));
+        ((TextView) customLayout.findViewById(R.id.tvAmbiente)).setText(safeString(equipo.getLocation() != null ? equipo.getLocation().getRoom() : "-"));
+        ((TextView) customLayout.findViewById(R.id.tvUbicacionFisica)).setText(safeString(equipo.getLocation() != null ? equipo.getLocation().getPhysicalLocation() : "-"));
     }
 
     private String safeString(String text) {

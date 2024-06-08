@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import Buen.P.App.R;
-import Buen.Pastor.app.entity.service.Equipo;
+import Buen.Pastor.app.entity.service.Equipment;
 
 public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.EquipoViewHolder> {
 
-    private List<Equipo> equipos;
+    private List<Equipment> equipos;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
@@ -24,7 +24,7 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.EquipoView
         void onDeleteClick(int equipoId);
     }
 
-    public EquipoAdapter(List<Equipo> equipos, OnItemClickListener listener) {
+    public EquipoAdapter(List<Equipment> equipos, OnItemClickListener listener) {
         this.equipos = equipos;
         this.listener = listener;
     }
@@ -38,12 +38,12 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.EquipoView
 
     @Override
     public void onBindViewHolder(@NonNull EquipoViewHolder holder, int position) {
-        Equipo equipo = equipos.get(position);
-        holder.nombreEquipo.setText(equipo.getNombreEquipo() != null ? equipo.getNombreEquipo() : "-");
-        holder.tipoEquipo.setText(equipo.getTipoEquipo() != null ? equipo.getTipoEquipo() : "-");
-        holder.codigoPatrimonial.setText(equipo.getCodigoPatrimonial() != null ? equipo.getCodigoPatrimonial() : "-");
-        holder.fechaCompra.setText(equipo.getFechaCompra() != null ? equipo.getFechaCompra() : "-");
-        holder.estadoEquipo.setText(equipo.getEstado() != null ? equipo.getEstado() : "-");
+        Equipment equipo = equipos.get(position);
+        holder.nombreEquipo.setText(equipo.getEquipmentName() != null ? equipo.getEquipmentName() : "-");
+        holder.tipoEquipo.setText(equipo.getEquipmentType() != null ? equipo.getEquipmentType() : "-");
+        holder.codigoPatrimonial.setText(equipo.getAssetCode() != null ? equipo.getAssetCode() : "-");
+        holder.fechaCompra.setText(equipo.getPurchaseDate() != null ? equipo.getPurchaseDate() : "-");
+        holder.estadoEquipo.setText(equipo.getStatus() != null ? equipo.getStatus() : "-");
 
         if (listener != null) {
             holder.editButton.setOnClickListener(v -> listener.onEditClick(equipo.getId()));
@@ -74,7 +74,7 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.EquipoView
         }
     }
 
-    public void updateData(List<Equipo> newEquipos) {
+    public void updateData(List<Equipment> newEquipos) {
         equipos.clear();
         equipos.addAll(newEquipos);
         notifyDataSetChanged();

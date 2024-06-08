@@ -22,9 +22,9 @@ import java.util.Locale;
 import Buen.Pastor.app.Activity.InicioActivity;
 import Buen.P.App.R;
 import Buen.P.App.databinding.FragmentAgregarBinding;
-import Buen.Pastor.app.entity.service.Empleado;
-import Buen.Pastor.app.entity.service.Equipo;
-import Buen.Pastor.app.entity.service.Ubicacion;
+import Buen.Pastor.app.entity.service.Employee;
+import Buen.Pastor.app.entity.service.Location;
+import Buen.Pastor.app.entity.service.Equipment;
 import Buen.Pastor.app.viewModel.EmpleadoViewModel;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 import Buen.Pastor.app.viewModel.UbicacionViewModel;
@@ -88,25 +88,25 @@ public class AgregarFragment extends Fragment {
     }
 
     private void agregarEquipo() {
-        Equipo equipo = new Equipo();
-        equipo.setTipoEquipo(txtTipoEquipo.getText().toString());
-        equipo.setCodigoPatrimonial(txtCodigoPatrimonial.getText().toString());
-        equipo.setDescripcion(txtDescripcion.getText().toString());
-        equipo.setEstado(dropdownEstado.getText().toString());
-        equipo.setFechaCompra(edtFechaCompra.getText().toString());
-        equipo.setMarca(txtMarca.getText().toString());
-        equipo.setModelo(txtModelo.getText().toString());
-        equipo.setNombreEquipo(txtNombreDeEquipo.getText().toString());
-        equipo.setNumeroOrden(txtNumeroDeOrden.getText().toString());
-        equipo.setSerie(txtNumeroDeSerie.getText().toString());
+        Equipment equipo = new Equipment();
+        equipo.setEquipmentType(txtTipoEquipo.getText().toString());
+        equipo.setAssetCode(txtCodigoPatrimonial.getText().toString());
+        equipo.setDescription(txtDescripcion.getText().toString());
+        equipo.setStatus(dropdownEstado.getText().toString());
+        equipo.setPurchaseDate(edtFechaCompra.getText().toString());
+        equipo.setBrand(txtMarca.getText().toString());
+        equipo.setModel(txtModelo.getText().toString());
+        equipo.setEquipmentName(txtNombreDeEquipo.getText().toString());
+        equipo.setOrderNumber(txtNumeroDeOrden.getText().toString());
+        equipo.setSerial(txtNumeroDeSerie.getText().toString());
         String nombreResponsable = dropdownResponsable.getText().toString();
         String ambienteUbicacion = dropdownUbicacion.getText().toString();
 
             empleadoViewModel.listarEmpleados().observe(getViewLifecycleOwner(), response -> {
             if (response.getRpta() == 1) {
-                for (Empleado empleado : response.getBody()) {
-                    if (empleado.getNombre().equals(nombreResponsable)) {
-                        equipo.setResponsable(empleado);
+                for (Employee employee : response.getBody()) {
+                    if (employee.getFirstName().equals(nombreResponsable)) {
+                        equipo.setResponsible(employee);
                         break;
                     }
                 }
@@ -114,9 +114,9 @@ public class AgregarFragment extends Fragment {
 
             ubicacionViewModel.listarUbicaciones().observe(getViewLifecycleOwner(), ubicacionResponse -> {
                 if (ubicacionResponse.getRpta() == 1) {
-                    for (Ubicacion ubicacion : ubicacionResponse.getBody()) {
-                        if (ubicacion.getAmbiente().equals(ambienteUbicacion)) {
-                            equipo.setUbicacion(ubicacion);
+                    for (Location ubicacion : ubicacionResponse.getBody()) {
+                        if (ubicacion.getRoom().equals(ambienteUbicacion)) {
+                            equipo.setLocation(ubicacion);
                             break;
                         }
                     }
@@ -155,8 +155,8 @@ public class AgregarFragment extends Fragment {
         empleadoViewModel.listarEmpleados().observe(getViewLifecycleOwner(), response -> {
             if (response.getRpta() == 1) {
                 List<String> nombres = new ArrayList<>();
-                for (Empleado empleado : response.getBody()) {
-                    nombres.add(empleado.getNombre());
+                for (Employee employee : response.getBody()) {
+                    nombres.add(employee.getFirstName());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, nombres);
                 dropdownResponsable.setAdapter(adapter);
@@ -168,8 +168,8 @@ public class AgregarFragment extends Fragment {
         ubicacionViewModel.listarUbicaciones().observe(getViewLifecycleOwner(), response -> {
             if (response.getRpta() == 1) {
                 List<String> ubicaciones = new ArrayList<>();
-                for (Ubicacion ubicacion : response.getBody()) {
-                    ubicaciones.add(ubicacion.getAmbiente());
+                for (Location ubicacion : response.getBody()) {
+                    ubicaciones.add(ubicacion.getRoom());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, ubicaciones);
                 dropdownUbicacion.setAdapter(adapter);

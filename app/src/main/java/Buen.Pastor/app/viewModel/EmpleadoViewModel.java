@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import Buen.Pastor.app.entity.GenericResponse;
-import Buen.Pastor.app.entity.service.Empleado;
+import Buen.Pastor.app.entity.service.Employee;
 import Buen.Pastor.app.repository.EmpleadoRepository;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class EmpleadoViewModel extends AndroidViewModel {
         empleadoRepository = new EmpleadoRepository();
     }
 
-    public LiveData<GenericResponse<List<Empleado>>> listarEmpleados() {
+    public LiveData<GenericResponse<List<Employee>>> listarEmpleados() {
         return empleadoRepository.listarEmpleados();
     }
 }

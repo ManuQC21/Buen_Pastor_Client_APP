@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import Buen.Pastor.app.api.ConfigApi;
 import Buen.Pastor.app.api.UbicacionApi;
 import Buen.Pastor.app.entity.GenericResponse;
-import Buen.Pastor.app.entity.service.Ubicacion;
+import Buen.Pastor.app.entity.service.Location;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,11 +20,11 @@ public class UbicacionRepository {
         ubicacionApi = ConfigApi.getUbicacionApi();
     }
 
-    public LiveData<GenericResponse<List<Ubicacion>>> listarUbicaciones() {
-        MutableLiveData<GenericResponse<List<Ubicacion>>> liveData = new MutableLiveData<>();
-        ubicacionApi.listarUbicaciones().enqueue(new Callback<GenericResponse<List<Ubicacion>>>() {
+    public LiveData<GenericResponse<List<Location>>> listarUbicaciones() {
+        MutableLiveData<GenericResponse<List<Location>>> liveData = new MutableLiveData<>();
+        ubicacionApi.listarUbicaciones().enqueue(new Callback<GenericResponse<List<Location>>>() {
             @Override
-            public void onResponse(Call<GenericResponse<List<Ubicacion>>> call, Response<GenericResponse<List<Ubicacion>>> response) {
+            public void onResponse(Call<GenericResponse<List<Location>>> call, Response<GenericResponse<List<Location>>> response) {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
@@ -33,7 +33,7 @@ public class UbicacionRepository {
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<List<Ubicacion>>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<List<Location>>> call, Throwable t) {
                 liveData.setValue(new GenericResponse<>(null, -1, t.getMessage(), null));
             }
         });

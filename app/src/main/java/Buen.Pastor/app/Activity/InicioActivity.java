@@ -35,13 +35,13 @@ import Buen.Pastor.app.Activity.ui.Filtros.EscanearCodigoBarrasFragment;
 import Buen.Pastor.app.Activity.ui.Filtros.FiltroPorCodigoPatrimonialFragment;
 import Buen.Pastor.app.Activity.ui.Filtros.FiltroPorFechasFragment;
 import Buen.Pastor.app.Activity.ui.Filtros.FiltroPorNombreFragment;
-import Buen.Pastor.app.entity.service.Usuario;
+import Buen.Pastor.app.entity.service.Member;
 import Buen.Pastor.app.Activity.ui.equipos.*;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 import okhttp3.ResponseBody;
 
 public class InicioActivity extends AppCompatActivity {
-    private Usuario usuario;
+    private Member member;
     private ImageView btnLogout;
 
     @Override
@@ -60,7 +60,7 @@ public class InicioActivity extends AppCompatActivity {
         }
 
         if (!usuarioJson.isEmpty()) {
-            usuario = new Gson().fromJson(usuarioJson, new TypeToken<Usuario>() {}.getType());
+            member = new Gson().fromJson(usuarioJson, new TypeToken<Member>() {}.getType());
         }
     }
 

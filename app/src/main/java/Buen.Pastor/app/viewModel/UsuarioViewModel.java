@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import Buen.Pastor.app.entity.GenericResponse;
-import Buen.Pastor.app.entity.service.Usuario;
+import Buen.Pastor.app.entity.service.Member;
 import Buen.Pastor.app.repository.UsuarioRepository;
 
 public class UsuarioViewModel extends AndroidViewModel {
@@ -15,7 +15,7 @@ public class UsuarioViewModel extends AndroidViewModel {
         super(application);
         this.repository = UsuarioRepository.getInstance();
     }
-    public LiveData<GenericResponse<Usuario>> login(String correo, String clave){
+    public LiveData<GenericResponse<Member>> login(String correo, String clave){
         return repository.login(correo, clave);
     }
 }

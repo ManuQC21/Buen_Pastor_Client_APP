@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Locale;
 import Buen.Pastor.app.Activity.InicioActivity;
 import Buen.P.App.R;
-import Buen.Pastor.app.entity.service.Empleado;
-import Buen.Pastor.app.entity.service.Equipo;
-import Buen.Pastor.app.entity.service.Ubicacion;
+import Buen.Pastor.app.entity.service.Employee;
+import Buen.Pastor.app.entity.service.Location;
+import Buen.Pastor.app.entity.service.Equipment;
 import Buen.Pastor.app.viewModel.EmpleadoViewModel;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 import Buen.Pastor.app.viewModel.UbicacionViewModel;
@@ -82,28 +82,28 @@ public class ModificarFragment extends Fragment {
         if (equipoId != -1) {
             equipoViewModel.getEquipoById(equipoId).observe(getViewLifecycleOwner(), response -> {
                 if (response != null && response.getRpta() == 1 && response.getBody() != null) {
-                    Equipo equipo = response.getBody();
-                    txtTipoEquipo.setText(equipo.getTipoEquipo());
-                    txtDescripcion.setText(equipo.getDescripcion());
-                    txtMarca.setText(equipo.getMarca());
-                    txtModelo.setText(equipo.getModelo());
-                    txtNombreEquipo.setText(equipo.getNombreEquipo());
-                    txtNumeroOrden.setText(equipo.getNumeroOrden());
-                    txtNumeroSerie.setText(equipo.getSerie());
-                    if (equipo.getFechaCompra() != null && !equipo.getFechaCompra().isEmpty()) {
+                    Equipment equipo = response.getBody();
+                    txtTipoEquipo.setText(equipo.getEquipmentType());
+                    txtDescripcion.setText(equipo.getDescription());
+                    txtMarca.setText(equipo.getBrand());
+                    txtModelo.setText(equipo.getModel());
+                    txtNombreEquipo.setText(equipo.getEquipmentName());
+                    txtNumeroOrden.setText(equipo.getOrderNumber());
+                    txtNumeroSerie.setText(equipo.getSerial());
+                    if (equipo.getPurchaseDate() != null && !equipo.getPurchaseDate().isEmpty()) {
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-                            Date fecha = sdf.parse(equipo.getFechaCompra());
+                            Date fecha = sdf.parse(equipo.getPurchaseDate());
                             edtFechaCompra.setText(sdf.format(fecha));
                         } catch (ParseException e) {
                             Toast.makeText(getContext(), "Error al parsear la fecha", Toast.LENGTH_SHORT).show();
                         }
-                    }                    dropdownEstado.setText(equipo.getEstado(), false);
-                    if (equipo.getResponsable() != null) {
-                        dropdownResponsable.setText(equipo.getResponsable().getNombre(), false);
+                    }                    dropdownEstado.setText(equipo.getStatus(), false);
+                    if (equipo.getResponsible() != null) {
+                        dropdownResponsable.setText(equipo.getResponsible().getFirstName(), false);
                     }
-                    if (equipo.getUbicacion() != null) {
-                        dropdownUbicacion.setText(equipo.getUbicacion().getAmbiente(), false);
+                    if (equipo.getLocation() != null) {
+                        dropdownUbicacion.setText(equipo.getLocation().getRoom(), false);
                     }
                 } else {
                     Toast.makeText(getContext(), "Error al cargar datos del equipo", Toast.LENGTH_SHORT).show();
@@ -123,24 +123,24 @@ public class ModificarFragment extends Fragment {
     }
 
     private void modificarEquipo() {
-        Equipo equipo = new Equipo();
+        Equipment equipo = new Equipment();
         equipo.setId(equipoId);
-        equipo.setTipoEquipo(txtTipoEquipo.getText().toString());
-        equipo.setDescripcion(txtDescripcion.getText().toString());
-        equipo.setEstado(dropdownEstado.getText().toString());
-        equipo.setFechaCompra(edtFechaCompra.getText().toString());
-        equipo.setMarca(txtMarca.getText().toString());
-        equipo.setModelo(txtModelo.getText().toString());
-        equipo.setNombreEquipo(txtNombreEquipo.getText().toString());
-        equipo.setNumeroOrden(txtNumeroOrden.getText().toString());
-        equipo.setSerie(txtNumeroSerie.getText().toString());
+        equipo.setEquipmentType(txtTipoEquipo.getText().toString());
+        equipo.setDescription(txtDescripcion.getText().toString());
+        equipo.setStatus(dropdownEstado.getText().toString());
+        equipo.setPurchaseDate(edtFechaCompra.getText().toString());
+        equipo.setBrand(txtMarca.getText().toString());
+        equipo.setModel(txtModelo.getText().toString());
+        equipo.setEquipmentName(txtNombreEquipo.getText().toString());
+        equipo.setOrderNumber(txtNumeroOrden.getText().toString());
+        equipo.setSerial(txtNumeroSerie.getText().toString());
         String nombreResponsable = dropdownResponsable.getText().toString();
         String ambienteUbicacion = dropdownUbicacion.getText().toString();
         empleadoViewModel.listarEmpleados().observe(getViewLifecycleOwner(), empleadoResponse -> {
             if (empleadoResponse != null && empleadoResponse.getRpta() == 1) {
-                for (Empleado empleado : empleadoResponse.getBody()) {
-                    if (empleado.getNombre().equals(nombreResponsable)) {
-                        equipo.setResponsable(empleado);
+                for (Employee employee : empleadoResponse.getBody()) {
+                    if (employee.getFirstName().equals(nombreResponsable)) {
+                        equipo.setResponsible(employee);
                         break;
                     }
                 }
@@ -148,9 +148,9 @@ public class ModificarFragment extends Fragment {
 
             ubicacionViewModel.listarUbicaciones().observe(getViewLifecycleOwner(), ubicacionResponse -> {
                 if (ubicacionResponse != null && ubicacionResponse.getRpta() == 1) {
-                    for (Ubicacion ubicacion : ubicacionResponse.getBody()) {
-                        if (ubicacion.getAmbiente().equals(ambienteUbicacion)) {
-                            equipo.setUbicacion(ubicacion);
+                    for (Location ubicacion : ubicacionResponse.getBody()) {
+                        if (ubicacion.getRoom().equals(ambienteUbicacion)) {
+                            equipo.setLocation(ubicacion);
                             break;
                         }
                     }
@@ -203,8 +203,8 @@ public class ModificarFragment extends Fragment {
         empleadoViewModel.listarEmpleados().observe(getViewLifecycleOwner(), response -> {
             if (response.getRpta() == 1) {
                 List<String> nombres = new ArrayList<>();
-                for (Empleado empleado : response.getBody()) {
-                    nombres.add(empleado.getNombre());
+                for (Employee employee : response.getBody()) {
+                    nombres.add(employee.getFirstName());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, nombres);
                 dropdownResponsable.setAdapter(adapter);
@@ -216,8 +216,8 @@ public class ModificarFragment extends Fragment {
         ubicacionViewModel.listarUbicaciones().observe(getViewLifecycleOwner(), response -> {
             if (response.getRpta() == 1) {
                 List<String> ubicaciones = new ArrayList<>();
-                for (Ubicacion ubicacion : response.getBody()) {
-                    ubicaciones.add(ubicacion.getAmbiente());
+                for (Location ubicacion : response.getBody()) {
+                    ubicaciones.add(ubicacion.getRoom());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, ubicaciones);
                 dropdownUbicacion.setAdapter(adapter);

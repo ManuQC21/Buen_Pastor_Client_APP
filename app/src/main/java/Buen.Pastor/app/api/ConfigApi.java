@@ -18,15 +18,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ConfigApi {
 
     // Base URL de tu servidor backend
-    public static final String baseUrlE = "http://10.0.2.2:8080";
-    public static final String baseUrl = "http://192.168.43.141:8080";
-    public static final String ipInstituto = "http://192.168.1.122:8080";
+    public static final String baseUrl = "http://10.0.2.2:8080";
+    public static final String baseUrla = "http://192.168.43.141:8080";
+    public static final String ipcole = "http://192.168.1.122:8080";
+
+    public static final String baseUrlE = "https://buenpastorserviceapp-production.up.railway.app";
+
     private static Retrofit retrofit;
     private static String token = "";
 
     // Declaración de las interfaces de las API
     private static UsuarioApi usuarioApi;
-    private static FotoApi fotoApi;
     private static EquipoApi equipoApi;
 
     private static EmpleadoApi empleadoApi;
@@ -88,13 +90,6 @@ public class ConfigApi {
         return usuarioApi;
     }
 
-    // Método para obtener la instancia de FotoApi
-    public static FotoApi getFotoApi() {
-        if (fotoApi == null) {
-            fotoApi = retrofit.create(FotoApi.class);
-        }
-        return fotoApi;
-    }
     // Método para obtener la instancia de EquipoApi
     public static EquipoApi getEquipoApi() {
         if (equipoApi == null) {

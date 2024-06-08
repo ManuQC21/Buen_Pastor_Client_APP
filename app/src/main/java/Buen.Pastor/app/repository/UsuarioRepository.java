@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import Buen.Pastor.app.api.ConfigApi;
 import Buen.Pastor.app.api.UsuarioApi;
 import Buen.Pastor.app.entity.GenericResponse;
-import Buen.Pastor.app.entity.service.Usuario;
+import Buen.Pastor.app.entity.service.Member;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,11 +25,11 @@ public class UsuarioRepository {
         return repository;
     }
 
-    public LiveData<GenericResponse<Usuario>> login(String correo, String clave){
-        MutableLiveData<GenericResponse<Usuario>> liveData = new MutableLiveData<>();
-        api.login(correo, clave).enqueue(new Callback<GenericResponse<Usuario>>() {
+    public LiveData<GenericResponse<Member>> login(String correo, String clave){
+        MutableLiveData<GenericResponse<Member>> liveData = new MutableLiveData<>();
+        api.login(correo, clave).enqueue(new Callback<GenericResponse<Member>>() {
             @Override
-            public void onResponse(Call<GenericResponse<Usuario>> call, Response<GenericResponse<Usuario>> response) {
+            public void onResponse(Call<GenericResponse<Member>> call, Response<GenericResponse<Member>> response) {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
@@ -38,7 +38,7 @@ public class UsuarioRepository {
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<Usuario>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<Member>> call, Throwable t) {
                 liveData.setValue(new GenericResponse<>("error", 500, "Fallo de red: " + t.getMessage(), null));
             }
         });
