@@ -100,11 +100,11 @@ public class DocenteRepository {
         return liveData;
     }
 
-    public LiveData<BestGenericResponse<Teacher>> obtenerDocentePorId(int id) {
-        MutableLiveData<BestGenericResponse<Teacher>> liveData = new MutableLiveData<>();
-        docenteApi.obtenerDocentePorId(id).enqueue(new Callback<BestGenericResponse<Teacher>>() {
+    public LiveData<BestGenericResponse<TeacherDTO>> obtenerDocentePorId(int id) {
+        MutableLiveData<BestGenericResponse<TeacherDTO>> liveData = new MutableLiveData<>();
+        docenteApi.obtenerDocentePorId(id).enqueue(new Callback<BestGenericResponse<TeacherDTO>>() {
             @Override
-            public void onResponse(Call<BestGenericResponse<Teacher>> call, Response<BestGenericResponse<Teacher>> response) {
+            public void onResponse(Call<BestGenericResponse<TeacherDTO>> call, Response<BestGenericResponse<TeacherDTO>> response) {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
@@ -113,7 +113,7 @@ public class DocenteRepository {
             }
 
             @Override
-            public void onFailure(Call<BestGenericResponse<Teacher>> call, Throwable t) {
+            public void onFailure(Call<BestGenericResponse<TeacherDTO>> call, Throwable t) {
                 liveData.setValue(new BestGenericResponse<>(null, -1, t.getMessage(), null));
             }
         });

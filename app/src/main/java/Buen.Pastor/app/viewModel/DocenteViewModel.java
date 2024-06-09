@@ -42,7 +42,7 @@ public class DocenteViewModel extends AndroidViewModel {
     }
 
     // Método para obtener los detalles de un docente específico por ID
-    public LiveData<BestGenericResponse<Teacher>> obtenerDocentePorId(int id) {
+    public LiveData<BestGenericResponse<TeacherDTO>> obtenerDocentePorId(int id) {
         return docenteRepository.obtenerDocentePorId(id);
     }
 }

@@ -163,5 +163,8 @@
     <string name="direccion">Dirección de Residencia</string>
     <string name="fecha_contratacion">Fecha de Contratación</string>
     <string name="notificar">Notificar</string>
+    <string name="open_calendar">Abrir Calendario</string>
+    <string name="nombre_docente">Nombre Docente:</string>
+    <string name="detalles_del_docente">Detalles del Docente</string>
 
 </resources>

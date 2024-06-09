@@ -37,6 +37,17 @@ public class Teacher {
         this.teacherPayments = teacherPayments;
     }
 
+    public Teacher(String fullName, String position, String dni, String email, String phone, String address, String hiringDate, boolean active) {
+        this.fullName = fullName;
+        this.position = position;
+        this.dni = dni;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.hiringDate = hiringDate;
+        this.active = active;
+    }
+
     public int getId() {
         return id;
     }

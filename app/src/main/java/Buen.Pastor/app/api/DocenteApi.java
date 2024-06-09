@@ -29,5 +29,5 @@ public interface DocenteApi {
 
     // Método para obtener los detalles de un docente específico por ID
     @GET(base + "/detalles/{id}")
-    Call<BestGenericResponse<Teacher>> obtenerDocentePorId(@Path("id") int id);
+    Call<BestGenericResponse<TeacherDTO>> obtenerDocentePorId(@Path("id") int id);
 }
