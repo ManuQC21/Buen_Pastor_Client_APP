@@ -137,5 +137,31 @@
     <string name="inicio_pago">Pagos Docentes</string>
     <string name="salir">Salir</string>
     <string name="logo_desc">logo</string>
+    <string name="gestion_de_pagos_buen_pastor">Gestión Pagos Docentes Buen Pastor</string>
+    <string name="agregar_pago_docente">Agregar Pago Docente</string>
+    <string name="descripcion_agregar_pago_docente">Agregar un pago a un docente especifico</string>
+    <string name="editar_pago_docente">Editar Pago Docente</string>
+    <string name="descripcion_editar_pago_docente">Editar pago de un docente especifico</string>
+    <string name="eliminar_pago_docente">Eliminar Docente</string>
+    <string name="descripcion_eliminar_pago_docente">Eliminar un docente especifico</string>
+    <string name="enviar_notificacion_pago">Notificar Pago</string>
+    <string name="descripcion_enviar_notificacion_pago">Notificar pago a un docente</string>
+    <string name="listar_pagos_docentes">Listar Todos Los Pagos</string>
+    <string name="descripcion_listar_pagos_docentes">Listar todos los pagos de todos los docentes</string>
+    <string name="descargar_pago_docente">Descargar Reporte de Pagos</string>
+    <string name="descripcion_descargar_pago_docente">Descargar todo los reportes de los pagos en excel</string>
+    <string name="agregar_docente">Agregar Docente</string>
+    <string name="descripcion_agregar_docente">"Agregar un nuevo docente "</string>
+    <string name="listar_docentes">Listar Todos los Docentes</string>
+    <string name="descripcion_listar_docentes">Ver Información de un Docente</string>
+    <string name="activo">Activo</string>
+    <string name="nombre_completo">Nombre Completo del Docente</string>
+    <string name="posicion">Puesto</string>
+    <string name="dni">DNI</string>
+    <string name="email">Correo Electronico</string>
+    <string name="telefono">Celular</string>
+    <string name="direccion">Dirección de Residencia</string>
+    <string name="fecha_contratacion">Fecha de Contratación</string>
+    <string name="notificar">Notificar</string>
 
 </resources>

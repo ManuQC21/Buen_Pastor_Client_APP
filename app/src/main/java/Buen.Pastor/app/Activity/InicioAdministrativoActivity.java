@@ -51,20 +51,33 @@ public class InicioAdministrativoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inicio_administrativo);
         initUsuario();
         initViews();
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_inicio_administrativo:
-                    // No hacer nada si ya estamos aquí
+                    // No es necesario reiniciar la misma actividad.
                     return true;
                 case R.id.nav_pagos:
-                    startActivity(new Intent(this, PagosActivity.class));
+                    // Iniciar la actividad de pagos y finalizar la actual para evitar acumulación en el stack.
+                    Intent intent = new Intent(this, PagosActivity.class);
+                    startActivity(intent);
                     overridePendingTransition(0, 0);
                     finish();
                     return true;
             }
             return false;
         });
+
+
+        bottomNavigationView.setSelectedItemId(R.id.nav_inicio_administrativo);
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                // Mostrar BottomNavigationView cuando no hay fragmentos en el stack
+                bottomNavigationView.setVisibility(View.VISIBLE);
+            }
+        });
+
         // Initialize the ActivityResultLauncher here
         createDocumentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -159,6 +172,10 @@ public class InicioAdministrativoActivity extends AppCompatActivity {
     }
 
     private void navigateToFragment(Fragment fragment) {
+        // Ocultar BottomNavigationView cuando se navega a un fragmento
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setVisibility(View.GONE);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);

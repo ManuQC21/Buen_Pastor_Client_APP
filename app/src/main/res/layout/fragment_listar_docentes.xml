@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="Buen.Pastor.app.Activity.ui.equipos.ListarFragment">
+    tools:context="Buen.Pastor.app.Activity.ui.docente.ListarDocentesFragment">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -39,11 +39,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/listar_equipos"
+                android:text="Listar Docentes"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:textColor="@color/blanco"
                 android:layout_weight="1"
-                android:contentDescription="@string/listar_equipos"
+                android:contentDescription="Listar Docentes"
                 tools:ignore="InefficientWeight" />
 
             <ImageView
@@ -53,15 +53,14 @@
                 android:adjustViewBounds="true"
                 android:layout_marginEnd="16dp"/>
         </LinearLayout>
-
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- RecyclerView para listar los equipos -->
+    <!-- RecyclerView para listar los docentes -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewEquipos"
+        android:id="@+id/recyclerViewDocentes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbarListar"
         android:padding="2dp"
-        tools:listitem="@layout/item_equipo"/>
+        tools:listitem="@layout/item_docente"/>
 </RelativeLayout>

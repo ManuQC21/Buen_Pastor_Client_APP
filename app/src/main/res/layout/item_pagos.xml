@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/card_background">
+
+    <!-- Fila para el Nombre del Docente -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nombre del Docente:"
+            android:textStyle="bold"
+            android:textColor="@color/azul_general"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtNombreDocente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carlos Ruiz"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_marginStart="3dp"/>
+    </LinearLayout>
+
+    <!-- Fila para el Monto -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Monto:"
+            android:textStyle="bold"
+            android:textColor="@color/azul_general"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtMonto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2000.00"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_marginStart="3dp"/>
+    </LinearLayout>
+
+    <!-- Fila para la Fecha de Pago -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Fecha de Pago:"
+            android:textStyle="bold"
+            android:textColor="@color/azul_general"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtFechaPago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15/05/2023"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_marginStart="3dp"/>
+    </LinearLayout>
+
+    <!-- Fila para el Estado del Pago -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Estado del Pago:"
+            android:textStyle="bold"
+            android:textColor="@color/azul_general"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtEstadoPago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pendiente"
+            android:textSize="16sp"
+            android:textColor="@color/negro"
+            android:layout_marginStart="3dp"/>
+    </LinearLayout>
+    <!-- Fila para los botones de acción -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="8dp">
+        <ImageView
+            android:id="@+id/ic_notif"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_notif"
+            android:contentDescription="@string/notificar"
+            android:layout_marginEnd="16dp"/>
+        <ImageView
+            android:id="@+id/ic_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_view"
+            android:contentDescription="@string/ver"
+            android:layout_marginEnd="16dp"/>
+
+        <ImageView
+            android:id="@+id/ic_edit"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_edit"
+            android:contentDescription="@string/editar"
+            android:layout_marginEnd="16dp"/>
+        <ImageView
+            android:id="@+id/ic_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_delete"
+            android:contentDescription="@string/eliminar"/>
+    </LinearLayout>
+</LinearLayout>
