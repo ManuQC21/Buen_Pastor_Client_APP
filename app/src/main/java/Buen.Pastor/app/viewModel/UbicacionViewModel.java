@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import Buen.Pastor.app.entity.GenericResponse;
+import Buen.Pastor.app.entity.BestGenericResponse;
 import Buen.Pastor.app.entity.service.Location;
 import Buen.Pastor.app.repository.UbicacionRepository;
 
@@ -21,7 +21,7 @@ public class UbicacionViewModel extends AndroidViewModel {
         ubicacionRepository = new UbicacionRepository();
     }
 
-    public LiveData<GenericResponse<List<Location>>> listarUbicaciones() {
+    public LiveData<BestGenericResponse<List<Location>>> listarUbicaciones() {
         return ubicacionRepository.listarUbicaciones();
     }
 }

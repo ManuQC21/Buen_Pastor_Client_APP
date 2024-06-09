@@ -5,7 +5,6 @@ public class Member {
     private String email;
     private String password;
     private boolean validity;
-    private Employee employee;
 
     public Member() {
     }
@@ -14,12 +13,11 @@ public class Member {
         this.id = id;
     }
 
-    public Member(int id, String email, String password, boolean validity, Employee employee) {
+    public Member(int id, String email, String password, boolean validity) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.validity = validity;
-        this.employee = employee;
     }
 
     public int getId() {
@@ -54,11 +52,4 @@ public class Member {
         this.validity = validity;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 }

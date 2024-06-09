@@ -1,24 +1,24 @@
 package Buen.Pastor.app.entity;
-public class GenericResponse<T> {
+public class BestGenericResponse<T> {
     private String type;
     private int rpta;
     private String message;
     private T body;
-    public GenericResponse() {
+    public BestGenericResponse() {
         type = "";
         rpta = 0;
         message = "";
         body = null;
     }
 
-    public GenericResponse(String bodyType, Object body) {
+    public BestGenericResponse(String bodyType, Object body) {
         type = "";
         rpta = 0;
         message = "";
         this.body = null;
     }
 
-    public GenericResponse(String type, int rpta, String message, T body) {
+    public BestGenericResponse(String type, int rpta, String message, T body) {
         this.type = type;
         this.rpta = rpta;
         this.message = message;

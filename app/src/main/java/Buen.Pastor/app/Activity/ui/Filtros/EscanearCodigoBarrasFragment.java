@@ -193,7 +193,7 @@ public class EscanearCodigoBarrasFragment extends Fragment {
         ((TextView) customLayout.findViewById(R.id.tvFechaCompra)).setText(equipo.getPurchaseDate() != null ? equipo.getPurchaseDate().toString() : "-");
 
         // Configuración de los campos de texto para la información del responsable
-        ((TextView) customLayout.findViewById(R.id.tvNombreResponsable)).setText(safeString(equipo.getResponsible() != null ? equipo.getResponsible().getFirstName() : "-"));
+        ((TextView) customLayout.findViewById(R.id.tvNombreResponsable)).setText(safeString(equipo.getResponsible() != null ? equipo.getResponsible().getFullName() : "-"));
         ((TextView) customLayout.findViewById(R.id.tvCargoResponsable)).setText(safeString(equipo.getResponsible() != null ? equipo.getResponsible().getPosition() : "-"));
 
         // Configuración de los campos de texto para la información de la ubicación

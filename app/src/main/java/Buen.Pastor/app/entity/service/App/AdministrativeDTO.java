@@ -1,53 +1,52 @@
-package Buen.Pastor.app.entity.service;
+package Buen.Pastor.app.entity.service.App;
+
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class Employee {
-
+public class AdministrativeDTO {
     private int id;
-    private String firstName;
-    private String lastName;
-    private String dni;
+    private String fullName;
     private String position;
+    private String dni;
     private String email;
+    private String phone;
     private String address;
-
     private LocalDate hiringDate;
     private boolean active;
-    private List<TeacherPayment> teacherPayments;
 
-
-
-    // Constructor vacío
-    public Employee() {
+    public AdministrativeDTO() {
     }
 
-    public Employee(int id) {
+    public AdministrativeDTO(int id) {
         this.id = id;
     }
 
-    public Employee(int id, String firstName, String position) {
+    public AdministrativeDTO(int id, String fullName, String position, String dni, String email, String phone, String address, LocalDate hiringDate, boolean active) {
         this.id = id;
-        this.firstName = firstName;
+        this.fullName = fullName;
         this.position = position;
+        this.dni = dni;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.hiringDate = hiringDate;
+        this.active = active;
     }
 
-    // Getters y setters
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPosition() {
@@ -56,18 +55,6 @@ public class Employee {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getDni() {
@@ -84,6 +71,14 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAddress() {
@@ -108,13 +103,5 @@ public class Employee {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public List<TeacherPayment> getTeacherPayments() {
-        return teacherPayments;
-    }
-
-    public void setTeacherPayments(List<TeacherPayment> teacherPayments) {
-        this.teacherPayments = teacherPayments;
     }
 }

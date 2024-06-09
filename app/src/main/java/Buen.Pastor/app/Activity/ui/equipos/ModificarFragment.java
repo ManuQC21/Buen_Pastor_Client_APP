@@ -23,16 +23,17 @@ import java.util.List;
 import java.util.Locale;
 import Buen.Pastor.app.Activity.InicioActivity;
 import Buen.P.App.R;
-import Buen.Pastor.app.entity.service.Employee;
+import Buen.Pastor.app.entity.service.App.TeacherDTO;
+import Buen.Pastor.app.entity.service.Teacher;
 import Buen.Pastor.app.entity.service.Location;
 import Buen.Pastor.app.entity.service.Equipment;
-import Buen.Pastor.app.viewModel.EmpleadoViewModel;
+import Buen.Pastor.app.viewModel.DocenteViewModel;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 import Buen.Pastor.app.viewModel.UbicacionViewModel;
 
 public class ModificarFragment extends Fragment {
     private EquipoViewModel equipoViewModel;
-    private EmpleadoViewModel empleadoViewModel;
+    private DocenteViewModel docenteViewModel;
     private UbicacionViewModel ubicacionViewModel;
 
     private TextInputEditText txtTipoEquipo, txtDescripcion, txtMarca, txtModelo, txtNombreEquipo, txtNumeroOrden, txtNumeroSerie, edtFechaCompra;
@@ -54,7 +55,7 @@ public class ModificarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_modificar, container, false);
         equipoViewModel = new ViewModelProvider(this).get(EquipoViewModel.class);
-        empleadoViewModel = new ViewModelProvider(this).get(EmpleadoViewModel.class);
+        docenteViewModel = new ViewModelProvider(this).get(DocenteViewModel.class);
         ubicacionViewModel = new ViewModelProvider(this).get(UbicacionViewModel.class);
         cargarDatosEquipo();
         txtTipoEquipo = view.findViewById(R.id.txtTipoEquipoModificar);
@@ -92,7 +93,7 @@ public class ModificarFragment extends Fragment {
                     txtNumeroSerie.setText(equipo.getSerial());
                     if (equipo.getPurchaseDate() != null && !equipo.getPurchaseDate().isEmpty()) {
                         try {
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
                             Date fecha = sdf.parse(equipo.getPurchaseDate());
                             edtFechaCompra.setText(sdf.format(fecha));
                         } catch (ParseException e) {
@@ -100,7 +101,7 @@ public class ModificarFragment extends Fragment {
                         }
                     }                    dropdownEstado.setText(equipo.getStatus(), false);
                     if (equipo.getResponsible() != null) {
-                        dropdownResponsable.setText(equipo.getResponsible().getFirstName(), false);
+                        dropdownResponsable.setText(equipo.getResponsible().getFullName(), false);
                     }
                     if (equipo.getLocation() != null) {
                         dropdownUbicacion.setText(equipo.getLocation().getRoom(), false);
@@ -116,7 +117,7 @@ public class ModificarFragment extends Fragment {
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
             edtFechaCompra.setText(sdf.format(calendar.getTime()));
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
@@ -136,15 +137,15 @@ public class ModificarFragment extends Fragment {
         equipo.setSerial(txtNumeroSerie.getText().toString());
         String nombreResponsable = dropdownResponsable.getText().toString();
         String ambienteUbicacion = dropdownUbicacion.getText().toString();
-        empleadoViewModel.listarEmpleados().observe(getViewLifecycleOwner(), empleadoResponse -> {
-            if (empleadoResponse != null && empleadoResponse.getRpta() == 1) {
-                for (Employee employee : empleadoResponse.getBody()) {
-                    if (employee.getFirstName().equals(nombreResponsable)) {
-                        equipo.setResponsible(employee);
-                        break;
+            docenteViewModel.listarDocentes().observe(getViewLifecycleOwner(), empleadoResponse -> {
+                if (empleadoResponse != null && empleadoResponse.getRpta() == 1) {
+                    for (TeacherDTO teacher : empleadoResponse.getBody()) {
+                        if (teacher.getFullName().equals(nombreResponsable)) {
+                            equipo.setResponsible(new Teacher(teacher.getId()));  // Asume que tienes un constructor en Teacher que acepta solo id
+                            break;
+                        }
                     }
                 }
-            }
 
             ubicacionViewModel.listarUbicaciones().observe(getViewLifecycleOwner(), ubicacionResponse -> {
                 if (ubicacionResponse != null && ubicacionResponse.getRpta() == 1) {
@@ -200,11 +201,11 @@ public class ModificarFragment extends Fragment {
     }
 
     private void cargarResponsables() {
-        empleadoViewModel.listarEmpleados().observe(getViewLifecycleOwner(), response -> {
+        docenteViewModel.listarDocentes().observe(getViewLifecycleOwner(), response -> {
             if (response.getRpta() == 1) {
                 List<String> nombres = new ArrayList<>();
-                for (Employee employee : response.getBody()) {
-                    nombres.add(employee.getFirstName());
+                for (TeacherDTO teacher : response.getBody()) {
+                    nombres.add(teacher.getFullName());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, nombres);
                 dropdownResponsable.setAdapter(adapter);

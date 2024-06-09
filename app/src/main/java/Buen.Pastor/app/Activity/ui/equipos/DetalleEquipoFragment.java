@@ -84,7 +84,7 @@ public class DetalleEquipoFragment extends Fragment {
         txtFechaCompra.setText(equipo.getPurchaseDate() != null ? equipo.getPurchaseDate() : "-");
 
         if (equipo.getResponsible() != null) {
-            txtNombreResponsable.setText(equipo.getResponsible().getFirstName() != null ? equipo.getResponsible().getFirstName() : "-");
+            txtNombreResponsable.setText(equipo.getResponsible().getFullName() != null ? equipo.getResponsible().getFullName() : "-");
             txtCargoResponsable.setText(equipo.getResponsible().getPosition() != null ? equipo.getResponsible().getPosition() : "-");
         } else {
             txtNombreResponsable.setText("-");

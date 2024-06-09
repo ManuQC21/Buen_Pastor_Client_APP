@@ -1,16 +1,17 @@
 package Buen.Pastor.app.api;
 
-import Buen.Pastor.app.entity.GenericResponse;
+import Buen.Pastor.app.entity.BestGenericResponse;
 import Buen.Pastor.app.entity.service.Member;
 import retrofit2.Call;
 import retrofit2.http.*;
 
 public interface UsuarioApi {
     // Ruta base para todos los endpoints de la API de Usuario
-    String base = "/usuario";
+    String base = "/api/usuario";
 
     // Método para realizar el login de usuario
     @FormUrlEncoded
     @POST(base + "/login")
-    Call<GenericResponse<Member>> login(@Field("correo") String correo, @Field("clave") String clave);
+    Call<BestGenericResponse<Member>> login(@Field("email") String email, @Field("password") String password);
+
 }

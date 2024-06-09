@@ -3,10 +3,9 @@ package Buen.Pastor.app.entity.service;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Administrative {
+public class Teacher {
 
     private int id;
-    private String rol;
     private String fullName;
     private String position;
     private String dni;
@@ -14,18 +13,19 @@ public class Administrative {
     private String phone;
     private String address;
     private String hiringDate;
-    private List<TeacherPayment> teacherPaymentsAdministered;
+    private boolean active;
+    private List<TeacherPayment> teacherPayments;
 
-    public Administrative(int id) {
+    public Teacher() {
+    }
+
+    public Teacher(int id) {
         this.id = id;
     }
 
-    public Administrative() {
-    }
 
-    public Administrative(int id, String rol, String fullName, String position, String dni, String email, String phone, String address, String hiringDate, List<TeacherPayment> teacherPaymentsAdministered) {
+    public Teacher(int id, String fullName, String position, String dni, String email, String phone, String address, String hiringDate, boolean active, List<TeacherPayment> teacherPayments) {
         this.id = id;
-        this.rol = rol;
         this.fullName = fullName;
         this.position = position;
         this.dni = dni;
@@ -33,11 +33,8 @@ public class Administrative {
         this.phone = phone;
         this.address = address;
         this.hiringDate = hiringDate;
-        this.teacherPaymentsAdministered = teacherPaymentsAdministered;
-    }
-
-    public void setHiringDate(String hiringDate) {
-        this.hiringDate = hiringDate;
+        this.active = active;
+        this.teacherPayments = teacherPayments;
     }
 
     public int getId() {
@@ -46,14 +43,6 @@ public class Administrative {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
     }
 
     public String getFullName() {
@@ -104,11 +93,27 @@ public class Administrative {
         this.address = address;
     }
 
-    public List<TeacherPayment> getTeacherPaymentsAdministered() {
-        return teacherPaymentsAdministered;
+    public String getHiringDate() {
+        return hiringDate;
     }
 
-    public void setTeacherPaymentsAdministered(List<TeacherPayment> teacherPaymentsAdministered) {
-        this.teacherPaymentsAdministered = teacherPaymentsAdministered;
+    public void setHiringDate(String hiringDate) {
+        this.hiringDate = hiringDate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public List<TeacherPayment> getTeacherPayments() {
+        return teacherPayments;
+    }
+
+    public void setTeacherPayments(List<TeacherPayment> teacherPayments) {
+        this.teacherPayments = teacherPayments;
     }
 }

@@ -18,21 +18,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ConfigApi {
 
     // Base URL de tu servidor backend
-    public static final String baseUrl = "http://10.0.2.2:8080";
-    public static final String baseUrla = "http://192.168.43.141:8080";
-    public static final String ipcole = "http://192.168.1.122:8080";
-
-    public static final String baseUrlE = "https://buenpastorserviceapp-production.up.railway.app";
+    public static final String baseUrlE = "http://10.0.2.2:8080";
 
     private static Retrofit retrofit;
-    private static String token = "";
 
     // Declaración de las interfaces de las API
     private static UsuarioApi usuarioApi;
     private static EquipoApi equipoApi;
-
-    private static EmpleadoApi empleadoApi;
-
+    private static DocenteApi docenteApi;
+    private static AdministrativoApi administrativoApi;
+    private static NotificacionesApi notificacionesApi;
+    private static PagosApi pagosApi;
     private static UbicacionApi ubicacionApi;
 
     // Bloque estático para inicializar el cliente Retrofit al cargar la clase
@@ -76,13 +72,7 @@ public class ConfigApi {
         return builder.build();
     }
 
-    // Método para configurar el token de autenticación
-    public static void setToken(String value) {
-        token = value;
-        initClient();
-    }
-
-    // Método para obtener la instancia de UsuarioApi
+    // Métodos para obtener la instancia de cada API
     public static UsuarioApi getUsuarioApi() {
         if (usuarioApi == null) {
             usuarioApi = retrofit.create(UsuarioApi.class);
@@ -90,19 +80,41 @@ public class ConfigApi {
         return usuarioApi;
     }
 
-    // Método para obtener la instancia de EquipoApi
     public static EquipoApi getEquipoApi() {
         if (equipoApi == null) {
             equipoApi = retrofit.create(EquipoApi.class);
         }
         return equipoApi;
     }
-    public static EmpleadoApi getEmpleadoApi() {
-        if (empleadoApi == null) {
-            empleadoApi = retrofit.create(EmpleadoApi.class);
+
+    public static DocenteApi getDocenteApi() {
+        if (docenteApi == null) {
+            docenteApi = retrofit.create(DocenteApi.class);
         }
-        return empleadoApi;
+        return docenteApi;
     }
+
+    public static AdministrativoApi getAdministrativoApi() {
+        if (administrativoApi == null) {
+            administrativoApi = retrofit.create(AdministrativoApi.class);
+        }
+        return administrativoApi;
+    }
+
+    public static NotificacionesApi getNotificacionesApi() {
+        if (notificacionesApi == null) {
+            notificacionesApi = retrofit.create(NotificacionesApi.class);
+        }
+        return notificacionesApi;
+    }
+
+    public static PagosApi getPagosApi() {
+        if (pagosApi == null) {
+            pagosApi = retrofit.create(PagosApi.class);
+        }
+        return pagosApi;
+    }
+
     public static UbicacionApi getUbicacionApi() {
         if (ubicacionApi == null) {
             ubicacionApi = retrofit.create(UbicacionApi.class);

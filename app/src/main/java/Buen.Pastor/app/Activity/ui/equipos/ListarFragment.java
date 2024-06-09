@@ -27,6 +27,8 @@ public class ListarFragment extends Fragment implements EquipoAdapter.OnItemClic
     private EquipoAdapter equipoAdapter;
     private ProgressBar progressBar;
 
+    private static final String TAG = "ListarFragment";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,9 @@ public class ListarFragment extends Fragment implements EquipoAdapter.OnItemClic
             if (response != null && response.getRpta() == 1 && response.getBody() != null) {
                 equipoAdapter.updateData(response.getBody());
             } else {
-                Toast.makeText(getContext(), "Error al cargar equipos: " + (response != null ? response.getMessage() : "Unknown error"), Toast.LENGTH_LONG).show();
+                String errorMessage = response != null ? response.getMessage() : "Unknown error";
+                Toast.makeText(getContext(), "Error al cargar equipos: " + errorMessage, Toast.LENGTH_LONG).show();
+                Log.e(TAG, "Error al cargar equipos: " + errorMessage);
             }
         });
         ImageView btnVolverAtras = view.findViewById(R.id.btnVolverAtras);
@@ -65,7 +69,7 @@ public class ListarFragment extends Fragment implements EquipoAdapter.OnItemClic
 
     @Override
     public void onEditClick(int equipoId) {
-        Log.d("ListarFragment", "Edit clicked for ID: " + equipoId);
+        Log.d(TAG, "Edit clicked for ID: " + equipoId);
         ModificarFragment modificarFragment = new ModificarFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("equipoId", equipoId);
@@ -105,7 +109,9 @@ public class ListarFragment extends Fragment implements EquipoAdapter.OnItemClic
                                 }
                             });
                         } else {
-                            Toast.makeText(getContext(), "Error al eliminar equipo: " + (response != null ? response.getMessage() : "Error desconocido"), Toast.LENGTH_LONG).show();
+                            String errorMessage = response != null ? response.getMessage() : "Error desconocido";
+                            Toast.makeText(getContext(), "Error al eliminar equipo: " + errorMessage, Toast.LENGTH_LONG).show();
+                            Log.e(TAG, "Error al eliminar equipo: " + errorMessage);
                         }
                     });
                 })
@@ -115,5 +121,4 @@ public class ListarFragment extends Fragment implements EquipoAdapter.OnItemClic
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
-
 }

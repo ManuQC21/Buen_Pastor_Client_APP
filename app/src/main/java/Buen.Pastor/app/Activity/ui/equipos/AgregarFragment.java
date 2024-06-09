@@ -3,6 +3,7 @@ package Buen.Pastor.app.Activity.ui.equipos;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,11 @@ import java.util.Locale;
 import Buen.Pastor.app.Activity.InicioActivity;
 import Buen.P.App.R;
 import Buen.P.App.databinding.FragmentAgregarBinding;
-import Buen.Pastor.app.entity.service.Employee;
+import Buen.Pastor.app.entity.service.App.TeacherDTO;
+import Buen.Pastor.app.entity.service.Teacher;
 import Buen.Pastor.app.entity.service.Location;
 import Buen.Pastor.app.entity.service.Equipment;
-import Buen.Pastor.app.viewModel.EmpleadoViewModel;
+import Buen.Pastor.app.viewModel.DocenteViewModel;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 import Buen.Pastor.app.viewModel.UbicacionViewModel;
 
@@ -35,15 +37,14 @@ public class AgregarFragment extends Fragment {
     private AutoCompleteTextView dropdownEstado, dropdownResponsable, dropdownUbicacion;
     private Button btnAgregarEquipo;
     private FragmentAgregarBinding binding;
-    private EmpleadoViewModel empleadoViewModel;
+    private DocenteViewModel docenteViewModel;
     private UbicacionViewModel ubicacionViewModel;
     private final Calendar calendar = Calendar.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        empleadoViewModel = new ViewModelProvider(this).get(EmpleadoViewModel.class);
+        docenteViewModel = new ViewModelProvider(this).get(DocenteViewModel.class);
         ubicacionViewModel = new ViewModelProvider(this).get(UbicacionViewModel.class);
     }
 
@@ -52,6 +53,18 @@ public class AgregarFragment extends Fragment {
         binding = FragmentAgregarBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         equipoViewModel = new ViewModelProvider(this).get(EquipoViewModel.class);
+
+        setupUI(view);
+        edtFechaCompra.setOnClickListener(v -> mostrarDatePickerDialog());
+        btnAgregarEquipo.setOnClickListener(v -> agregarEquipo());
+        cargarResponsables();
+        cargarUbicaciones();
+        cargarEstados();
+
+        return view;
+    }
+
+    private void setupUI(View view) {
         txtTipoEquipo = view.findViewById(R.id.txtTipoEquipo);
         txtCodigoPatrimonial = view.findViewById(R.id.txtCodigoPatrimonial);
         txtDescripcion = view.findViewById(R.id.txtDescripcion);
@@ -67,21 +80,13 @@ public class AgregarFragment extends Fragment {
         btnAgregarEquipo = view.findViewById(R.id.btnAgregarEquipo);
         ImageView btnVolverAtras = view.findViewById(R.id.btnVolverAtras);
         btnVolverAtras.setOnClickListener(v -> getParentFragmentManager().popBackStack());
-        edtFechaCompra.setOnClickListener(v -> mostrarDatePickerDialog());
-        btnAgregarEquipo.setOnClickListener(v -> agregarEquipo());
-        cargarResponsables();
-        cargarUbicaciones();
-        cargarEstados();
-
-        return view;
     }
-
     private void mostrarDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
             edtFechaCompra.setText(sdf.format(calendar.getTime()));
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
@@ -102,37 +107,38 @@ public class AgregarFragment extends Fragment {
         String nombreResponsable = dropdownResponsable.getText().toString();
         String ambienteUbicacion = dropdownUbicacion.getText().toString();
 
-            empleadoViewModel.listarEmpleados().observe(getViewLifecycleOwner(), response -> {
-            if (response.getRpta() == 1) {
-                for (Employee employee : response.getBody()) {
-                    if (employee.getFirstName().equals(nombreResponsable)) {
-                        equipo.setResponsible(employee);
+        docenteViewModel.listarDocentes().observe(getViewLifecycleOwner(), response -> {
+            if (response.getRpta() == 1 && response.getBody() != null) {
+                for (TeacherDTO teacher : response.getBody()) {
+                    if (teacher.getFullName().equals(nombreResponsable)) {
+                        equipo.setResponsible(new Teacher(teacher.getId()));  // Make sure Teacher has a constructor accepting id
                         break;
                     }
                 }
-            }
-
-            ubicacionViewModel.listarUbicaciones().observe(getViewLifecycleOwner(), ubicacionResponse -> {
-                if (ubicacionResponse.getRpta() == 1) {
-                    for (Location ubicacion : ubicacionResponse.getBody()) {
-                        if (ubicacion.getRoom().equals(ambienteUbicacion)) {
-                            equipo.setLocation(ubicacion);
-                            break;
+                ubicacionViewModel.listarUbicaciones().observe(getViewLifecycleOwner(), ubicacionResponse -> {
+                    if (ubicacionResponse.getRpta() == 1) {
+                        for (Location ubicacion : ubicacionResponse.getBody()) {
+                            if (ubicacion.getRoom().equals(ambienteUbicacion)) {
+                                equipo.setLocation(ubicacion);
+                                break;
+                            }
                         }
-                    }
-                }
-
-                equipoViewModel.addEquipo(equipo).observe(getViewLifecycleOwner(), equipoResponse -> {
-                    if (equipoResponse.getRpta() == 1) {
-                        Toast.makeText(getContext(), "Equipo agregado con éxito", Toast.LENGTH_SHORT).show();
-                        limpiarCampos();
-                        Intent intent = new Intent(getContext(), InicioActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getContext(), "Error al agregar equipo", Toast.LENGTH_SHORT).show();
+                        equipoViewModel.addEquipo(equipo).observe(getViewLifecycleOwner(), equipoResponse -> {
+                            if (equipoResponse.getRpta() == 1) {
+                                Toast.makeText(getContext(), "Equipo agregado con éxito", Toast.LENGTH_SHORT).show();
+                                limpiarCampos();
+                                Intent intent = new Intent(getContext(), InicioActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getContext(), "Error al agregar equipo: " + equipoResponse.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
                 });
-            });
+            } else {
+                Log.e("AgregarFragment", "Error al cargar docentes: " + response.getMessage());
+                Toast.makeText(getContext(), "Error al cargar docentes: " + response.getMessage(), Toast.LENGTH_LONG).show();
+            }
         });
     }
 
@@ -152,14 +158,16 @@ public class AgregarFragment extends Fragment {
     }
 
     private void cargarResponsables() {
-        empleadoViewModel.listarEmpleados().observe(getViewLifecycleOwner(), response -> {
+        docenteViewModel.listarDocentes().observe(getViewLifecycleOwner(), response -> {
             if (response.getRpta() == 1) {
                 List<String> nombres = new ArrayList<>();
-                for (Employee employee : response.getBody()) {
-                    nombres.add(employee.getFirstName());
+                for (TeacherDTO teacher : response.getBody()) {
+                    nombres.add(teacher.getFullName());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, nombres);
                 dropdownResponsable.setAdapter(adapter);
+            } else {
+                Log.e("AgregarFragment", "Error al cargar responsables: " + response.getMessage());
             }
         });
     }

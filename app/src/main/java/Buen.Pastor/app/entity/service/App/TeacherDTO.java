@@ -1,12 +1,11 @@
-package Buen.Pastor.app.entity.service;
+package Buen.Pastor.app.entity.service.App;
+
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class Administrative {
+public class TeacherDTO {
 
     private int id;
-    private String rol;
     private String fullName;
     private String position;
     private String dni;
@@ -14,18 +13,17 @@ public class Administrative {
     private String phone;
     private String address;
     private String hiringDate;
-    private List<TeacherPayment> teacherPaymentsAdministered;
+    private boolean active;
 
-    public Administrative(int id) {
+    public TeacherDTO() {
+    }
+
+    public TeacherDTO(int id) {
         this.id = id;
     }
 
-    public Administrative() {
-    }
-
-    public Administrative(int id, String rol, String fullName, String position, String dni, String email, String phone, String address, String hiringDate, List<TeacherPayment> teacherPaymentsAdministered) {
+    public TeacherDTO(int id, String fullName, String position, String dni, String email, String phone, String address, String hiringDate, boolean active) {
         this.id = id;
-        this.rol = rol;
         this.fullName = fullName;
         this.position = position;
         this.dni = dni;
@@ -33,11 +31,7 @@ public class Administrative {
         this.phone = phone;
         this.address = address;
         this.hiringDate = hiringDate;
-        this.teacherPaymentsAdministered = teacherPaymentsAdministered;
-    }
-
-    public void setHiringDate(String hiringDate) {
-        this.hiringDate = hiringDate;
+        this.active = active;
     }
 
     public int getId() {
@@ -46,14 +40,6 @@ public class Administrative {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
     }
 
     public String getFullName() {
@@ -104,11 +90,20 @@ public class Administrative {
         this.address = address;
     }
 
-    public List<TeacherPayment> getTeacherPaymentsAdministered() {
-        return teacherPaymentsAdministered;
+    public String getHiringDate() {
+        return hiringDate;
     }
 
-    public void setTeacherPaymentsAdministered(List<TeacherPayment> teacherPaymentsAdministered) {
-        this.teacherPaymentsAdministered = teacherPaymentsAdministered;
+    public void setHiringDate(String hiringDate) {
+        this.hiringDate = hiringDate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
+

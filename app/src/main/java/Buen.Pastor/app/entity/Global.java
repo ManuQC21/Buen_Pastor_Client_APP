@@ -2,8 +2,7 @@ package Buen.Pastor.app.entity;
 
 public class Global {
     public enum Estado {
-        A,
-        I
+        A, I
     }
 
     public static final String TIPO_RESULT = "result";

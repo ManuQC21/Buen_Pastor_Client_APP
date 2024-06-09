@@ -8,13 +8,13 @@ public class Equipment {
     private String assetCode;
     private String description;
     private String status;
-    private String purchaseDate; // Cambiado a String
+    private String purchaseDate;
     private String brand;
     private String model;
     private String equipmentName;
     private String orderNumber;
     private String serial;
-    private Employee responsible;
+    private Teacher responsible;
     private Location location;
 
     public Equipment() {
@@ -122,11 +122,11 @@ public class Equipment {
         this.serial = serial;
     }
 
-    public Employee getResponsible() {
+    public Teacher getResponsible() {
         return responsible;
     }
 
-    public void setResponsible(Employee responsible) {
+    public void setResponsible(Teacher responsible) {
         this.responsible = responsible;
     }
 
@@ -139,7 +139,7 @@ public class Equipment {
     }
 
     public void setResponsableId(int id) {
-        Employee emp = new Employee();
+        Teacher emp = new Teacher();
         emp.setId(id);
         this.responsible = emp;
     }
