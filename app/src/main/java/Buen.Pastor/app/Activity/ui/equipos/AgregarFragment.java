@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import Buen.Pastor.app.Activity.InicioActivity;
+import Buen.Pastor.app.Activity.InicioAdministrativoActivity;
 import Buen.P.App.R;
 import Buen.P.App.databinding.FragmentAgregarBinding;
 import Buen.Pastor.app.entity.service.App.TeacherDTO;
@@ -127,7 +127,7 @@ public class AgregarFragment extends Fragment {
                             if (equipoResponse.getRpta() == 1) {
                                 Toast.makeText(getContext(), "Equipo agregado con éxito", Toast.LENGTH_SHORT).show();
                                 limpiarCampos();
-                                Intent intent = new Intent(getContext(), InicioActivity.class);
+                                Intent intent = new Intent(getContext(), InicioAdministrativoActivity.class);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(getContext(), "Error al agregar equipo: " + equipoResponse.getMessage(), Toast.LENGTH_LONG).show();

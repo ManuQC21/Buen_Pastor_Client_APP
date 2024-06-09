@@ -61,7 +61,13 @@ public class MainActivity extends AppCompatActivity {
                         Member u = usuarioGenericResponse.getBody();
                         saveUsuarioPreferences(u);
                         clearFields();
-                        Intent intent = new Intent(this, InicioActivity.class);
+                        // Redirección basada en el correo electrónico del usuario
+                        Intent intent;
+                        if ("admin@gmail.com".equals(u.getEmail())) {
+                            intent = new Intent(this, InicioAdministrativoActivity.class);
+                        } else {
+                            intent = new Intent(this, InicioDocenteActivity.class);
+                        }
                         intent.putExtra("UsuarioJson", new Gson().toJson(u, new TypeToken<Member>() {}.getType()));
                         startActivity(intent);
                     } else {
@@ -72,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 toastIncorrecto("Por favor, complete todos los campos");
             }
         });
+
 
         edtMail.addTextChangedListener(new GenericTextWatcher(txtInputUsuario));
         edtPassword.addTextChangedListener(new GenericTextWatcher(txtInputPassword));
@@ -152,24 +159,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        checkForActiveSession();
-    }
-
-    private void checkForActiveSession() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String pref = preferences.getString("UsuarioJson", "");
-        if (!pref.isEmpty() && !isFinishing()) {
-            toastCorrecto("Se detectó una sesión activa, el login será omitido!");
-            Intent intent = new Intent(this, InicioActivity.class);
-            intent.putExtra("UsuarioJson", pref);
-            startActivity(intent);
-            overridePendingTransition(R.anim.left_in, R.anim.left_out);
         }
     }
 }

@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_inicio_administrativo"
+        android:icon="@drawable/ic_menu"
+        android:title="@string/inicio_administrativo" />
+    <item
+        android:id="@+id/nav_pagos"
+        android:icon="@drawable/ic_pago"
+        android:title="@string/inicio_pago" />
+</menu>

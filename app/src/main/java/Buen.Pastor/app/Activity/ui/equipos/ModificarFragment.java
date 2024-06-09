@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import Buen.Pastor.app.Activity.InicioActivity;
+import Buen.Pastor.app.Activity.InicioAdministrativoActivity;
 import Buen.P.App.R;
 import Buen.Pastor.app.entity.service.App.TeacherDTO;
 import Buen.Pastor.app.entity.service.Teacher;
@@ -160,7 +160,7 @@ public class ModificarFragment extends Fragment {
                         if (updateResponse != null && updateResponse.getRpta() == 1) {
                             Toast.makeText(getContext(), "Equipo modificado con éxito", Toast.LENGTH_SHORT).show();
                             limpiarCampos();
-                            Intent intent = new Intent(getContext(), InicioActivity.class);
+                            Intent intent = new Intent(getContext(), InicioAdministrativoActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             getActivity().finish();

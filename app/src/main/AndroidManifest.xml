@@ -7,9 +7,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera.any"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -23,22 +24,25 @@
         android:theme="@style/Base.Theme.Buen.Pastor.app"
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
-
         <activity
-            android:name="Buen.Pastor.app.Activity.InicioActivity"
+            android:name="Buen.Pastor.app.Activity.PagosActivity"
+            android:exported="false" />
+        <activity
+            android:name="Buen.Pastor.app.Activity.InicioDocenteActivity"
+            android:exported="false" />
+        <activity
+            android:name="Buen.Pastor.app.Activity.InicioAdministrativoActivity"
             android:configChanges="orientation|screenSize|screenLayout"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name="Buen.Pastor.app.Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- FileProvider configuration -->
+        </activity> <!-- FileProvider configuration -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -48,7 +52,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

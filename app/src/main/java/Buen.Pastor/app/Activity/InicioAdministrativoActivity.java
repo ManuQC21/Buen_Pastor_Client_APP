@@ -21,6 +21,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
@@ -38,7 +40,7 @@ import Buen.Pastor.app.Activity.ui.equipos.*;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 import okhttp3.ResponseBody;
 
-public class InicioActivity extends AppCompatActivity {
+public class InicioAdministrativoActivity extends AppCompatActivity {
     private Member usuario;
     private ImageView btnLogout;
     private ActivityResultLauncher<Intent> createDocumentLauncher;
@@ -46,10 +48,23 @@ public class InicioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio);
+        setContentView(R.layout.activity_inicio_administrativo);
         initUsuario();
         initViews();
-
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.nav_inicio_administrativo:
+                    // No hacer nada si ya estamos aquí
+                    return true;
+                case R.id.nav_pagos:
+                    startActivity(new Intent(this, PagosActivity.class));
+                    overridePendingTransition(0, 0);
+                    finish();
+                    return true;
+            }
+            return false;
+        });
         // Initialize the ActivityResultLauncher here
         createDocumentLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {

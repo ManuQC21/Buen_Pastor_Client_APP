@@ -133,5 +133,9 @@
     <string name="reporte_equipos">reporte de equipos</string>
     <string name="titulo_reporte_equipos">Descargar Reporte de Equipos</string>
     <string name="descripcion_reporte_equipos">Descarga un reporte en excel de todos los equipos</string>
+    <string name="inicio_administrativo">Inventario</string>
+    <string name="inicio_pago">Pagos Docentes</string>
+    <string name="salir">Salir</string>
+    <string name="logo_desc">logo</string>
 
 </resources>
