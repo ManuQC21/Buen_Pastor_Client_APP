@@ -63,10 +63,20 @@ public class ListarDocentesFragment extends Fragment implements DocenteAdapter.O
 
     @Override
     public void onEditClick(int docenteId) {
-        // Logic for editing a docente
-        Toast.makeText(getContext(), "Edit Docente ID: " + docenteId, Toast.LENGTH_SHORT).show();
-        // Replace below code with your navigation logic
+        // Lógica para editar un docente
+        ModificarDocenteFragment modificarDocenteFragment = new ModificarDocenteFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("docenteId", docenteId);
+        modificarDocenteFragment.setArguments(bundle);
+
+        if (getParentFragmentManager() != null) {
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, modificarDocenteFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
+
 
     @Override
     public void onViewClick(int docenteId) {

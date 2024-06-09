@@ -6,4 +6,65 @@
     android:layout_height="match_parent"
     tools:context="Buen.Pastor.app.Activity.InicioDocenteActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarAgregar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/azul_general"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <RelativeLayout
+                android:layout_width="380dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/logoImageView"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/logo"
+                    android:adjustViewBounds="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/logo_desc"
+                    android:layout_marginEnd="7dp" />
+
+                <TextView
+                    android:id="@+id/toolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/logoImageView"
+                    android:layout_toStartOf="@id/btnCerrarSesion"
+                    android:text="@string/activity_docente"
+                    android:textSize="20sp"
+                    android:textColor="@color/blanco"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="7dp" />
+
+                <ImageView
+                    android:id="@+id/btnCerrarSesion"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_exit"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/salir" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 </RelativeLayout>

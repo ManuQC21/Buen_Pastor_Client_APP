@@ -105,5 +105,10 @@ public class TeacherDTO {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return fullName;
+    }
 }
 

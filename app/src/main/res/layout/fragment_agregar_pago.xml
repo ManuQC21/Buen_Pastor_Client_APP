@@ -93,26 +93,6 @@
                             android:clickable="true"
                             android:cursorVisible="false" />
                     </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- Selección de Administrativo -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Administrativo"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        app:startIconDrawable="@drawable/persona"
-                        app:endIconMode="dropdown_menu">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/dropdownAdministrativo"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="none"
-                            android:focusable="false"
-                            android:clickable="true"
-                            android:cursorVisible="false" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
                     <!-- Monto -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -194,21 +174,6 @@
                             android:clickable="true"
                             android:cursorVisible="false" />
                     </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- Código Modular -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Código Modular"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        app:startIconDrawable="@drawable/codigo">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txtCodigoModular"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
                     <!-- Botón para agregar el pago -->
                     <Button
                         android:id="@+id/btnAgregarPago"

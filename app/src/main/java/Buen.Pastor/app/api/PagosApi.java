@@ -27,7 +27,7 @@ public interface PagosApi {
 
     // Método para listar todos los pagos
     @GET(base + "/listar")
-    Call<BestGenericResponse<List<TeacherPayment>>> listarTodosLosPagos();
+    Call<BestGenericResponse<List<TeacherPaymentDTO>>> listarTodosLosPagos();
 
     // Método para generar un baucher en PDF de un pago específico
     @GET(base + "/baucher/{paymentId}")
@@ -41,5 +41,7 @@ public interface PagosApi {
     @GET(base + "/pagosDocente/{teacherId}")
     Call<BestGenericResponse<List<TeacherPaymentDTO>>> listarPagosPorDocenteId(@Path("teacherId") int teacherId);
 
+    @GET(base + "/detalle/{id}")
+    Call<BestGenericResponse<TeacherPaymentDTO>> obtenerPagoPorId(@Path("id") int id);
 
 }

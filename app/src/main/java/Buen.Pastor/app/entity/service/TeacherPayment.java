@@ -8,7 +8,6 @@ public class TeacherPayment {
 
     private int id;
     private Teacher teacher;
-    private Administrative administrative;
     private BigDecimal amount;
     private String paymentDate;
     private String paymentStatus;
@@ -16,7 +15,6 @@ public class TeacherPayment {
     private int workDays;
     private String educationLevel;
     private String modularCode = "989873";
-    private List<PaymentDetails> paymentDetails;
 
     public TeacherPayment() {
     }
@@ -25,10 +23,9 @@ public class TeacherPayment {
         this.id = id;
     }
 
-    public TeacherPayment(int id, Teacher teacher, Administrative administrative, BigDecimal amount, String paymentDate, String paymentStatus, String paymentReference, int workDays, String educationLevel, String modularCode, List<PaymentDetails> paymentDetails) {
+    public TeacherPayment(int id, Teacher teacher, BigDecimal amount, String paymentDate, String paymentStatus, String paymentReference, int workDays, String educationLevel, String modularCode) {
         this.id = id;
         this.teacher = teacher;
-        this.administrative = administrative;
         this.amount = amount;
         this.paymentDate = paymentDate;
         this.paymentStatus = paymentStatus;
@@ -36,7 +33,6 @@ public class TeacherPayment {
         this.workDays = workDays;
         this.educationLevel = educationLevel;
         this.modularCode = modularCode;
-        this.paymentDetails = paymentDetails;
     }
 
     public int getId() {
@@ -53,14 +49,6 @@ public class TeacherPayment {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
-    }
-
-    public Administrative getAdministrative() {
-        return administrative;
-    }
-
-    public void setAdministrative(Administrative administrative) {
-        this.administrative = administrative;
     }
 
     public BigDecimal getAmount() {
@@ -119,12 +107,5 @@ public class TeacherPayment {
         this.modularCode = modularCode;
     }
 
-    public List<PaymentDetails> getPaymentDetails() {
-        return paymentDetails;
-    }
-
-    public void setPaymentDetails(List<PaymentDetails> paymentDetails) {
-        this.paymentDetails = paymentDetails;
-    }
 }
 

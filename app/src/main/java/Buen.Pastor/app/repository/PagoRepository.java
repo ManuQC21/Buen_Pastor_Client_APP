@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import Buen.Pastor.app.api.ConfigApi;
 import Buen.Pastor.app.api.PagosApi;
 import Buen.Pastor.app.entity.BestGenericResponse;
+import Buen.Pastor.app.entity.Global;
 import Buen.Pastor.app.entity.service.App.TeacherPaymentDTO;
 import Buen.Pastor.app.entity.service.TeacherPayment;
 import okhttp3.ResponseBody;
@@ -86,11 +87,11 @@ public class PagoRepository {
     }
 
     // Método para listar todos los pagos
-    public LiveData<BestGenericResponse<List<TeacherPayment>>> listarTodosLosPagos() {
-        MutableLiveData<BestGenericResponse<List<TeacherPayment>>> liveData = new MutableLiveData<>();
-        pagosApi.listarTodosLosPagos().enqueue(new Callback<BestGenericResponse<List<TeacherPayment>>>() {
+    public LiveData<BestGenericResponse<List<TeacherPaymentDTO>>> listarTodosLosPagos() {
+        MutableLiveData<BestGenericResponse<List<TeacherPaymentDTO>>> liveData = new MutableLiveData<>();
+        pagosApi.listarTodosLosPagos().enqueue(new Callback<BestGenericResponse<List<TeacherPaymentDTO>>>() {
             @Override
-            public void onResponse(Call<BestGenericResponse<List<TeacherPayment>>> call, Response<BestGenericResponse<List<TeacherPayment>>> response) {
+            public void onResponse(Call<BestGenericResponse<List<TeacherPaymentDTO>>> call, Response<BestGenericResponse<List<TeacherPaymentDTO>>> response) {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
@@ -99,7 +100,7 @@ public class PagoRepository {
             }
 
             @Override
-            public void onFailure(Call<BestGenericResponse<List<TeacherPayment>>> call, Throwable t) {
+            public void onFailure(Call<BestGenericResponse<List<TeacherPaymentDTO>>> call, Throwable t) {
                 liveData.setValue(new BestGenericResponse<>(null, -1, t.getMessage(), null));
             }
         });
@@ -167,6 +168,25 @@ public class PagoRepository {
             }
         });
         return liveData;
+    }
+    public LiveData<BestGenericResponse<TeacherPaymentDTO>> obtenerPagoPorId(int id) {
+        final MutableLiveData<BestGenericResponse<TeacherPaymentDTO>> data = new MutableLiveData<>();
+        pagosApi.obtenerPagoPorId(id).enqueue(new Callback<BestGenericResponse<TeacherPaymentDTO>>() {
+            @Override
+            public void onResponse(Call<BestGenericResponse<TeacherPaymentDTO>> call, Response<BestGenericResponse<TeacherPaymentDTO>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    data.setValue(response.body());
+                } else {
+                    data.setValue(new BestGenericResponse<>(Global.TIPO_ERROR, Global.RPTA_ERROR, "Error al obtener el pago", null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BestGenericResponse<TeacherPaymentDTO>> call, Throwable t) {
+                data.setValue(new BestGenericResponse<>(Global.TIPO_ERROR, Global.RPTA_ERROR, "Error al obtener el pago", null));
+            }
+        });
+        return data;
     }
 
 }

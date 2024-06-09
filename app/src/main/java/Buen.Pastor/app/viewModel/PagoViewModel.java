@@ -39,10 +39,12 @@ public class PagoViewModel extends AndroidViewModel {
     }
 
     // Método para listar todos los pagos
-    public LiveData<BestGenericResponse<List<TeacherPayment>>> listarTodosLosPagos() {
+    public LiveData<BestGenericResponse<List<TeacherPaymentDTO>>> listarTodosLosPagos() {
         return pagoRepository.listarTodosLosPagos();
     }
-
+    public LiveData<BestGenericResponse<TeacherPaymentDTO>> obtenerPagoPorId(int id) {
+        return pagoRepository.obtenerPagoPorId(id);
+    }
     // Método para generar un baucher en PDF de un pago específico
     public LiveData<ResponseBody> generarBaucherPdf(int paymentId) {
         return pagoRepository.generarBaucherPdf(paymentId);

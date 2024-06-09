@@ -7,9 +7,8 @@ public class TeacherPaymentDTO {
     private int id;
     private int teacherId;
     private String teacherName;
-    private int administrativeId;
     private BigDecimal amount;
-    private LocalDate paymentDate;
+    private String paymentDate;
     private String paymentStatus;
     private String paymentReference;
     private int workDays;
@@ -47,14 +46,6 @@ public class TeacherPaymentDTO {
         this.teacherName = teacherName;
     }
 
-    public int getAdministrativeId() {
-        return administrativeId;
-    }
-
-    public void setAdministrativeId(int administrativeId) {
-        this.administrativeId = administrativeId;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
@@ -63,11 +54,11 @@ public class TeacherPaymentDTO {
         this.amount = amount;
     }
 
-    public LocalDate getPaymentDate() {
+    public String getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(LocalDate paymentDate) {
+    public void setPaymentDate(String paymentDate) {
         this.paymentDate = paymentDate;
     }
 

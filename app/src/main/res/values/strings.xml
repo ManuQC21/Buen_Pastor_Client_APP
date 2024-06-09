@@ -166,5 +166,19 @@
     <string name="open_calendar">Abrir Calendario</string>
     <string name="nombre_docente">Nombre Docente:</string>
     <string name="detalles_del_docente">Detalles del Docente</string>
+    <string name="modificar_docente">Modificar Docente</string>
+    <string name="descripcion_modificar_docente">se modificara un docente</string>
+    <string name="detalles_del_pago">Detalle Pago</string>
+    <string name="modificar_pago">Modificar Pago</string>
+    <string name="descripcion_modificar_pago">Modificar el pago</string>
+    <string name="monto">Monto</string>
+    <string name="referencia_pago">Referencia Pago</string>
+    <string name="dias_trabajados">Dias Trabajados</string>
+    <string name="nivel_educacion">Nivel de Educacion</string>
+    <string name="codigo_modular">Codigo Modular</string>
+    <string name="estado_pago">Estado del Pago</string>
+    <string name="fecha_pago">Fecha de Pago</string>
+    <string name="docente">Nombre Docente</string>
+    <string name="activity_docente">Docente</string>
 
 </resources>

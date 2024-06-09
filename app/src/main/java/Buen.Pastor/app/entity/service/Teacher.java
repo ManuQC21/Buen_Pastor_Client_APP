@@ -14,7 +14,6 @@ public class Teacher {
     private String address;
     private String hiringDate;
     private boolean active;
-    private List<TeacherPayment> teacherPayments;
 
     public Teacher() {
     }
@@ -24,7 +23,7 @@ public class Teacher {
     }
 
 
-    public Teacher(int id, String fullName, String position, String dni, String email, String phone, String address, String hiringDate, boolean active, List<TeacherPayment> teacherPayments) {
+    public Teacher(int id, String fullName, String position, String dni, String email, String phone, String address, String hiringDate, boolean active) {
         this.id = id;
         this.fullName = fullName;
         this.position = position;
@@ -34,7 +33,6 @@ public class Teacher {
         this.address = address;
         this.hiringDate = hiringDate;
         this.active = active;
-        this.teacherPayments = teacherPayments;
     }
 
     public Teacher(String fullName, String position, String dni, String email, String phone, String address, String hiringDate, boolean active) {
@@ -120,11 +118,4 @@ public class Teacher {
         this.active = active;
     }
 
-    public List<TeacherPayment> getTeacherPayments() {
-        return teacherPayments;
-    }
-
-    public void setTeacherPayments(List<TeacherPayment> teacherPayments) {
-        this.teacherPayments = teacherPayments;
-    }
 }

@@ -16,7 +16,7 @@ public interface DocenteApi {
     Call<BestGenericResponse<Teacher>> agregarDocente(@Body Teacher docente);
 
     // Método para editar un docente existente
-    @PUT( base + "editar/{id}")
+    @PUT( base + "/editar/{id}")
     Call<BestGenericResponse<Teacher>> editarDocente(@Path("id") int id, @Body Teacher docente);
 
     // Método para eliminar un docente
