@@ -27,8 +27,8 @@ public class NotificacionesViewModel extends AndroidViewModel {
     }
 
     // Método para aceptar notificación de pago
-    public LiveData<BestGenericResponse<String>> aceptarNotificacionPago(int teacherId, int paymentId) {
-        return notificacionesRepository.aceptarNotificacionPago(teacherId, paymentId);
+    public LiveData<BestGenericResponse<String>> aceptarNotificacionPago(int teacherId, int paymentId, int notificationId) {
+        return notificacionesRepository.aceptarNotificacionPago(teacherId, paymentId, notificationId);
     }
 
     // Método para listar notificaciones de un docente específico

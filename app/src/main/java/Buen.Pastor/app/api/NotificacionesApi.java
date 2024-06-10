@@ -18,8 +18,9 @@ public interface NotificacionesApi {
     Call<BestGenericResponse<String>> enviarNotificacionPago(@Path("paymentId") int paymentId);
 
     // Aceptar notificación de pago por parte del docente
-    @POST(base + "/aceptar/{teacherId}/{paymentId}")
-    Call<BestGenericResponse<String>> aceptarNotificacionPago(@Path("teacherId") int teacherId, @Path("paymentId") int paymentId);
+    // Aceptar notificación de pago por parte del docente
+    @POST(base + "/aceptar/{teacherId}/{paymentId}/{notificationId}")
+    Call<BestGenericResponse<String>> aceptarNotificacionPago(@Path("teacherId") int teacherId, @Path("paymentId") int paymentId, @Path("notificationId") int notificationId);
 
     // Listar notificaciones de un docente específico
     @GET(base + "/listar/{teacherId}")

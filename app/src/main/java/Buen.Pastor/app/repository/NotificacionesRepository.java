@@ -43,9 +43,9 @@ public class NotificacionesRepository {
     }
 
     // Método para aceptar notificación de pago por parte del docente
-    public LiveData<BestGenericResponse<String>> aceptarNotificacionPago(int teacherId, int paymentId) {
+    public LiveData<BestGenericResponse<String>> aceptarNotificacionPago(int teacherId, int paymentId, int notificationId) {
         MutableLiveData<BestGenericResponse<String>> liveData = new MutableLiveData<>();
-        notificacionesApi.aceptarNotificacionPago(teacherId, paymentId).enqueue(new Callback<BestGenericResponse<String>>() {
+        notificacionesApi.aceptarNotificacionPago(teacherId, paymentId, notificationId).enqueue(new Callback<BestGenericResponse<String>>() {
             @Override
             public void onResponse(Call<BestGenericResponse<String>> call, Response<BestGenericResponse<String>> response) {
                 if (response.isSuccessful()) {
