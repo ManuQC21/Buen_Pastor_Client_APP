@@ -137,7 +137,22 @@
                             android:textSize="16sp"
                             android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
+                    <!-- Dirección -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/contraseña"
+                        app:startIconDrawable="@drawable/ic_password">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtContrasena"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/high_contrast_text"
+                            android:textSize="16sp"
+                            android:inputType="textPassword"/>
+                    </com.google.android.material.textfield.TextInputLayout>
                     <!-- Teléfono -->
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"

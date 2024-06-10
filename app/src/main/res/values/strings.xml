@@ -180,5 +180,6 @@
     <string name="fecha_pago">Fecha de Pago</string>
     <string name="docente">Nombre Docente</string>
     <string name="activity_docente">Docente</string>
+    <string name="contraseña">Contraseña</string>
 
 </resources>

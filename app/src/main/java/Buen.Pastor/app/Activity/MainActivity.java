@@ -23,7 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import java.sql.Date;
 import java.sql.Time;
 import Buen.P.App.R;
-import Buen.Pastor.app.entity.service.Member;
+import Buen.Pastor.app.entity.service.App.MemberDTO;
 import Buen.Pastor.app.utils.DateSerializer;
 import Buen.Pastor.app.utils.TimeSerializer;
 import Buen.Pastor.app.viewModel.UsuarioViewModel;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.login(edtMail.getText().toString(), edtPassword.getText().toString()).observe(this, usuarioGenericResponse -> {
                     if (usuarioGenericResponse.getRpta() == 1) {
                         toastCorrecto(usuarioGenericResponse.getMessage());
-                        Member u = usuarioGenericResponse.getBody();
+                        MemberDTO u = usuarioGenericResponse.getBody();
                         saveUsuarioPreferences(u);
                         clearFields();
                         // Redirección basada en el correo electrónico del usuario
@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             intent = new Intent(this, InicioDocenteActivity.class);
                         }
-                        intent.putExtra("UsuarioJson", new Gson().toJson(u, new TypeToken<Member>() {}.getType()));
+                        // Aquí se corrige el TypeToken para que use MemberDTO en lugar de Member
+                        intent.putExtra("UsuarioJson", new Gson().toJson(u, new TypeToken<MemberDTO>() {}.getType()));
                         startActivity(intent);
                     } else {
                         toastIncorrecto(usuarioGenericResponse.getMessage());
@@ -80,18 +81,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
         edtMail.addTextChangedListener(new GenericTextWatcher(txtInputUsuario));
         edtPassword.addTextChangedListener(new GenericTextWatcher(txtInputPassword));
     }
 
-    private void saveUsuarioPreferences(Member u) {
+    private void saveUsuarioPreferences(MemberDTO u) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
-        Gson g = new GsonBuilder()
+        Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateSerializer())
                 .registerTypeAdapter(Time.class, new TimeSerializer())
                 .create();
-        editor.putString("UsuarioJson", g.toJson(u, new TypeToken<Member>() {}.getType()));
+
+        editor.putInt("userId", u.getId());
+        if (u.getEmail().equals("admin@gmail.com")) {
+            editor.putInt("teacherId", -1);  // No teacher ID for admin
+        } else if (u.getTeacher() != null) {
+            editor.putInt("teacherId", u.getTeacher().getId());
+        }
+        editor.putString("UsuarioJson", gson.toJson(u, new TypeToken<MemberDTO>() {}.getType()));
         editor.apply();
     }
 

@@ -1,6 +1,8 @@
 package Buen.Pastor.app.Activity.ui.docente;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +14,21 @@ import java.util.Calendar;
 import java.util.Locale;
 import Buen.P.App.R;
 import Buen.P.App.databinding.FragmentAgregarDocenteBinding;
+import Buen.Pastor.app.entity.service.Member;
 import Buen.Pastor.app.entity.service.Teacher;
 import Buen.Pastor.app.viewModel.DocenteViewModel;
+import Buen.Pastor.app.viewModel.UsuarioViewModel;
 
 public class AgregarDocenteFragment extends Fragment {
     private FragmentAgregarDocenteBinding binding;
     private DocenteViewModel docenteViewModel;
+    private UsuarioViewModel usuarioViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAgregarDocenteBinding.inflate(inflater, container, false);
         docenteViewModel = new ViewModelProvider(this).get(DocenteViewModel.class);
+        usuarioViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
 
         setupUI();
         return binding.getRoot();
@@ -32,12 +38,10 @@ public class AgregarDocenteFragment extends Fragment {
         binding.btnVolverAtras.setOnClickListener(v -> getParentFragmentManager().popBackStack());
         binding.btnAgregarDocente.setOnClickListener(v -> agregarDocente());
 
-        // Configurar el DatePickerDialog para abrirse al hacer clic en el campo de fecha de contratación o en el ícono
         View.OnClickListener dateClickListener = v -> mostrarDatePickerDialog();
         binding.txtFechaContratacionLayout.setEndIconOnClickListener(dateClickListener);
         binding.txtFechaContratacion.setOnClickListener(dateClickListener);
     }
-
 
     private void mostrarDatePickerDialog() {
         Calendar calendar = Calendar.getInstance();
@@ -49,11 +53,17 @@ public class AgregarDocenteFragment extends Fragment {
     }
 
     private void agregarDocente() {
+        String email = binding.txtEmail.getText().toString();
+        if ("admin@gmail.com".equals(email)) {
+            Toast.makeText(getContext(), "El uso de este email está restringido.", Toast.LENGTH_LONG).show();
+            return;  // Salir del método si se intenta usar el email restringido
+        }
+
         Teacher newTeacher = new Teacher(
                 binding.txtNombreCompleto.getText().toString(),
                 binding.txtPosicion.getText().toString(),
                 binding.txtDNI.getText().toString(),
-                binding.txtEmail.getText().toString(),
+                email,
                 binding.txtTelefono.getText().toString(),
                 binding.txtDireccion.getText().toString(),
                 binding.txtFechaContratacion.getText().toString(),
@@ -61,20 +71,45 @@ public class AgregarDocenteFragment extends Fragment {
         );
 
         docenteViewModel.agregarDocente(newTeacher).observe(getViewLifecycleOwner(), response -> {
-            if (response.getRpta() == 1) {
-                Toast.makeText(getContext(), "Docente agregado correctamente", Toast.LENGTH_SHORT).show();
-                limpiarCampos();  // Llamar al método para limpiar los campos
-                // Cerrar este fragmento y volver al anterior en el stack.
-                if (getParentFragmentManager().getBackStackEntryCount() > 0) {
-                    getParentFragmentManager().popBackStack();
-                } else {
-                    // En caso de no tener back stack, manejar otro flujo si es necesario.
-                }
+            if (response.getRpta() == 1 && response.getBody() != null) {
+                Teacher registeredTeacher = response.getBody();
+                Log.d("AgregarDocente", "Docente ID: " + registeredTeacher.getId());
+                new Handler().postDelayed(() -> registrarUsuario(registeredTeacher.getId()), 500);
             } else {
+                Log.e("AgregarDocente", "Error al agregar docente: " + response.getMessage());
                 Toast.makeText(getContext(), "Error al agregar docente: " + response.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
+
+    private void registrarUsuario(int teacherId) {
+        String email = binding.txtEmail.getText().toString();
+        String password = binding.txtContrasena.getText().toString(); // Asegúrate de que la ID en XML es correcta
+
+        if (!email.isEmpty() && !password.isEmpty()) {
+            Member newMember = new Member(
+                    email,
+                    password,
+                    true,
+                    teacherId
+            );
+
+            usuarioViewModel.register(newMember).observe(getViewLifecycleOwner(), userResponse -> {
+                if (userResponse.getRpta() == 1) {
+                    Toast.makeText(getContext(), "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                    if (getParentFragmentManager().getBackStackEntryCount() > 0) {
+                        getParentFragmentManager().popBackStack();
+                    }
+                } else {
+                    Log.e("RegistrarUsuario", "Error al registrar usuario: " + userResponse.getMessage());
+                    Toast.makeText(getContext(), "Error al registrar usuario: " + userResponse.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            Toast.makeText(getContext(), "Email o contraseña no pueden estar vacíos", Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     private void limpiarCampos() {
         binding.txtNombreCompleto.setText("");
@@ -84,8 +119,6 @@ public class AgregarDocenteFragment extends Fragment {
         binding.txtTelefono.setText("");
         binding.txtDireccion.setText("");
         binding.txtFechaContratacion.setText("");
-        binding.checkboxActivo.setChecked(true);  // Resetear a un estado activo por defecto si es necesario
+        binding.checkboxActivo.setChecked(true);
     }
-
-
 }
