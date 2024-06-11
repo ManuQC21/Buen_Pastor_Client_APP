@@ -181,5 +181,9 @@
     <string name="docente">Nombre Docente</string>
     <string name="activity_docente">Docente</string>
     <string name="contraseña">Contraseña</string>
+    <string name="pagos">Mis Pagos</string>
+    <string name="notificaciones">Mis Notificaciones</string>
+    <string name="check">Check</string>
+    <string name="verificar">Verificar</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package Buen.Pastor.app.entity.service.App;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class TeacherPaymentDTO {
     private int id;

@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Buen.Pastor.app.Activity.ui.docente.PagosDocentesFragment">
+
+    <!-- RecyclerView para la lista de pagos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_pagos_docentes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        tools:listitem="@layout/item_pagos_docentes" />
+
+    <!-- TextView para mostrar cuando no hay pagos -->
+    <TextView
+        android:id="@+id/text_no_pagos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No tiene pagos"
+        android:textSize="20sp"
+        android:textColor="@color/azul_personalizado"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</FrameLayout>

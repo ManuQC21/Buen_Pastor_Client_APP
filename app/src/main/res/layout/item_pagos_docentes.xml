@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/rounded_background"
+    android:elevation="4dp"
+    android:layout_margin="8dp">
+
+    <!-- Monto del Pago -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Monto:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/negro" />
+
+        <TextView
+            android:id="@+id/monto_pago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="S/. 2000.00"
+            android:textSize="18sp"
+            android:textColor="@color/azul_personalizado"
+            android:gravity="end"
+            android:layout_gravity="end" />
+    </LinearLayout>
+
+    <!-- Fecha de Pago -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Fecha de Pago:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/negro" />
+
+        <TextView
+            android:id="@+id/fecha_pago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15/05/2023"
+            android:textSize="18sp"
+            android:textColor="@color/azul_personalizado"
+            android:gravity="end"
+            android:layout_gravity="end" />
+    </LinearLayout>
+
+    <!-- Estado del Pago -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Estado:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/negro" />
+
+        <TextView
+            android:id="@+id/estado_pago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pagado"
+            android:textSize="18sp"
+            android:textColor="@color/azul_personalizado"
+            android:gravity="end"
+            android:layout_gravity="end" />
+    </LinearLayout>
+</LinearLayout>

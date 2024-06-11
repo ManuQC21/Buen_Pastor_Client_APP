@@ -9,14 +9,15 @@ public class Notification {
 
     private String message;
 
-    private LocalDateTime sentAt;
+    private String sentAt;
 
     private boolean isRead;
 
     public Notification() {
     }
 
-    public Notification(Teacher teacher, String message, LocalDateTime sentAt, boolean isRead) {
+    public Notification(int id, Teacher teacher, String message, String sentAt, boolean isRead) {
+        this.id = id;
         this.teacher = teacher;
         this.message = message;
         this.sentAt = sentAt;
@@ -47,11 +48,11 @@ public class Notification {
         this.message = message;
     }
 
-    public LocalDateTime getSentAt() {
+    public String getSentAt() {
         return sentAt;
     }
 
-    public void setSentAt(LocalDateTime sentAt) {
+    public void setSentAt(String sentAt) {
         this.sentAt = sentAt;
     }
 

@@ -14,7 +14,7 @@ public class Teacher {
     private String address;
     private String hiringDate;
     private boolean active;
-
+    private List<TeacherPayment> teacherPayments;
     public Teacher() {
     }
 
@@ -117,5 +117,11 @@ public class Teacher {
     public void setActive(boolean active) {
         this.active = active;
     }
+    public List<TeacherPayment> getTeacherPayments() {
+        return teacherPayments;
+    }
 
+    public void setTeacherPayments(List<TeacherPayment> teacherPayments) {
+        this.teacherPayments = teacherPayments;
+    }
 }

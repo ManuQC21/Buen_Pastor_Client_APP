@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,14 +62,18 @@ public class MainActivity extends AppCompatActivity {
                         MemberDTO u = usuarioGenericResponse.getBody();
                         saveUsuarioPreferences(u);
                         clearFields();
+                        int userId = u.getId();
+                        int teacherId = u.getTeacher() != null ? u.getTeacher().getId() : -1;
+                        showIdsInToastAndLog(userId, teacherId);
                         // Redirección basada en el correo electrónico del usuario
                         Intent intent;
                         if ("admin@gmail.com".equals(u.getEmail())) {
                             intent = new Intent(this, InicioAdministrativoActivity.class);
                         } else {
                             intent = new Intent(this, InicioDocenteActivity.class);
+                            intent.putExtra("userId", userId);
+                            intent.putExtra("teacherId", teacherId);
                         }
-                        // Aquí se corrige el TypeToken para que use MemberDTO en lugar de Member
                         intent.putExtra("UsuarioJson", new Gson().toJson(u, new TypeToken<MemberDTO>() {}.getType()));
                         startActivity(intent);
                     } else {
@@ -79,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 toastIncorrecto("Por favor, complete todos los campos");
             }
         });
-
-
 
         edtMail.addTextChangedListener(new GenericTextWatcher(txtInputUsuario));
         edtPassword.addTextChangedListener(new GenericTextWatcher(txtInputPassword));
@@ -102,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
         }
         editor.putString("UsuarioJson", gson.toJson(u, new TypeToken<MemberDTO>() {}.getType()));
         editor.apply();
+    }
+
+    private void showIdsInToastAndLog(int userId, int teacherId) {
+        String message = "User ID: " + userId + ", Teacher ID: " + teacherId;
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Log.d("UserDetails", message);
     }
 
     private void clearFields() {

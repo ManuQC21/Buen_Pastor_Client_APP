@@ -43,5 +43,8 @@
     <color name="blanco_transparente">#80FFFFFF</color>
     <color name="azul_claro">#FFB3E5FC</color>
     <color name="light_blue">#B3E5FC</color>
+    <color name="bottom_nav_selected">#FFFFFF</color>
+    <color name="bottom_nav_unselected">#80FFFFFF</color>
+    <color name="bottom_nav_background">#3F51B5</color>
 
 </resources>
