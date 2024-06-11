@@ -65,9 +65,10 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
 
     private CharSequence formatMessage(String message, Context context) {
         try {
-            String[] parts = message.split(", tiene un nuevo pago programado de ");
-            String nombre = parts[0].replace("Estimado ", "").trim();
-            String[] pagoParts = parts[1].split(" para la fecha ");
+            // Ejemplo de mensaje: "Estimado/a Gimenita,Tiene un Nuevo Pago Programado2000.00Para la Fecha 2023-05-15."
+            String[] parts = message.split(",Tiene un Nuevo Pago Programado");
+            String nombre = parts[0].replace("Estimado/a ", "").trim();
+            String[] pagoParts = parts[1].split("Para la Fecha");
             String monto = pagoParts[0].trim();
             String fecha = pagoParts[1].replace(".", "").trim();
 
@@ -81,7 +82,7 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
 
             // Aplicar color y estilo
             int montoStart = fullText.indexOf("S/. ");
-            int montoEnd = montoStart + 7; // Asumiendo longitud del monto + "S/. "
+            int montoEnd = montoStart + ("S/. " + monto).length(); // Asegurarse de que todo el monto esté incluido
             int fechaStart = fullText.indexOf(fechaFormateada);
 
             spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, 11 + nombre.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // Bold para "Estimado/a Gimenita"
