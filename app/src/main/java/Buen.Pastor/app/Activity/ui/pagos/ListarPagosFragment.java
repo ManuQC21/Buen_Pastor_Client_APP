@@ -81,7 +81,7 @@ public class ListarPagosFragment extends Fragment implements PagosAdapter.OnItem
             if (response != null && response.getRpta() == 1) {
                 Toast.makeText(getContext(), "Notificación enviada correctamente", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getContext(), "Error al enviar la notificación", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "¡El docente ya ha sido Notificado!", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "Error al enviar la notificación: " + (response != null ? response.getMessage() : "Respuesta nula"));
             }
         });

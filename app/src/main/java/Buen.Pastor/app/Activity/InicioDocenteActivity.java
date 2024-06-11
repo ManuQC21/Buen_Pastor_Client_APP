@@ -120,7 +120,6 @@ public class InicioDocenteActivity extends AppCompatActivity {
 
     private void showIdsInToastAndLog(int userId, int teacherId) {
         String message = "User ID: " + userId + ", Teacher ID: " + teacherId;
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         Log.d("UserDetails", message);
     }
 

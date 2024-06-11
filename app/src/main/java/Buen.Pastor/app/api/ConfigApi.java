@@ -18,8 +18,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ConfigApi {
 
     // Base URL de tu servidor backend
-    public static final String baseUrlEe = "http://192.168.0.14:8080";
-    public static final String baseUrlE = "http://10.0.2.2:8080";
+    public static final String myHouse = "http://192.168.0.14:8080";
+    public static final String LocalHost = "http://10.0.2.2:8080";
+    public static final String baseUrlE = "https://elbuenpastor-back-production.up.railway.app";
+
     private static Retrofit retrofit;
 
     // Declaración de las interfaces de las API
