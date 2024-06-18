@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         showIdsInToastAndLog(userId, teacherId);
                         // Redirección basada en el correo electrónico del usuario
                         Intent intent;
-                        if ("admin@gmail.com".equals(u.getEmail())) {
+                        if ("admin@elbuenpastor.com".equals(u.getEmail())) {
                             intent = new Intent(this, InicioAdministrativoActivity.class);
                         } else {
                             intent = new Intent(this, InicioDocenteActivity.class);

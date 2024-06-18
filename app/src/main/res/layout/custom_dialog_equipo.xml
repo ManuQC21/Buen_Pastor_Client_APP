@@ -196,7 +196,7 @@
                             android:layout_width="306dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginStart="38dp"
+                            android:layout_marginStart="50dp"
                             android:layout_toEndOf="@id/tvLabelDescripcion"
                             android:gravity="end"
                             android:text="Impresora láser color, modelo avanzado con capacidad de red."

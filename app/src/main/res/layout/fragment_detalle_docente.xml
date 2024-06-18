@@ -167,18 +167,23 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/email"
-                            android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/negro" />
+                            android:textColor="@color/negro"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/txtEmail"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textSize="16sp"
                             android:text="carlas.ruiz@example.com"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
                     </LinearLayout>
+
 
                     <!-- Teléfono -->
                     <LinearLayout
