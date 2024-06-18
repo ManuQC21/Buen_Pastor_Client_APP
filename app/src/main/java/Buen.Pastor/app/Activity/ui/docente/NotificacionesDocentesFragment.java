@@ -43,7 +43,7 @@ public class NotificacionesDocentesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notificaciones_docentes, container, false);
         recyclerView = view.findViewById(R.id.recycler_view_notificaciones);
-        noNotificacionesView = view.findViewById(R.id.no_notificaciones_text);  // Agregar en el layout XML
+        noNotificacionesView = view.findViewById(R.id.no_notificaciones_text);
         setupRecyclerView();
         loadNotificaciones();
         return view;

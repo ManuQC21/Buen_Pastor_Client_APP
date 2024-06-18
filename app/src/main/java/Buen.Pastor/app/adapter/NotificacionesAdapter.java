@@ -14,9 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
 import java.util.List;
 import Buen.P.App.R;
 import Buen.Pastor.app.entity.service.Notification;
+import Buen.Pastor.app.entity.service.TeacherPayment;
 
 public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAdapter.ViewHolder> {
 
@@ -33,7 +35,15 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
     }
 
     public void updateData(List<Notification> newNotificaciones) {
-        this.notificaciones = newNotificaciones;
+        this.notificaciones = new ArrayList<>();
+        for (Notification notification : newNotificaciones) {
+            for (TeacherPayment payment : notification.getTeacher().getTeacherPayments()) {
+                if ("Pendiente".equals(payment.getPaymentStatus())) {
+                    this.notificaciones.add(notification);
+                    break; // Solo agregar la notificación una vez si tiene algún pago pendiente
+                }
+            }
+        }
         notifyDataSetChanged();
     }
 
@@ -52,16 +62,20 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
         holder.tituloNotificacion.setText("Notificación");
 
         holder.iconoCheck.setOnClickListener(v -> {
-            if (notification.getTeacher() != null && !notification.getTeacher().getTeacherPayments().isEmpty()) {
-                int paymentId = notification.getTeacher().getTeacherPayments().get(0).getId(); // Asumiendo que siempre hay al menos un pago.
-                listener.onCheck(notification, paymentId);
+            if (notification.getTeacher() != null) {
+                for (TeacherPayment payment : notification.getTeacher().getTeacherPayments()) {
+                    if ("Pendiente".equals(payment.getPaymentStatus())) {
+                        int paymentId = payment.getId();
+                        listener.onCheck(notification, paymentId);
+                        break; // Solo procesar el primer pago pendiente
+                    }
+                }
             }
             notificaciones.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, notificaciones.size());
         });
     }
-
 
     private CharSequence formatMessage(String message, Context context) {
         try {
