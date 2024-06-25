@@ -3,6 +3,8 @@ package Buen.Pastor.app.Activity.ui.equipos;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,10 +76,73 @@ public class ModificarFragment extends Fragment {
         btnVolverAtras.setOnClickListener(v -> getParentFragmentManager().popBackStack());
         edtFechaCompra.setOnClickListener(v -> mostrarDatePickerDialog());
         btnModificarEquipo.setOnClickListener(v -> modificarEquipo());
+        configurarValidaciones();
         cargarEstados();
         cargarResponsables();
         cargarUbicaciones();
         return view;
+    }
+
+    private void configurarValidaciones() {
+        TextWatcher soloLetrasWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String resultado = s.toString().replaceAll("[^a-zA-Z ]", "").replaceAll("\\s{2,}", " ");
+                if (!s.toString().equals(resultado)) {
+                    s.replace(0, s.length(), resultado);
+                }
+            }
+        };
+
+        TextWatcher soloNumerosWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String resultado = s.toString().replaceAll("[^0-9]", "");
+                if (!s.toString().equals(resultado)) {
+                    s.replace(0, s.length(), resultado);
+                }
+            }
+        };
+
+        txtTipoEquipo.addTextChangedListener(soloLetrasWatcher);
+        txtMarca.addTextChangedListener(soloLetrasWatcher);
+        txtModelo.addTextChangedListener(soloLetrasWatcher);
+        txtNombreEquipo.addTextChangedListener(soloLetrasWatcher);
+
+        txtNumeroOrden.addTextChangedListener(soloNumerosWatcher);
+        txtNumeroSerie.addTextChangedListener(soloNumerosWatcher);
+    }
+
+    private boolean validarEntradas() {
+        // Validación para campos que deben contener solo letras
+        if (!txtTipoEquipo.getText().toString().matches("[a-zA-Z ]+") ||
+                !txtMarca.getText().toString().matches("[a-zA-Z ]+") ||
+                !txtModelo.getText().toString().matches("[a-zA-Z ]+") ||
+                !txtNombreEquipo.getText().toString().matches("[a-zA-Z ]+")) {
+            Toast.makeText(getContext(), "Solo letras y espacios son permitidos para tipo de equipo, marca, modelo y nombre de equipo.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        // Validación para campos que deben contener solo números
+        if (!txtNumeroOrden.getText().toString().matches("[0-9]+") ||
+                !txtNumeroSerie.getText().toString().matches("[0-9]+")) {
+            Toast.makeText(getContext(), "Solo números son permitidos para número de orden y número de serie.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true; // Todas las validaciones pasaron
     }
     private void cargarDatosEquipo() {
         if (equipoId != -1) {

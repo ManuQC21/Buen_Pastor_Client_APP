@@ -3,6 +3,8 @@ package Buen.Pastor.app.Activity.ui.equipos;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +62,7 @@ public class AgregarFragment extends Fragment {
         cargarResponsables();
         cargarUbicaciones();
         cargarEstados();
-
+        configurarValidaciones();
         return view;
     }
 
@@ -93,6 +95,11 @@ public class AgregarFragment extends Fragment {
     }
 
     private void agregarEquipo() {
+
+        if (!validarEntradas()) {
+            return; // Detiene la ejecución si alguna validación falla
+        }
+
         Equipment equipo = new Equipment();
         equipo.setEquipmentType(txtTipoEquipo.getText().toString());
         equipo.setAssetCode(txtCodigoPatrimonial.getText().toString());
@@ -140,6 +147,68 @@ public class AgregarFragment extends Fragment {
                 Toast.makeText(getContext(), "Error al cargar docentes: " + response.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+    private void configurarValidaciones() {
+        TextWatcher soloLetrasWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String resultado = s.toString().replaceAll("[^a-zA-Z ]", "").replaceAll("\\s+", " ");
+                if (!s.toString().equals(resultado)) {
+                    s.replace(0, s.length(), resultado);
+                }
+            }
+        };
+
+        TextWatcher soloNumerosWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String resultado = s.toString().replaceAll("[^0-9]", "");
+                if (!s.toString().equals(resultado)) {
+                    s.replace(0, s.length(), resultado);
+                }
+            }
+        };
+
+        txtTipoEquipo.addTextChangedListener(soloLetrasWatcher);
+        txtMarca.addTextChangedListener(soloLetrasWatcher);
+        txtModelo.addTextChangedListener(soloLetrasWatcher);
+        txtNombreDeEquipo.addTextChangedListener(soloLetrasWatcher);
+
+        txtCodigoPatrimonial.addTextChangedListener(soloNumerosWatcher);
+        txtNumeroDeOrden.addTextChangedListener(soloNumerosWatcher);
+        txtNumeroDeSerie.addTextChangedListener(soloNumerosWatcher);
+    }
+    private boolean validarEntradas() {
+        // Validación para campos que deben contener solo letras
+        if (!txtTipoEquipo.getText().toString().matches("[a-zA-Z ]+") ||
+                !txtMarca.getText().toString().matches("[a-zA-Z ]+") ||
+                !txtModelo.getText().toString().matches("[a-zA-Z ]+") ||
+                !txtNombreDeEquipo.getText().toString().matches("[a-zA-Z ]+")) {
+            Toast.makeText(getContext(), "Solo letras y espacios son permitidos para tipo de equipo, marca, modelo y nombre de equipo.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        // Validación para campos que deben contener solo números
+        if (!txtCodigoPatrimonial.getText().toString().matches("[0-9]+") ||
+                !txtNumeroDeOrden.getText().toString().matches("[0-9]+") ||
+                !txtNumeroDeSerie.getText().toString().matches("[0-9]+")) {
+            Toast.makeText(getContext(), "Solo números son permitidos para código patrimonial, número de orden y número de serie.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true; // Todas las validaciones pasaron
     }
 
     private void limpiarCampos() {
