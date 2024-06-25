@@ -104,9 +104,7 @@ public class FiltroPorFechasFragment extends Fragment {
                                 }
                             });
                         })
-                        .setNegativeButton("No", (dialog, which) -> {
-                            dialog.dismiss();
-                        })
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             }

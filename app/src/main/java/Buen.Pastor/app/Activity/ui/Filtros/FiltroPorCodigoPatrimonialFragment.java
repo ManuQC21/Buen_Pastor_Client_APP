@@ -2,25 +2,26 @@ package Buen.Pastor.app.Activity.ui.Filtros;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.text.TextWatcher;
-import android.text.Editable;
-import android.widget.ImageView;
-import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
+import java.util.ArrayList;
 import Buen.Pastor.app.Activity.ui.equipos.DetalleEquipoFragment;
 import Buen.Pastor.app.Activity.ui.equipos.ModificarFragment;
 import Buen.P.App.R;
 import Buen.Pastor.app.adapter.EquipoAdapter;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
-import java.util.ArrayList;
 
 public class FiltroPorCodigoPatrimonialFragment extends Fragment {
 
@@ -52,6 +53,7 @@ public class FiltroPorCodigoPatrimonialFragment extends Fragment {
                             .commit();
                 }
             }
+
             @Override
             public void onViewClick(int equipoId) {
                 DetalleEquipoFragment detalleFragment = new DetalleEquipoFragment();
@@ -83,9 +85,7 @@ public class FiltroPorCodigoPatrimonialFragment extends Fragment {
                                 }
                             });
                         })
-                        .setNegativeButton("No", (dialog, which) -> {
-                            dialog.dismiss();
-                        })
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             }

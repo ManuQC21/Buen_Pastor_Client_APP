@@ -2,6 +2,7 @@ package Buen.Pastor.app.Activity.ui.pagos;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,12 +85,40 @@ public class ModificarPagoFragment extends Fragment {
         dropdownEstadoPagoLayout = view.findViewById(R.id.dropdownEstadoPagoLayout);
         dropdownEstadoPago = view.findViewById(R.id.dropdownEstadoPagoModificar);
         btnModificarPago = view.findViewById(R.id.btnModificarPago);
+
+        // Agregar filtro de entrada para la referencia de pago
+        txtReferenciaPagoModificar.setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
+            for (int i = start; i < end; i++) {
+                if (!Character.isLetter(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+                    return "";
+                }
+            }
+            return null;
+        }});
+
+        // Agregar filtro de entrada para días trabajados
+        txtDiasTrabajadosModificar.setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
+            try {
+                // Concatenar la nueva entrada con el contenido existente
+                String result = dest.subSequence(0, dstart).toString() + source.toString() + dest.subSequence(dend, dest.length()).toString();
+                int input = Integer.parseInt(result);
+                if (input >= 1 && input <= 31) {
+                    return null;
+                }
+            } catch (NumberFormatException nfe) {
+                // No hacer nada
+            }
+            return "";
+        }});
     }
 
     private void setupListeners() {
         txtFechaPagoModificar.setOnClickListener(v -> showDatePickerDialog());
-
-        btnModificarPago.setOnClickListener(v -> modificarPago());
+        btnModificarPago.setOnClickListener(v -> {
+            if (validarCampos()) {
+                modificarPago();
+            }
+        });
     }
 
     private void showDatePickerDialog() {
@@ -101,16 +130,13 @@ public class ModificarPagoFragment extends Fragment {
     }
 
     private void loadPagoDetails() {
-        pagoViewModel.obtenerPagoPorId(pagoId).observe(getViewLifecycleOwner(), new Observer<BestGenericResponse<TeacherPaymentDTO>>() {
-            @Override
-            public void onChanged(BestGenericResponse<TeacherPaymentDTO> response) {
-                if (response != null && response.getRpta() == 1 && response.getBody() != null) {
-                    currentPago = response.getBody();
-                    populatePagoDetails(currentPago);
-                } else {
-                    Toast.makeText(getContext(), "Error al cargar detalles del pago", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Error al cargar detalles del pago: " + (response != null ? response.getMessage() : "Respuesta nula"));
-                }
+        pagoViewModel.obtenerPagoPorId(pagoId).observe(getViewLifecycleOwner(), response -> {
+            if (response != null && response.getRpta() == 1 && response.getBody() != null) {
+                currentPago = response.getBody();
+                populatePagoDetails(currentPago);
+            } else {
+                Toast.makeText(getContext(), "Error al cargar detalles del pago", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Error al cargar detalles del pago: " + (response != null ? response.getMessage() : "Respuesta nula"));
             }
         });
     }
@@ -127,17 +153,14 @@ public class ModificarPagoFragment extends Fragment {
     }
 
     private void loadDocentes() {
-        docenteViewModel.listarDocentes().observe(getViewLifecycleOwner(), new Observer<BestGenericResponse<List<TeacherDTO>>>() {
-            @Override
-            public void onChanged(BestGenericResponse<List<TeacherDTO>> response) {
-                if (response != null && response.getRpta() == 1 && response.getBody() != null) {
-                    docentes = response.getBody();
-                    ArrayAdapter<TeacherDTO> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, docentes);
-                    dropdownDocente.setAdapter(adapter);
-                } else {
-                    Toast.makeText(getContext(), "Error al cargar la lista de docentes", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Error al cargar la lista de docentes: " + (response != null ? response.getMessage() : "Respuesta nula"));
-                }
+        docenteViewModel.listarDocentes().observe(getViewLifecycleOwner(), response -> {
+            if (response != null && response.getRpta() == 1 && response.getBody() != null) {
+                docentes = response.getBody();
+                ArrayAdapter<TeacherDTO> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, docentes);
+                dropdownDocente.setAdapter(adapter);
+            } else {
+                Toast.makeText(getContext(), "Error al cargar la lista de docentes", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Error al cargar la lista de docentes: " + (response != null ? response.getMessage() : "Respuesta nula"));
             }
         });
     }
@@ -171,18 +194,38 @@ public class ModificarPagoFragment extends Fragment {
             return;
         }
 
-        pagoViewModel.editarPago(updatedPago).observe(getViewLifecycleOwner(), new Observer<BestGenericResponse<TeacherPayment>>() {
-            @Override
-            public void onChanged(BestGenericResponse<TeacherPayment> response) {
-                if (response != null && response.getRpta() == 1) {
-                    Toast.makeText(getContext(), "Pago modificado correctamente", Toast.LENGTH_SHORT).show();
-                    getParentFragmentManager().popBackStack();
-                } else {
-                    Toast.makeText(getContext(), "Error al modificar el pago", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Error al modificar el pago: " + (response != null ? response.getMessage() : "Respuesta nula"));
-                }
+        pagoViewModel.editarPago(updatedPago).observe(getViewLifecycleOwner(), response -> {
+            if (response != null && response.getRpta() == 1) {
+                Toast.makeText(getContext(), "Pago modificado correctamente", Toast.LENGTH_SHORT).show();
+                getParentFragmentManager().popBackStack();
+            } else {
+                Toast.makeText(getContext(), "Error al modificar el pago", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Error al modificar el pago: " + (response != null ? response.getMessage() : "Respuesta nula"));
             }
         });
     }
 
+    private boolean validarCampos() {
+        String referenciaPago = txtReferenciaPagoModificar.getText().toString();
+        String diasTrabajados = txtDiasTrabajadosModificar.getText().toString();
+
+        if (!referenciaPago.matches("[a-zA-Z ]+")) {
+            Toast.makeText(getContext(), "La referencia de pago solo debe contener letras y espacios", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        int dias;
+        try {
+            dias = Integer.parseInt(diasTrabajados);
+            if (dias < 1 || dias > 31) {
+                Toast.makeText(getContext(), "Los días trabajados deben estar entre 1 y 31", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(getContext(), "Los días trabajados deben ser un número válido", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
 }

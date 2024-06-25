@@ -3,6 +3,8 @@ package Buen.Pastor.app.Activity.ui.pagos;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +40,7 @@ public class AgregarPagoFragment extends Fragment {
     private PagoViewModel pagoViewModel;
     private AutoCompleteTextView dropdownDocente;
     private AutoCompleteTextView dropdownNivelEducacion;
-    private TextInputEditText txtMonto, edtFechaPago, txtReferenciaPago, txtDiasTrabajo, txtCodigoModular;
+    private TextInputEditText txtMonto, edtFechaPago, txtReferenciaPago, txtDiasTrabajo;
     private final Calendar calendar = Calendar.getInstance();
 
     @Override
@@ -99,6 +101,21 @@ public class AgregarPagoFragment extends Fragment {
             }
         });
 
+        // Agregar filtros a los campos de texto
+        txtReferenciaPago.setFilters(new InputFilter[]{new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetter(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        }});
+
+        txtDiasTrabajo.setFilters(new InputFilter[]{new InputFilterMinMax("1", "31")});
+
         return view;
     }
 
@@ -141,6 +158,11 @@ public class AgregarPagoFragment extends Fragment {
     }
 
     private void agregarPago() {
+        if (txtReferenciaPago.getText().toString().isEmpty() || txtDiasTrabajo.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         TeacherPayment pago = new TeacherPayment();
         pago.setAmount(BigDecimal.valueOf(Double.parseDouble(txtMonto.getText().toString().replace("S/.", "").trim())));
         pago.setPaymentDate(edtFechaPago.getText().toString());

@@ -3,6 +3,7 @@ package Buen.Pastor.app.Activity.ui.Filtros;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,10 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
+import java.util.List;
 import Buen.Pastor.app.Activity.ui.equipos.DetalleEquipoFragment;
 import Buen.Pastor.app.Activity.ui.equipos.ModificarFragment;
 import Buen.P.App.R;
 import Buen.Pastor.app.adapter.EquipoAdapter;
+import Buen.Pastor.app.entity.service.Equipment;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 
 public class FiltroPorNombreFragment extends Fragment {
@@ -29,6 +32,7 @@ public class FiltroPorNombreFragment extends Fragment {
     private RecyclerView recyclerView;
     private EquipoAdapter equipoAdapter;
     private TextInputEditText edtBuscarNombre;
+    private List<Equipment> allEquipments = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +57,7 @@ public class FiltroPorNombreFragment extends Fragment {
                             .commit();
                 }
             }
+
             @Override
             public void onViewClick(int equipoId) {
                 DetalleEquipoFragment detalleFragment = new DetalleEquipoFragment();
@@ -76,7 +81,8 @@ public class FiltroPorNombreFragment extends Fragment {
                                     Toast.makeText(getContext(), "Equipo eliminado correctamente", Toast.LENGTH_SHORT).show();
                                     equipoViewModel.listAllEquipos().observe(getViewLifecycleOwner(), equipoResponse -> {
                                         if (equipoResponse != null && equipoResponse.getRpta() == 1) {
-                                            equipoAdapter.updateData(equipoResponse.getBody());
+                                            allEquipments = equipoResponse.getBody();
+                                            equipoAdapter.updateData(allEquipments);
                                         }
                                     });
                                 } else {
@@ -84,9 +90,7 @@ public class FiltroPorNombreFragment extends Fragment {
                                 }
                             });
                         })
-                        .setNegativeButton("No", (dialog, which) -> {
-                            dialog.dismiss();
-                        })
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             }
@@ -104,17 +108,23 @@ public class FiltroPorNombreFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                equipoViewModel.filtroPorNombre(s.toString()).observe(getViewLifecycleOwner(), response -> {
-                    if (response != null && response.getBody() != null) {
-                        equipoAdapter.updateData(response.getBody());
-                    }
-                });
+                filterEquipments(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    private void filterEquipments(String query) {
+        List<Equipment> filteredList = new ArrayList<>();
+        for (Equipment equipment : allEquipments) {
+            if (equipment.getEquipmentName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(equipment);
+            }
+        }
+        equipoAdapter.updateData(filteredList);
     }
 
     @Override
@@ -125,9 +135,9 @@ public class FiltroPorNombreFragment extends Fragment {
         // Cargar todos los equipos al iniciar el Fragmento
         equipoViewModel.listAllEquipos().observe(getViewLifecycleOwner(), response -> {
             if (response != null && response.getBody() != null) {
-                equipoAdapter.updateData(response.getBody());
+                allEquipments = response.getBody();
+                equipoAdapter.updateData(allEquipments);
             }
         });
     }
 }
-

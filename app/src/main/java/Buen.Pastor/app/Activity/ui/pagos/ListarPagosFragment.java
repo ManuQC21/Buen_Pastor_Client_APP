@@ -107,7 +107,6 @@ public class ListarPagosFragment extends Fragment implements PagosAdapter.OnItem
     @Override
     public void onEditClick(int pagoId) {
         Log.i(TAG, "Editar pago ID: " + pagoId);
-        Toast.makeText(getContext(), "Editar ID: " + pagoId, Toast.LENGTH_SHORT).show();
 
         ModificarPagoFragment modificarPagoFragment = new ModificarPagoFragment();
         Bundle bundle = new Bundle();

@@ -1,8 +1,13 @@
 package Buen.Pastor.app.Activity.ui.docente;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,11 +46,50 @@ public class AgregarDocenteFragment extends Fragment {
         View.OnClickListener dateClickListener = v -> mostrarDatePickerDialog();
         binding.txtFechaContratacionLayout.setEndIconOnClickListener(dateClickListener);
         binding.txtFechaContratacion.setOnClickListener(dateClickListener);
+
+        // Filtros de validación
+        binding.txtNombreCompleto.setFilters(new InputFilter[]{new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetter(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        }});
+
+        binding.txtPosicion.setFilters(new InputFilter[]{new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetter(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        }});
+
+        binding.txtDNI.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+        binding.txtTelefono.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
+        binding.txtDireccion.setFilters(new InputFilter[]{new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetterOrDigit(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        }});
     }
 
     private void mostrarDatePickerDialog() {
         Calendar calendar = Calendar.getInstance();
-        new android.app.DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
+        new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
             calendar.set(year, month, dayOfMonth);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
             binding.txtFechaContratacion.setText(dateFormat.format(calendar.getTime()));
@@ -53,22 +97,20 @@ public class AgregarDocenteFragment extends Fragment {
     }
 
     private void agregarDocente() {
+        String nombreCompleto = binding.txtNombreCompleto.getText().toString();
+        String posicion = binding.txtPosicion.getText().toString();
+        String dni = binding.txtDNI.getText().toString();
         String email = binding.txtEmail.getText().toString();
-        if ("admin@gmail.com".equals(email)) {
-            Toast.makeText(getContext(), "El uso de este email está restringido.", Toast.LENGTH_LONG).show();
-            return;  // Salir del método si se intenta usar el email restringido
+        String telefono = binding.txtTelefono.getText().toString();
+        String direccion = binding.txtDireccion.getText().toString();
+        String fechaContratacion = binding.txtFechaContratacion.getText().toString();
+        boolean activo = binding.checkboxActivo.isChecked();
+
+        if (!validarCampos(nombreCompleto, posicion, dni, email, telefono, direccion)) {
+            return;
         }
 
-        Teacher newTeacher = new Teacher(
-                binding.txtNombreCompleto.getText().toString(),
-                binding.txtPosicion.getText().toString(),
-                binding.txtDNI.getText().toString(),
-                email,
-                binding.txtTelefono.getText().toString(),
-                binding.txtDireccion.getText().toString(),
-                binding.txtFechaContratacion.getText().toString(),
-                binding.checkboxActivo.isChecked()
-        );
+        Teacher newTeacher = new Teacher(nombreCompleto, posicion, dni, email, telefono, direccion, fechaContratacion, activo);
 
         docenteViewModel.agregarDocente(newTeacher).observe(getViewLifecycleOwner(), response -> {
             if (response.getRpta() == 1 && response.getBody() != null) {
@@ -82,17 +124,36 @@ public class AgregarDocenteFragment extends Fragment {
         });
     }
 
+    private boolean validarCampos(String nombreCompleto, String posicion, String dni, String email, String telefono, String direccion) {
+        if (nombreCompleto.isEmpty() || posicion.isEmpty() || dni.isEmpty() || email.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
+            Toast.makeText(getContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!dni.matches("\\d{8}")) {
+            Toast.makeText(getContext(), "El DNI debe tener 8 dígitos", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(getContext(), "Formato de correo inválido", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!telefono.matches("\\d{9}")) {
+            Toast.makeText(getContext(), "El teléfono debe tener 9 dígitos", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
     private void registrarUsuario(int teacherId) {
         String email = binding.txtEmail.getText().toString();
         String password = binding.txtContrasena.getText().toString(); // Asegúrate de que la ID en XML es correcta
 
         if (!email.isEmpty() && !password.isEmpty()) {
-            Member newMember = new Member(
-                    email,
-                    password,
-                    true,
-                    teacherId
-            );
+            Member newMember = new Member(email, password, true, teacherId);
 
             usuarioViewModel.register(newMember).observe(getViewLifecycleOwner(), userResponse -> {
                 if (userResponse.getRpta() == 1) {
@@ -108,17 +169,5 @@ public class AgregarDocenteFragment extends Fragment {
         } else {
             Toast.makeText(getContext(), "Email o contraseña no pueden estar vacíos", Toast.LENGTH_LONG).show();
         }
-    }
-
-
-    private void limpiarCampos() {
-        binding.txtNombreCompleto.setText("");
-        binding.txtPosicion.setText("");
-        binding.txtDNI.setText("");
-        binding.txtEmail.setText("");
-        binding.txtTelefono.setText("");
-        binding.txtDireccion.setText("");
-        binding.txtFechaContratacion.setText("");
-        binding.checkboxActivo.setChecked(true);
     }
 }

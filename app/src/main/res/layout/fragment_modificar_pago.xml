@@ -81,6 +81,7 @@
                     android:cursorVisible="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Monto -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
@@ -97,6 +98,7 @@
                     android:inputType="numberDecimal"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Fecha de Pago -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtFechaPagoLayoutModificar"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -115,6 +117,7 @@
                     android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Referencia de Pago -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
@@ -130,6 +133,7 @@
                     android:textSize="16sp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Días Trabajados -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
@@ -143,9 +147,10 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/high_contrast_text"
                     android:textSize="16sp"
-                    android:inputType="number"/>
+                    android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Nivel de Educación -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dropdownNivelEducacionLayout"
                 android:layout_width="match_parent"
@@ -165,6 +170,7 @@
                     android:cursorVisible="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Código Modular -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
@@ -177,7 +183,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/high_contrast_text"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Estado del Pago -->
