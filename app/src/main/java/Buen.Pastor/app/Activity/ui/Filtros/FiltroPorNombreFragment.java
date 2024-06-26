@@ -2,17 +2,18 @@ package Buen.Pastor.app.Activity.ui.Filtros;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextWatcher;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,12 +33,16 @@ public class FiltroPorNombreFragment extends Fragment {
     private RecyclerView recyclerView;
     private EquipoAdapter equipoAdapter;
     private TextInputEditText edtBuscarNombre;
+    private Button btnBuscar;
+    private TextView txtNoResults;
     private List<Equipment> allEquipments = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filtro_por_nombre, container, false);
         edtBuscarNombre = view.findViewById(R.id.edtBuscarNombre);
+        btnBuscar = view.findViewById(R.id.btnBuscar);
+        txtNoResults = view.findViewById(R.id.txtNoResults);
         recyclerView = view.findViewById(R.id.recyclerViewFiltroNombre);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ImageView btnVolverAtras = view.findViewById(R.id.btnVolverAtras);
@@ -96,35 +101,45 @@ public class FiltroPorNombreFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(equipoAdapter);
-        setupEditText();
+        setupListeners();
+        setupInputFilters();
         return view;
     }
 
-    private void setupEditText() {
-        edtBuscarNombre.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+    private void setupListeners() {
+        btnBuscar.setOnClickListener(v -> filterEquipments(edtBuscarNombre.getText().toString()));
+    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterEquipments(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+    private void filterEquipments(String query) {
+        equipoViewModel.filtroPorNombre(query).observe(getViewLifecycleOwner(), response -> {
+            if (response != null && response.getBody() != null) {
+                List<Equipment> filteredList = response.getBody();
+                if (filteredList.isEmpty()) {
+                    txtNoResults.setVisibility(View.VISIBLE);
+                } else {
+                    txtNoResults.setVisibility(View.GONE);
+                }
+                equipoAdapter.updateData(filteredList);
+            } else {
+                txtNoResults.setVisibility(View.VISIBLE);
+                equipoAdapter.updateData(new ArrayList<>());
             }
         });
     }
 
-    private void filterEquipments(String query) {
-        List<Equipment> filteredList = new ArrayList<>();
-        for (Equipment equipment : allEquipments) {
-            if (equipment.getEquipmentName().toLowerCase().contains(query.toLowerCase())) {
-                filteredList.add(equipment);
+    private void setupInputFilters() {
+        InputFilter lettersOnlyFilter = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetter(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
             }
-        }
-        equipoAdapter.updateData(filteredList);
+        };
+        edtBuscarNombre.setFilters(new InputFilter[]{lettersOnlyFilter});
     }
 
     @Override

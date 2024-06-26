@@ -1,17 +1,16 @@
 package Buen.Pastor.app.Activity.ui.Filtros;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,11 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import Buen.Pastor.app.Activity.ui.equipos.DetalleEquipoFragment;
 import Buen.Pastor.app.Activity.ui.equipos.modificarequipo.ModificarFragment;
 import Buen.P.App.R;
 import Buen.Pastor.app.adapter.EquipoAdapter;
+import Buen.Pastor.app.entity.service.Equipment;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
+import Buen.Pastor.app.utils.DatePickerHelper;
 
 public class FiltroPorFechasFragment extends Fragment {
 
@@ -32,7 +34,7 @@ public class FiltroPorFechasFragment extends Fragment {
     private EquipoAdapter equipoAdapter;
     private TextInputEditText edtFechaInicio, edtFechaFin;
     private Button btnFiltrar;
-    private DatePickerDialog datePickerDialogInicio, datePickerDialogFin;
+    private TextView txtNoResultsFechas;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,16 +54,13 @@ public class FiltroPorFechasFragment extends Fragment {
         edtFechaInicio = view.findViewById(R.id.edtFechaInicio);
         edtFechaFin = view.findViewById(R.id.edtFechaFin);
         btnFiltrar = view.findViewById(R.id.btnFiltrarFechas);
+        txtNoResultsFechas = view.findViewById(R.id.txtNoResultsFechas);
 
         btnFiltrar.setOnClickListener(v -> applyDateFilter());
-
-        edtFechaInicio.setOnClickListener(v -> datePickerDialogInicio.show());
-        edtFechaFin.setOnClickListener(v -> datePickerDialogFin.show());
 
         equipoAdapter = new EquipoAdapter(new ArrayList<>(), new EquipoAdapter.OnItemClickListener() {
             @Override
             public void onEditClick(int equipoId) {
-                Log.d("ListarFragment", "Edit clicked for ID: " + equipoId);
                 ModificarFragment modificarFragment = new ModificarFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("equipoId", equipoId);
@@ -73,6 +72,7 @@ public class FiltroPorFechasFragment extends Fragment {
                             .commit();
                 }
             }
+
             @Override
             public void onViewClick(int equipoId) {
                 DetalleEquipoFragment detalleFragment = new DetalleEquipoFragment();
@@ -114,16 +114,8 @@ public class FiltroPorFechasFragment extends Fragment {
 
     private void setupDatePickerDialogs() {
         Calendar calendar = Calendar.getInstance();
-        datePickerDialogInicio = new DatePickerDialog(getContext(), this::setStartDate, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialogFin = new DatePickerDialog(getContext(), this::setEndDate, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-    }
-
-    private void setStartDate(DatePicker view, int year, int month, int dayOfMonth) {
-        edtFechaInicio.setText(String.format("%02d-%02d-%d", dayOfMonth, month + 1, year));
-    }
-
-    private void setEndDate(DatePicker view, int year, int month, int dayOfMonth) {
-        edtFechaFin.setText(String.format("%02d-%02d-%d", dayOfMonth, month + 1, year));
+        edtFechaInicio.setOnClickListener(v -> DatePickerHelper.mostrarDatePickerDialog(getContext(), edtFechaInicio, calendar));
+        edtFechaFin.setOnClickListener(v -> DatePickerHelper.mostrarDatePickerDialog(getContext(), edtFechaFin, calendar));
     }
 
     private void loadInitialData() {
@@ -140,15 +132,27 @@ public class FiltroPorFechasFragment extends Fragment {
         String startDate = edtFechaInicio.getText().toString().trim();
         String endDate = edtFechaFin.getText().toString().trim();
         if (!startDate.isEmpty() && !endDate.isEmpty()) {
-            equipoViewModel.filtroFechaCompraBetween(startDate, endDate).observe(getViewLifecycleOwner(), response -> {
-                if (response != null && response.getRpta() == 1) {
-                    equipoAdapter.updateData(response.getBody());
+            equipoViewModel.filtroFechaCompraBetween(formatDateForRequest(startDate), formatDateForRequest(endDate)).observe(getViewLifecycleOwner(), response -> {
+                if (response != null && response.getRpta() == 1 && response.getBody() != null) {
+                    List<Equipment> filteredList = response.getBody();
+                    if (filteredList.isEmpty()) {
+                        txtNoResultsFechas.setVisibility(View.VISIBLE);
+                    } else {
+                        txtNoResultsFechas.setVisibility(View.GONE);
+                    }
+                    equipoAdapter.updateData(filteredList);
                 } else {
-                    Toast.makeText(getContext(), "No data found for selected dates", Toast.LENGTH_SHORT).show();
+                    txtNoResultsFechas.setVisibility(View.VISIBLE);
+                    equipoAdapter.updateData(new ArrayList<>());
                 }
             });
         } else {
-            Toast.makeText(getContext(), "Please select both start and end dates", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Seleccione ambas fechas", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private String formatDateForRequest(String date) {
+        String[] parts = date.split("/");
+        return parts[2] + "-" + parts[1] + "-" + parts[0];
     }
 }

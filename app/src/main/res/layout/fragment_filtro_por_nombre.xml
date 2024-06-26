@@ -30,7 +30,7 @@
                 app:tint="@color/blanco" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/buscar_por_nombre"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -47,16 +47,18 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/searchLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="16dp"
         android:layout_below="@id/toolbarFiltroPorNombre">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutBuscarNombre"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:hint="@string/nombre_de_equipo"
             app:startIconDrawable="@drawable/ic_search"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -70,12 +72,32 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewFiltroNombre"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="16dp"
-            tools:listitem="@layout/item_equipo" />
+        <Button
+            android:id="@+id/btnBuscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Buscar"
+            android:backgroundTint="@color/azul_general"
+            android:textColor="@color/blanco" />
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewFiltroNombre"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchLayout"
+        android:layout_marginTop="8dp"
+        tools:listitem="@layout/item_equipo" />
+
+    <TextView
+        android:id="@+id/txtNoResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No se encontraron resultados de ese nombre de equipo"
+        android:textSize="24sp"
+        android:textColor="@color/rojo_oscuro"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 </RelativeLayout>
