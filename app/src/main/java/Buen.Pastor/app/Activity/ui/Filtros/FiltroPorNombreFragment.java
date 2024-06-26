@@ -20,7 +20,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.List;
 import Buen.Pastor.app.Activity.ui.equipos.DetalleEquipoFragment;
-import Buen.Pastor.app.Activity.ui.equipos.ModificarFragment;
+import Buen.Pastor.app.Activity.ui.equipos.modificarequipo.ModificarFragment;
 import Buen.P.App.R;
 import Buen.Pastor.app.adapter.EquipoAdapter;
 import Buen.Pastor.app.entity.service.Equipment;

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Buen.Pastor.app.Activity.ui.docente.PagosDocentesFragment">
+    tools:context="Buen.Pastor.app.Activity.ui.pagos.PagosDocentesFragment">
 
     <!-- RecyclerView para la lista de pagos -->
     <androidx.recyclerview.widget.RecyclerView

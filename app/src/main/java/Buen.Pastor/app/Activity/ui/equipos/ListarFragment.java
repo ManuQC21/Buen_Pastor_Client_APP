@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import Buen.P.App.R;
+import Buen.Pastor.app.Activity.ui.equipos.modificarequipo.ModificarFragment;
 import Buen.Pastor.app.adapter.EquipoAdapter;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 import java.util.ArrayList;

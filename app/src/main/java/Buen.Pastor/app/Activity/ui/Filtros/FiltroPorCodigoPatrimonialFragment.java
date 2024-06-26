@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import Buen.Pastor.app.Activity.ui.equipos.DetalleEquipoFragment;
-import Buen.Pastor.app.Activity.ui.equipos.ModificarFragment;
 import Buen.P.App.R;
+import Buen.Pastor.app.Activity.ui.equipos.modificarequipo.ModificarFragment;
 import Buen.Pastor.app.adapter.EquipoAdapter;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 

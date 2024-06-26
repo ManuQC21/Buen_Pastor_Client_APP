@@ -1,12 +1,10 @@
-package Buen.Pastor.app.Activity.ui.docente;
+package Buen.Pastor.app.Activity.ui.docente.modificardocente;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +24,7 @@ import Buen.Pastor.app.Activity.InicioAdministrativoActivity;
 import Buen.P.App.R;
 import Buen.Pastor.app.entity.service.App.TeacherDTO;
 import Buen.Pastor.app.entity.service.Teacher;
+import Buen.Pastor.app.utils.DatePickerHelper;
 import Buen.Pastor.app.viewModel.DocenteViewModel;
 
 public class ModificarDocenteFragment extends Fragment {
@@ -66,7 +65,7 @@ public class ModificarDocenteFragment extends Fragment {
         ImageView btnVolverAtras = view.findViewById(R.id.btnVolverAtrasModificarDocente);
         btnVolverAtras.setOnClickListener(v -> getParentFragmentManager().popBackStack());
 
-        txtFechaContratacion.setOnClickListener(v -> mostrarDatePickerDialog());
+        txtFechaContratacion.setOnClickListener(v -> DatePickerHelper.mostrarDatePickerDialog(getContext(), txtFechaContratacion, calendar));
         btnModificarDocente.setOnClickListener(v -> modificarDocente());
 
         setupInputFilters();
@@ -76,7 +75,7 @@ public class ModificarDocenteFragment extends Fragment {
     }
 
     private void setupInputFilters() {
-        txtNombreCompleto.setFilters(new InputFilter[]{new InputFilter() {
+        InputFilter letraEspacioFilter = new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 for (int i = start; i < end; i++) {
@@ -86,34 +85,40 @@ public class ModificarDocenteFragment extends Fragment {
                 }
                 return null;
             }
-        }});
+        };
 
-        txtPosicion.setFilters(new InputFilter[]{new InputFilter() {
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                for (int i = start; i < end; i++) {
-                    if (!Character.isLetter(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
-                        return "";
-                    }
-                }
-                return null;
-            }
-        }});
-
+        txtNombreCompleto.setFilters(new InputFilter[]{letraEspacioFilter, new InputFilter.LengthFilter(50)});
+        txtPosicion.setFilters(new InputFilter[]{letraEspacioFilter, new InputFilter.LengthFilter(50)});
         txtDNI.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
-        txtTelefono.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
-        txtDireccion.setFilters(new InputFilter[]{new InputFilter() {
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                for (int i = start; i < end; i++) {
-                    if (!Character.isLetterOrDigit(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+        txtTelefono.setFilters(new InputFilter[]{
+                new InputFilter.LengthFilter(9),
+                (source, start, end, dest, dstart, dend) -> {
+                    if (dstart == 0 && source.length() > 0 && source.charAt(0) != '9') {
                         return "";
                     }
+                    for (int i = start; i < end; i++) {
+                        if (!Character.isDigit(source.charAt(i))) {
+                            return "";
+                        }
+                    }
+                    return null;
                 }
-                return null;
-            }
-        }});
+        });
+        txtDireccion.setFilters(new InputFilter[]{
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                        for (int i = start; i < end; i++) {
+                            if (!Character.isLetterOrDigit(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+                                return "";
+                            }
+                        }
+                        return null;
+                    }
+                }, new InputFilter.LengthFilter(100)
+        });
     }
+
 
     private void cargarDatosDocente() {
         if (docenteId != -1) {
@@ -146,17 +151,6 @@ public class ModificarDocenteFragment extends Fragment {
         }
     }
 
-    private void mostrarDatePickerDialog() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, month);
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-            txtFechaContratacion.setText(sdf.format(calendar.getTime()));
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
-
     private void modificarDocente() {
         String nombreCompleto = txtNombreCompleto.getText().toString();
         String posicion = txtPosicion.getText().toString();
@@ -166,7 +160,7 @@ public class ModificarDocenteFragment extends Fragment {
         String direccion = txtDireccion.getText().toString();
         String fechaContratacion = txtFechaContratacion.getText().toString();
 
-        if (!validarCampos(nombreCompleto, posicion, dni, email, telefono, direccion)) {
+        if (!ModificarDocenteValidationHelper.validarEntradas(getContext(), txtNombreCompleto, txtPosicion, txtDNI, txtEmail, txtTelefono, txtDireccion, txtFechaContratacion)) {
             return;
         }
 
@@ -195,30 +189,6 @@ public class ModificarDocenteFragment extends Fragment {
                 Toast.makeText(getContext(), "Error al modificar docente", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private boolean validarCampos(String nombreCompleto, String posicion, String dni, String email, String telefono, String direccion) {
-        if (nombreCompleto.isEmpty() || posicion.isEmpty() || dni.isEmpty() || email.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
-            Toast.makeText(getContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (!dni.matches("\\d{8}")) {
-            Toast.makeText(getContext(), "El DNI debe tener 8 dígitos", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(getContext(), "Formato de correo inválido", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (!telefono.matches("\\d{9}")) {
-            Toast.makeText(getContext(), "El teléfono debe tener 9 dígitos", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
     }
 
     private void limpiarCampos() {

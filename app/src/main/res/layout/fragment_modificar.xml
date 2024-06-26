@@ -108,7 +108,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtFechaCompraModificar"
+                android:id="@+id/txtFechaCompraLayoutModificar"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -189,6 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -224,7 +225,6 @@
                     android:clickable="true"
                     android:cursorVisible="false" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <!-- Botón para modificar el tipo de equipo -->
             <Button

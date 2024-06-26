@@ -30,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import Buen.P.App.R;
+import Buen.Pastor.app.Activity.ui.equipos.agregarequipo.AgregarFragment;
 import Buen.Pastor.app.entity.service.Member;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import Buen.Pastor.app.Activity.ui.Filtros.EscanearCodigoBarrasFragment;

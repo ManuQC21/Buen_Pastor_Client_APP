@@ -34,7 +34,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import Buen.P.App.R;
-import Buen.Pastor.app.Activity.ui.docente.AgregarDocenteFragment;
+import Buen.Pastor.app.Activity.ui.docente.agregardocente.AgregarDocenteFragment;
 import Buen.Pastor.app.Activity.ui.docente.ListarDocentesFragment;
 import Buen.Pastor.app.Activity.ui.pagos.AgregarPagoFragment;
 import Buen.Pastor.app.Activity.ui.pagos.ListarPagosFragment;

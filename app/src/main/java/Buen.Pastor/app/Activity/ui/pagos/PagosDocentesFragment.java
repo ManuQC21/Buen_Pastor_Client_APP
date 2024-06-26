@@ -1,4 +1,4 @@
-package Buen.Pastor.app.Activity.ui.docente;
+package Buen.Pastor.app.Activity.ui.pagos;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import Buen.P.App.R;
 import Buen.Pastor.app.adapter.PagosDocentesAdapter;
 import Buen.Pastor.app.viewModel.PagoViewModel;
-import Buen.Pastor.app.entity.service.App.TeacherPaymentDTO;
 
 public class PagosDocentesFragment extends Fragment {
 

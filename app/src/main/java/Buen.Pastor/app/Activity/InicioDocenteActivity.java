@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import Buen.P.App.R;
 import Buen.Pastor.app.Activity.ui.docente.NotificacionesDocentesFragment;
-import Buen.Pastor.app.Activity.ui.docente.PagosDocentesFragment;
+import Buen.Pastor.app.Activity.ui.pagos.PagosDocentesFragment;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class InicioDocenteActivity extends AppCompatActivity {

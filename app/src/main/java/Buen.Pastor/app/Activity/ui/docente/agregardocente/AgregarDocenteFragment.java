@@ -1,26 +1,21 @@
-package Buen.Pastor.app.Activity.ui.docente;
+package Buen.Pastor.app.Activity.ui.docente.agregardocente;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
-import Buen.P.App.R;
 import Buen.P.App.databinding.FragmentAgregarDocenteBinding;
 import Buen.Pastor.app.entity.service.Member;
 import Buen.Pastor.app.entity.service.Teacher;
+import Buen.Pastor.app.utils.DatePickerHelper;
 import Buen.Pastor.app.viewModel.DocenteViewModel;
 import Buen.Pastor.app.viewModel.UsuarioViewModel;
 
@@ -28,6 +23,7 @@ public class AgregarDocenteFragment extends Fragment {
     private FragmentAgregarDocenteBinding binding;
     private DocenteViewModel docenteViewModel;
     private UsuarioViewModel usuarioViewModel;
+    private final Calendar calendar = Calendar.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,12 +39,12 @@ public class AgregarDocenteFragment extends Fragment {
         binding.btnVolverAtras.setOnClickListener(v -> getParentFragmentManager().popBackStack());
         binding.btnAgregarDocente.setOnClickListener(v -> agregarDocente());
 
-        View.OnClickListener dateClickListener = v -> mostrarDatePickerDialog();
+        View.OnClickListener dateClickListener = v -> DatePickerHelper.mostrarDatePickerDialog(getContext(), binding.txtFechaContratacion, calendar);
         binding.txtFechaContratacionLayout.setEndIconOnClickListener(dateClickListener);
         binding.txtFechaContratacion.setOnClickListener(dateClickListener);
 
         // Filtros de validación
-        binding.txtNombreCompleto.setFilters(new InputFilter[]{new InputFilter() {
+        InputFilter letraEspacioFilter = new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 for (int i = start; i < end; i++) {
@@ -58,43 +54,40 @@ public class AgregarDocenteFragment extends Fragment {
                 }
                 return null;
             }
-        }});
+        };
 
-        binding.txtPosicion.setFilters(new InputFilter[]{new InputFilter() {
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                for (int i = start; i < end; i++) {
-                    if (!Character.isLetter(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
-                        return "";
-                    }
-                }
-                return null;
-            }
-        }});
-
+        binding.txtNombreCompleto.setFilters(new InputFilter[]{letraEspacioFilter, new InputFilter.LengthFilter(50)});
+        binding.txtPosicion.setFilters(new InputFilter[]{letraEspacioFilter, new InputFilter.LengthFilter(50)});
         binding.txtDNI.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
-        binding.txtTelefono.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
-        binding.txtDireccion.setFilters(new InputFilter[]{new InputFilter() {
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                for (int i = start; i < end; i++) {
-                    if (!Character.isLetterOrDigit(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+        binding.txtTelefono.setFilters(new InputFilter[]{
+                new InputFilter.LengthFilter(9),
+                (source, start, end, dest, dstart, dend) -> {
+                    if (dstart == 0 && source.length() > 0 && source.charAt(0) != '9') {
                         return "";
                     }
+                    for (int i = start; i < end; i++) {
+                        if (!Character.isDigit(source.charAt(i))) {
+                            return "";
+                        }
+                    }
+                    return null;
                 }
-                return null;
-            }
-        }});
+        });
+        binding.txtDireccion.setFilters(new InputFilter[]{
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                        for (int i = start; i < end; i++) {
+                            if (!Character.isLetterOrDigit(source.charAt(i)) && !Character.isWhitespace(source.charAt(i))) {
+                                return "";
+                            }
+                        }
+                        return null;
+                    }
+                }, new InputFilter.LengthFilter(100)
+        });
     }
 
-    private void mostrarDatePickerDialog() {
-        Calendar calendar = Calendar.getInstance();
-        new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
-            calendar.set(year, month, dayOfMonth);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-            binding.txtFechaContratacion.setText(dateFormat.format(calendar.getTime()));
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
 
     private void agregarDocente() {
         String nombreCompleto = binding.txtNombreCompleto.getText().toString();
@@ -106,7 +99,7 @@ public class AgregarDocenteFragment extends Fragment {
         String fechaContratacion = binding.txtFechaContratacion.getText().toString();
         boolean activo = binding.checkboxActivo.isChecked();
 
-        if (!validarCampos(nombreCompleto, posicion, dni, email, telefono, direccion)) {
+        if (!AgregarDocenteValidationHelper.validarEntradas(getContext(), binding.txtNombreCompleto, binding.txtPosicion, binding.txtDNI, binding.txtEmail, binding.txtTelefono, binding.txtDireccion, binding.txtFechaContratacion, binding.txtContrasena)) {
             return;
         }
 
@@ -122,30 +115,6 @@ public class AgregarDocenteFragment extends Fragment {
                 Toast.makeText(getContext(), "Error al agregar docente: " + response.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private boolean validarCampos(String nombreCompleto, String posicion, String dni, String email, String telefono, String direccion) {
-        if (nombreCompleto.isEmpty() || posicion.isEmpty() || dni.isEmpty() || email.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
-            Toast.makeText(getContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (!dni.matches("\\d{8}")) {
-            Toast.makeText(getContext(), "El DNI debe tener 8 dígitos", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(getContext(), "Formato de correo inválido", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (!telefono.matches("\\d{9}")) {
-            Toast.makeText(getContext(), "El teléfono debe tener 9 dígitos", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
     }
 
     private void registrarUsuario(int teacherId) {
