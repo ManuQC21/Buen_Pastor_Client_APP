@@ -33,7 +33,7 @@ import Buen.P.App.R;
 import Buen.Pastor.app.Activity.ui.equipos.agregarequipo.AgregarFragment;
 import Buen.Pastor.app.entity.service.Member;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import Buen.Pastor.app.Activity.ui.Filtros.EscanearCodigoBarrasFragment;
+import Buen.Pastor.app.Activity.ui.Filtros.escaneo.EscanearCodigoBarrasFragment;
 import Buen.Pastor.app.Activity.ui.Filtros.FiltroPorCodigoPatrimonialFragment;
 import Buen.Pastor.app.Activity.ui.Filtros.FiltroPorFechasFragment;
 import Buen.Pastor.app.Activity.ui.Filtros.FiltroPorNombreFragment;

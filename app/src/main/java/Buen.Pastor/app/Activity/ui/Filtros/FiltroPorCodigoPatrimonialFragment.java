@@ -2,25 +2,30 @@ package Buen.Pastor.app.Activity.ui.Filtros;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
+import java.util.List;
+
 import Buen.Pastor.app.Activity.ui.equipos.DetalleEquipoFragment;
 import Buen.P.App.R;
 import Buen.Pastor.app.Activity.ui.equipos.modificarequipo.ModificarFragment;
 import Buen.Pastor.app.adapter.EquipoAdapter;
+import Buen.Pastor.app.entity.service.Equipment;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 
 public class FiltroPorCodigoPatrimonialFragment extends Fragment {
@@ -29,11 +34,15 @@ public class FiltroPorCodigoPatrimonialFragment extends Fragment {
     private RecyclerView recyclerView;
     private EquipoAdapter equipoAdapter;
     private TextInputEditText edtBuscarCodigoPatrimonial;
+    private Button btnBuscarCodigo;
+    private TextView txtNoResultsCodigo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filtro_por_codigo_patrimonial, container, false);
         edtBuscarCodigoPatrimonial = view.findViewById(R.id.edtBuscarCodigoPatrimonial);
+        btnBuscarCodigo = view.findViewById(R.id.btnBuscarCodigo);
+        txtNoResultsCodigo = view.findViewById(R.id.txtNoResultsCodigo);
         recyclerView = view.findViewById(R.id.recyclerViewFiltroCodigoPatrimonial);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ImageView btnVolverAtras = view.findViewById(R.id.btnVolverAtras);
@@ -41,7 +50,6 @@ public class FiltroPorCodigoPatrimonialFragment extends Fragment {
         equipoAdapter = new EquipoAdapter(new ArrayList<>(), new EquipoAdapter.OnItemClickListener() {
             @Override
             public void onEditClick(int equipoId) {
-                Log.d("ListarFragment", "Edit clicked for ID: " + equipoId);
                 ModificarFragment modificarFragment = new ModificarFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("equipoId", equipoId);
@@ -91,33 +99,43 @@ public class FiltroPorCodigoPatrimonialFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(equipoAdapter);
-        setupEditText();
+        setupListeners();
         return view;
     }
 
-    private void setupEditText() {
-        edtBuscarCodigoPatrimonial.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    private void setupListeners() {
+        // Filtro para permitir solo números en el campo de texto
+        edtBuscarCodigoPatrimonial.setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
+            for (int i = start; i < end; i++) {
+                if (!Character.isDigit(source.charAt(i))) {
+                    return "";
+                }
             }
+            return null;
+        }});
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                equipoViewModel.filtroCodigoPatrimonial(s.toString()).observe(getViewLifecycleOwner(), response -> {
-                    if (response != null && response.getBody() != null) {
-                        equipoAdapter.updateData(response.getBody());
-                    }
-                });
-            }
+        btnBuscarCodigo.setOnClickListener(v -> filterEquipments(edtBuscarCodigoPatrimonial.getText().toString()));
+    }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+    private void filterEquipments(String query) {
+        equipoViewModel.filtroCodigoPatrimonial(query).observe(getViewLifecycleOwner(), response -> {
+            if (response != null && response.getBody() != null) {
+                List<Equipment> filteredList = response.getBody();
+                if (filteredList.isEmpty()) {
+                    txtNoResultsCodigo.setVisibility(View.VISIBLE);
+                } else {
+                    txtNoResultsCodigo.setVisibility(View.GONE);
+                }
+                equipoAdapter.updateData(filteredList);
+            } else {
+                txtNoResultsCodigo.setVisibility(View.VISIBLE);
+                equipoAdapter.updateData(new ArrayList<>());
             }
         });
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         equipoViewModel = new ViewModelProvider(this).get(EquipoViewModel.class);
 

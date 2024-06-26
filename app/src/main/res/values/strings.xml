@@ -16,7 +16,7 @@
     <string name="label_start_session">Iniciar Sesión</string>
     <string name="action_settings">Cerrar Sesión</string>
     <string name="logout_icon">Cerrar Sesión</string>
-
+    <string name="ok">OK</string>
     <!-- Inventario -->
     <string name="gestion_de_inventario_buen_pastor">Gestión de Inventario Buen Pastor</string>
     <string name="Agregar_productos">Agregar Productos</string>
@@ -185,5 +185,6 @@
     <string name="notificaciones">Mis Notificaciones</string>
     <string name="check">Check</string>
     <string name="verificar">Verificar</string>
+    <string name="buscar">Buscar</string>
 
 </resources>

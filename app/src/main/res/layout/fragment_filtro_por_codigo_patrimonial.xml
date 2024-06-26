@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background_general">
 
     <androidx.appcompat.widget.Toolbar
@@ -35,7 +34,6 @@
                 android:text="@string/buscar_por_codigo_patrimonial"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:textColor="@color/blanco"
-                android:textSize="18sp"
                 android:layout_weight="1" />
 
             <ImageView
@@ -48,16 +46,17 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/linearLayoutFiltroCodigo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_below="@id/toolbarFiltroPorCodigoPatrimonial">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutBuscarCodigo"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:hint="@string/codigo_patrimonial"
             app:startIconDrawable="@drawable/ic_search"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -68,15 +67,40 @@
                 android:id="@+id/edtBuscarCodigoPatrimonial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnBuscarCodigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/buscar"
+            android:backgroundTint="@color/azul_general"
+            android:textColor="@color/blanco"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linearLayoutFiltroCodigo">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFiltroCodigoPatrimonial"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="16dp"
+            android:layout_height="match_parent"
             tools:listitem="@layout/item_equipo" />
-    </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/txtNoResultsCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No se encontraron resultados para el código patrimonial"
+        android:textSize="18sp"
+        android:textColor="@color/rojo_oscuro"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
 </RelativeLayout>
