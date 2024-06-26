@@ -1,6 +1,5 @@
-package Buen.Pastor.app.Activity.ui.pagos;
+package Buen.Pastor.app.Activity.ui.pagos.agregarpago;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -21,15 +20,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import Buen.P.App.R;
 import Buen.Pastor.app.entity.service.Teacher;
 import Buen.Pastor.app.entity.service.TeacherPayment;
+import Buen.Pastor.app.utils.DatePickerHelper;
 import Buen.Pastor.app.viewModel.DocenteViewModel;
 import Buen.Pastor.app.viewModel.PagoViewModel;
-
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import Buen.Pastor.app.entity.service.App.TeacherDTO;
 
 public class AgregarPagoFragment extends Fragment {
@@ -69,7 +66,7 @@ public class AgregarPagoFragment extends Fragment {
         ImageView btnVolverAtras = view.findViewById(R.id.btnVolverAtras);
         btnVolverAtras.setOnClickListener(v -> getParentFragmentManager().popBackStack());
 
-        edtFechaPago.setOnClickListener(v -> mostrarDatePickerDialog());
+        edtFechaPago.setOnClickListener(v -> DatePickerHelper.mostrarDatePickerDialog(getContext(), edtFechaPago, calendar));
 
         btnAgregarPago.setOnClickListener(v -> agregarPago());
 
@@ -78,12 +75,10 @@ public class AgregarPagoFragment extends Fragment {
             private boolean isEditing = false;
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -146,20 +141,8 @@ public class AgregarPagoFragment extends Fragment {
         dropdownNivelEducacion.setAdapter(adapter);
     }
 
-    private void mostrarDatePickerDialog() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, month);
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-            edtFechaPago.setText(sdf.format(calendar.getTime()));
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
-
     private void agregarPago() {
-        if (txtReferenciaPago.getText().toString().isEmpty() || txtDiasTrabajo.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+        if (!AgregarPagoValidationHelper.validarEntradas(getContext(), txtMonto, edtFechaPago, txtReferenciaPago, txtDiasTrabajo)) {
             return;
         }
 

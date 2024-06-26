@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import Buen.P.App.R;
+import Buen.Pastor.app.Activity.ui.pagos.modificarpago.ModificarPagoFragment;
 import Buen.Pastor.app.adapter.PagosAdapter;
 import Buen.Pastor.app.viewModel.NotificacionesViewModel;
 import Buen.Pastor.app.viewModel.PagoViewModel;

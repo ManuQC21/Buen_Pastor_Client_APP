@@ -1,4 +1,4 @@
-package Buen.Pastor.app.Activity.ui.pagos;
+package Buen.Pastor.app.Activity.ui.pagos.modificarpago;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -15,23 +15,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 import Buen.P.App.R;
-import Buen.Pastor.app.entity.BestGenericResponse;
+import Buen.Pastor.app.Activity.ui.pagos.agregarpago.InputFilterMinMax;
+import Buen.Pastor.app.utils.DatePickerHelper;
+import Buen.Pastor.app.entity.service.App.TeacherDTO;
 import Buen.Pastor.app.entity.service.App.TeacherPaymentDTO;
 import Buen.Pastor.app.entity.service.Teacher;
 import Buen.Pastor.app.entity.service.TeacherPayment;
-import Buen.Pastor.app.viewModel.PagoViewModel;
 import Buen.Pastor.app.viewModel.DocenteViewModel;
-import Buen.Pastor.app.entity.service.App.TeacherDTO;
+import Buen.Pastor.app.viewModel.PagoViewModel;
 
 public class ModificarPagoFragment extends Fragment {
 
@@ -45,6 +43,7 @@ public class ModificarPagoFragment extends Fragment {
     private int pagoId;
     private TeacherPaymentDTO currentPago;
     private List<TeacherDTO> docentes;
+    private final Calendar calendar = Calendar.getInstance();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,36 +96,16 @@ public class ModificarPagoFragment extends Fragment {
         }});
 
         // Agregar filtro de entrada para días trabajados
-        txtDiasTrabajadosModificar.setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
-            try {
-                // Concatenar la nueva entrada con el contenido existente
-                String result = dest.subSequence(0, dstart).toString() + source.toString() + dest.subSequence(dend, dest.length()).toString();
-                int input = Integer.parseInt(result);
-                if (input >= 1 && input <= 31) {
-                    return null;
-                }
-            } catch (NumberFormatException nfe) {
-                // No hacer nada
-            }
-            return "";
-        }});
+        txtDiasTrabajadosModificar.setFilters(new InputFilter[]{new InputFilterMinMax("1", "31")});
     }
 
     private void setupListeners() {
-        txtFechaPagoModificar.setOnClickListener(v -> showDatePickerDialog());
+        txtFechaPagoModificar.setOnClickListener(v -> DatePickerHelper.mostrarDatePickerDialog(getContext(), txtFechaPagoModificar, calendar));
         btnModificarPago.setOnClickListener(v -> {
             if (validarCampos()) {
                 modificarPago();
             }
         });
-    }
-
-    private void showDatePickerDialog() {
-        final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
-            txtFechaPagoModificar.setText(String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year));
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
     }
 
     private void loadPagoDetails() {
@@ -206,26 +185,6 @@ public class ModificarPagoFragment extends Fragment {
     }
 
     private boolean validarCampos() {
-        String referenciaPago = txtReferenciaPagoModificar.getText().toString();
-        String diasTrabajados = txtDiasTrabajadosModificar.getText().toString();
-
-        if (!referenciaPago.matches("[a-zA-Z ]+")) {
-            Toast.makeText(getContext(), "La referencia de pago solo debe contener letras y espacios", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        int dias;
-        try {
-            dias = Integer.parseInt(diasTrabajados);
-            if (dias < 1 || dias > 31) {
-                Toast.makeText(getContext(), "Los días trabajados deben estar entre 1 y 31", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            Toast.makeText(getContext(), "Los días trabajados deben ser un número válido", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
+        return ModificarPagoValidationHelper.validarEntradas(getContext(), txtMontoModificar, txtFechaPagoModificar, txtReferenciaPagoModificar, txtDiasTrabajadosModificar);
     }
 }

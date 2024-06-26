@@ -27,7 +27,7 @@ public class AgregarDocenteValidationHelper {
             return false;
         }
         if (txtPosicion.getText().toString().length() < 4) {
-            Toast.makeText(context, "La Posición debe tener al menos 4 caracteres", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "La Cargo debe tener al menos 4 caracteres", Toast.LENGTH_SHORT).show();
             return false;
         }
 

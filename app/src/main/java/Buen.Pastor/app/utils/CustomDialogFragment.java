@@ -1,4 +1,4 @@
-package Buen.Pastor.app.Activity.ui.Filtros;
+package Buen.Pastor.app.utils;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;

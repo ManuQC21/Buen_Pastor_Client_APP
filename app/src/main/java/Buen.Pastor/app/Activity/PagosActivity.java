@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,29 +14,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import Buen.P.App.R;
 import Buen.Pastor.app.Activity.ui.docente.agregardocente.AgregarDocenteFragment;
 import Buen.Pastor.app.Activity.ui.docente.ListarDocentesFragment;
-import Buen.Pastor.app.Activity.ui.pagos.AgregarPagoFragment;
 import Buen.Pastor.app.Activity.ui.pagos.ListarPagosFragment;
+import Buen.Pastor.app.Activity.ui.pagos.agregarpago.AgregarPagoFragment;
 import Buen.Pastor.app.viewModel.PagoViewModel;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.ResponseBody;

@@ -1,20 +1,19 @@
-package Buen.Pastor.app.Activity.ui.pagos;
+package Buen.Pastor.app.Activity.ui.pagos.agregarpago;
 
 import android.text.InputFilter;
 import android.text.Spanned;
 
 public class InputFilterMinMax implements InputFilter {
-
     private int min, max;
-
-    public InputFilterMinMax(int min, int max) {
-        this.min = min;
-        this.max = max;
-    }
 
     public InputFilterMinMax(String min, String max) {
         this.min = Integer.parseInt(min);
         this.max = Integer.parseInt(max);
+    }
+
+    public InputFilterMinMax(int min, int max) {
+        this.min = min;
+        this.max = max;
     }
 
     @Override
@@ -24,12 +23,11 @@ public class InputFilterMinMax implements InputFilter {
             if (isInRange(min, max, input)) {
                 return null;
             }
-        } catch (NumberFormatException nfe) {
-        }
+        } catch (NumberFormatException nfe) { }
         return "";
     }
 
-    private boolean isInRange(int a, int b, int c) {
-        return b > a ? c >= a && c <= b : c >= b && c <= a;
+    private boolean isInRange(int min, int max, int input) {
+        return max > min ? input >= min && input <= max : input >= max && input <= min;
     }
 }
