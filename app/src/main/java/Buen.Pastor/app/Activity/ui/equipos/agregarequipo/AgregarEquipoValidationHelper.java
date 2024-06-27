@@ -30,8 +30,8 @@ public class AgregarEquipoValidationHelper {
         }
 
         // Validación de la marca
-        if (txtMarca.getText().toString().isEmpty() || txtMarca.getText().toString().length() < 4) {
-            Toast.makeText(context, "La Marca es obligatoria y debe tener al menos 4 caracteres", Toast.LENGTH_SHORT).show();
+        if (txtMarca.getText().toString().isEmpty() || txtMarca.getText().toString().length() < 2) {
+            Toast.makeText(context, "La Marca es obligatoria y debe tener al menos 2 caracteres", Toast.LENGTH_SHORT).show();
             return false;
         }
 

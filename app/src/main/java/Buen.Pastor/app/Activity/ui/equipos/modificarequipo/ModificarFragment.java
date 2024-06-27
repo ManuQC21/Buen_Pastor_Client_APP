@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import Buen.P.App.R;
 import Buen.P.App.databinding.FragmentModificarBinding;
+import Buen.Pastor.app.utils.DatePickerHelper;
 import Buen.Pastor.app.viewModel.DocenteViewModel;
 import Buen.Pastor.app.viewModel.EquipoViewModel;
 import Buen.Pastor.app.viewModel.UbicacionViewModel;
@@ -50,7 +51,7 @@ public class ModificarFragment extends Fragment {
         setupUI(view);
         cargarDatosEquipo();
         ModificarEquipoHelper.configurarValidaciones(txtTipoEquipo, txtDescripcion, txtMarca, txtModelo, txtNombreDeEquipo, txtNumeroDeOrden, txtNumeroDeSerie);
-        edtFechaCompra.setOnClickListener(v -> mostrarDatePickerDialog());
+        edtFechaCompra.setOnClickListener(v -> DatePickerHelper.mostrarDatePickerDialog(getContext(), edtFechaCompra, calendar));
         btnModificarEquipo.setOnClickListener(v -> modificarEquipo());
         ModificarEquipoViewModelHelper.cargarResponsables(getContext(), docenteViewModel, getViewLifecycleOwner(), dropdownResponsable);
         ModificarEquipoViewModelHelper.cargarUbicaciones(getContext(), ubicacionViewModel, getViewLifecycleOwner(), dropdownUbicacion);

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextWatcher;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,7 +109,36 @@ public class FiltroPorNombreFragment extends Fragment {
     }
 
     private void setupListeners() {
-        btnBuscar.setOnClickListener(v -> filterEquipments(edtBuscarNombre.getText().toString()));
+        edtBuscarNombre.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No se necesita implementar
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // No se necesita implementar
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().isEmpty()) {
+                    // Si el campo de búsqueda está vacío, listar todos los equipos
+                    equipoViewModel.listAllEquipos().observe(getViewLifecycleOwner(), response -> {
+                        if (response != null && response.getBody() != null) {
+                            allEquipments = response.getBody();
+                            equipoAdapter.updateData(allEquipments);
+                            txtNoResults.setVisibility(allEquipments.isEmpty() ? View.VISIBLE : View.GONE);
+                        } else {
+                            txtNoResults.setVisibility(View.VISIBLE);
+                            equipoAdapter.updateData(new ArrayList<>());
+                        }
+                    });
+                }
+            }
+        });
+
+        btnBuscar.setOnClickListener(v -> filterEquipments(edtBuscarNombre.getText().toString().trim()));
     }
 
     private void filterEquipments(String query) {
