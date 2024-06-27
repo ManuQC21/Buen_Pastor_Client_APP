@@ -2,7 +2,6 @@ package Buen.Pastor.app.Activity.ui.docente.modificardocente;
 
 import android.content.Context;
 import android.util.Patterns;
-import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class ModificarDocenteValidationHelper {
@@ -13,67 +12,80 @@ public class ModificarDocenteValidationHelper {
 
         // Validación del nombre completo
         if (txtNombreCompleto.getText().toString().isEmpty()) {
-            Toast.makeText(context, "El campo Nombre Completo es obligatorio", Toast.LENGTH_SHORT).show();
+            txtNombreCompleto.setError("El campo Nombre Completo es obligatorio");
+            txtNombreCompleto.requestFocus();
             return false;
         }
-        if (txtNombreCompleto.getText().toString().length() < 4) {
-            Toast.makeText(context, "El Nombre Completo debe tener al menos 4 caracteres", Toast.LENGTH_SHORT).show();
+        if (txtNombreCompleto.getText().toString().length() < 8) {
+            txtNombreCompleto.setError("El Nombre Completo debe tener al menos 8 caracteres");
+            txtNombreCompleto.requestFocus();
             return false;
         }
 
         // Validación de la posición
         if (txtPosicion.getText().toString().isEmpty()) {
-            Toast.makeText(context, "El campo Posición es obligatorio", Toast.LENGTH_SHORT).show();
+            txtPosicion.setError("El campo Posición es obligatorio");
+            txtPosicion.requestFocus();
             return false;
         }
         if (txtPosicion.getText().toString().length() < 4) {
-            Toast.makeText(context, "La Cargo debe tener al menos 4 caracteres", Toast.LENGTH_SHORT).show();
+            txtPosicion.setError("El Cargo debe tener al menos 4 caracteres");
+            txtPosicion.requestFocus();
             return false;
         }
 
         // Validación del DNI
         if (txtDNI.getText().toString().isEmpty()) {
-            Toast.makeText(context, "El campo DNI es obligatorio", Toast.LENGTH_SHORT).show();
+            txtDNI.setError("El campo DNI es obligatorio");
+            txtDNI.requestFocus();
             return false;
         }
         if (!txtDNI.getText().toString().matches("\\d{8}")) {
-            Toast.makeText(context, "El DNI debe tener 8 dígitos", Toast.LENGTH_SHORT).show();
+            txtDNI.setError("El DNI debe tener 8 dígitos");
+            txtDNI.requestFocus();
             return false;
         }
 
         // Validación del correo electrónico
         if (txtEmail.getText().toString().isEmpty()) {
-            Toast.makeText(context, "El campo Email es obligatorio", Toast.LENGTH_SHORT).show();
+            txtEmail.setError("El campo Email es obligatorio");
+            txtEmail.requestFocus();
             return false;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(txtEmail.getText().toString()).matches()) {
-            Toast.makeText(context, "Formato de correo inválido", Toast.LENGTH_SHORT).show();
+            txtEmail.setError("Formato de correo inválido");
+            txtEmail.requestFocus();
             return false;
         }
 
-// Validación del teléfono
+        // Validación del teléfono
         if (txtTelefono.getText().toString().isEmpty()) {
-            Toast.makeText(context, "El campo Teléfono es obligatorio", Toast.LENGTH_SHORT).show();
+            txtTelefono.setError("El campo Teléfono es obligatorio");
+            txtTelefono.requestFocus();
             return false;
         }
         if (!txtTelefono.getText().toString().matches("9\\d{8}")) {
-            Toast.makeText(context, "El Teléfono debe comenzar con 9 y tener 9 dígitos", Toast.LENGTH_SHORT).show();
+            txtTelefono.setError("El Teléfono debe comenzar con 9 y tener 9 dígitos");
+            txtTelefono.requestFocus();
             return false;
         }
 
         // Validación de la dirección
         if (txtDireccion.getText().toString().isEmpty()) {
-            Toast.makeText(context, "El campo Dirección es obligatorio", Toast.LENGTH_SHORT).show();
+            txtDireccion.setError("El campo Dirección es obligatorio");
+            txtDireccion.requestFocus();
             return false;
         }
         if (txtDireccion.getText().toString().length() < 4) {
-            Toast.makeText(context, "La Dirección debe tener al menos 4 caracteres", Toast.LENGTH_SHORT).show();
+            txtDireccion.setError("La Dirección debe tener al menos 4 caracteres");
+            txtDireccion.requestFocus();
             return false;
         }
 
         // Validación de la fecha de contratación
         if (txtFechaContratacion.getText().toString().isEmpty()) {
-            Toast.makeText(context, "El campo Fecha de Contratación es obligatorio", Toast.LENGTH_SHORT).show();
+            txtFechaContratacion.setError("El campo Fecha de Contratación es obligatorio");
+            txtFechaContratacion.requestFocus();
             return false;
         }
 
