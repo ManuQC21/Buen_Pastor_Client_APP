@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
 import java.util.List;
 
 public class PagoRepository {
@@ -32,13 +33,18 @@ public class PagoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al agregar el pago", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<BestGenericResponse<TeacherPayment>> call, Throwable t) {
-                liveData.setValue(new BestGenericResponse<>(null, -1, t.getMessage(), null));
+                liveData.setValue(new BestGenericResponse<>(null, -1, "Fallo en la conexión: " + t.getMessage(), null));
             }
         });
         return liveData;
@@ -53,13 +59,18 @@ public class PagoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al editar el pago", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<BestGenericResponse<TeacherPayment>> call, Throwable t) {
-                liveData.setValue(new BestGenericResponse<>(null, -1, t.getMessage(), null));
+                liveData.setValue(new BestGenericResponse<>(null, -1, "Fallo en la conexión: " + t.getMessage(), null));
             }
         });
         return liveData;
@@ -74,13 +85,18 @@ public class PagoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al eliminar el pago", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<BestGenericResponse<Void>> call, Throwable t) {
-                liveData.setValue(new BestGenericResponse<>(null, -1, t.getMessage(), null));
+                liveData.setValue(new BestGenericResponse<>(null, -1, "Fallo en la conexión: " + t.getMessage(), null));
             }
         });
         return liveData;
@@ -95,13 +111,18 @@ public class PagoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al listar los pagos", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<BestGenericResponse<List<TeacherPaymentDTO>>> call, Throwable t) {
-                liveData.setValue(new BestGenericResponse<>(null, -1, t.getMessage(), null));
+                liveData.setValue(new BestGenericResponse<>(null, -1, "Fallo en la conexión: " + t.getMessage(), null));
             }
         });
         return liveData;
@@ -148,8 +169,8 @@ public class PagoRepository {
         });
         return liveData;
     }
-    // Método para obtener la lista de pagos de un docente específico
 
+    // Método para obtener la lista de pagos de un docente específico
     public LiveData<BestGenericResponse<List<TeacherPaymentDTO>>> listarPagosPorDocenteId(int teacherId) {
         MutableLiveData<BestGenericResponse<List<TeacherPaymentDTO>>> liveData = new MutableLiveData<>();
         pagosApi.listarPagosPorDocenteId(teacherId).enqueue(new Callback<BestGenericResponse<List<TeacherPaymentDTO>>>() {
@@ -158,17 +179,23 @@ public class PagoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al obtener pagos del docente", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<BestGenericResponse<List<TeacherPaymentDTO>>> call, Throwable t) {
-                liveData.setValue(new BestGenericResponse<>(null, -1, t.getMessage(), null));
+                liveData.setValue(new BestGenericResponse<>(null, -1, "Fallo en la conexión: " + t.getMessage(), null));
             }
         });
         return liveData;
     }
+
     public LiveData<BestGenericResponse<TeacherPaymentDTO>> obtenerPagoPorId(int id) {
         final MutableLiveData<BestGenericResponse<TeacherPaymentDTO>> data = new MutableLiveData<>();
         pagosApi.obtenerPagoPorId(id).enqueue(new Callback<BestGenericResponse<TeacherPaymentDTO>>() {
@@ -177,16 +204,20 @@ public class PagoRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     data.setValue(response.body());
                 } else {
-                    data.setValue(new BestGenericResponse<>(Global.TIPO_ERROR, Global.RPTA_ERROR, "Error al obtener el pago", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        data.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        data.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<BestGenericResponse<TeacherPaymentDTO>> call, Throwable t) {
-                data.setValue(new BestGenericResponse<>(Global.TIPO_ERROR, Global.RPTA_ERROR, "Error al obtener el pago", null));
+                data.setValue(new BestGenericResponse<>(null, -1, "Error al obtener el pago: " + t.getMessage(), null));
             }
         });
         return data;
     }
-
 }

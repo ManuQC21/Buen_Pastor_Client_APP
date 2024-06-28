@@ -7,6 +7,8 @@ import Buen.Pastor.app.api.EquipoApi;
 import Buen.Pastor.app.entity.BestGenericResponse;
 import Buen.Pastor.app.entity.Global;
 import Buen.Pastor.app.entity.service.Equipment;
+
+import java.io.IOException;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -32,7 +34,13 @@ public class EquipoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al agregar equipo", null));
+                    try {
+                        // Convertir el error en un mensaje legible
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
@@ -53,7 +61,12 @@ public class EquipoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al modificar equipo", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
@@ -74,7 +87,12 @@ public class EquipoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al eliminar equipo", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
@@ -95,7 +113,12 @@ public class EquipoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al listar equipos", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
@@ -106,6 +129,7 @@ public class EquipoRepository {
         });
         return liveData;
     }
+
     // Obtener un equipo por su ID
     public LiveData<BestGenericResponse<Equipment>> getEquipoById(Integer id) {
         MutableLiveData<BestGenericResponse<Equipment>> liveData = new MutableLiveData<>();
@@ -115,7 +139,12 @@ public class EquipoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al obtener detalles del equipo", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
@@ -136,7 +165,12 @@ public class EquipoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al filtrar equipos por nombre", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
@@ -157,7 +191,12 @@ public class EquipoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al filtrar equipos por código patrimonial", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
@@ -178,7 +217,12 @@ public class EquipoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(null, -1, "Error al filtrar equipos por fecha de compra", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
@@ -198,18 +242,22 @@ public class EquipoRepository {
                 if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 } else {
-                    liveData.setValue(new BestGenericResponse<>(Global.TIPO_ERROR, Global.RPTA_ERROR, "Failed to scan barcode", null));
+                    try {
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Error desconocido";
+                        liveData.setValue(new BestGenericResponse<>(null, -1, errorMessage, null));
+                    } catch (IOException e) {
+                        liveData.setValue(new BestGenericResponse<>(null, -1, "Error al procesar la respuesta del servidor", null));
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<BestGenericResponse<Equipment>> call, Throwable t) {
-                liveData.setValue(new BestGenericResponse<>(Global.TIPO_ERROR, Global.RPTA_ERROR, t.getMessage(), null));
+                liveData.setValue(new BestGenericResponse<>(null, -1, "Fallo en la conexión: " + t.getMessage(), null));
             }
         });
         return liveData;
     }
-
 
     public LiveData<ResponseBody> downloadExcelReport() {
         MutableLiveData<ResponseBody> liveData = new MutableLiveData<>();
@@ -225,12 +273,9 @@ public class EquipoRepository {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // Puedes manejar errores de red aquí
                 liveData.setValue(null);
             }
         });
         return liveData;
     }
-
-
 }

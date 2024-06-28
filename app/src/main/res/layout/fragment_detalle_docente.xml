@@ -85,9 +85,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/nombre_docente"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -95,11 +95,13 @@
 
                         <TextView
                             android:id="@+id/txtFullName"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="Carlos Ruiz"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Posición -->
@@ -111,9 +113,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/posicion"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -121,11 +123,13 @@
 
                         <TextView
                             android:id="@+id/txtPosition"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="Asistente de Profesor"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- DNI -->
@@ -137,9 +141,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/dni"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -147,11 +151,13 @@
 
                         <TextView
                             android:id="@+id/txtDNI"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="564738191"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Email -->
@@ -163,9 +169,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/email"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/negro"
@@ -175,11 +181,12 @@
                             android:id="@+id/txtEmail"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_weight="1"
                             android:textSize="16sp"
                             android:text="carlas.ruiz@example.com"
                             android:textColor="@color/azul_general"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end"
                             android:ellipsize="end"
                             android:maxLines="1" />
                     </LinearLayout>
@@ -194,9 +201,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/telefono"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -204,11 +211,13 @@
 
                         <TextView
                             android:id="@+id/txtPhone"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="123987456"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Dirección -->
@@ -220,9 +229,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/direccion"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -230,11 +239,13 @@
 
                         <TextView
                             android:id="@+id/txtAddress"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="Calle 123"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Fecha de Contratación -->
@@ -246,9 +257,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/fecha_contratacion"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -256,11 +267,13 @@
 
                         <TextView
                             android:id="@+id/txtHiringDate"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="15/02/2023"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Estado Activo -->
@@ -272,9 +285,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/estado"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -282,11 +295,13 @@
 
                         <TextView
                             android:id="@+id/txtActive"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="Activo"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

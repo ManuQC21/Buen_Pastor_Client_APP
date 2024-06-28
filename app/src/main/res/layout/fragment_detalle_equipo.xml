@@ -90,7 +90,7 @@
 
                     <!-- Detalles del Equipo -->
 
-                    <!-- Etiqueta y valor para Tipo de Equipo -->
+                    <!-- Tipo de Equipo -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -99,9 +99,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_tipo_equipo"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -109,14 +109,16 @@
 
                         <TextView
                             android:id="@+id/txtTipoEquipo"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/tipo_equipo_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Nombre de Equipo -->
+                    <!-- Nombre de Equipo -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,9 +127,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_nombre_de_equipo"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -135,14 +137,16 @@
 
                         <TextView
                             android:id="@+id/txtNombreEquipo"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/nombre_responsable_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Marca -->
+                    <!-- Marca -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -151,9 +155,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_marca"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -161,14 +165,16 @@
 
                         <TextView
                             android:id="@+id/txtMarca"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/marca_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Modelo -->
+                    <!-- Modelo -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -177,9 +183,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_modelo"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -187,14 +193,16 @@
 
                         <TextView
                             android:id="@+id/txtModelo"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/modelo_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Serie -->
+                    <!-- Serie -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -203,9 +211,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_serie"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -213,14 +221,16 @@
 
                         <TextView
                             android:id="@+id/txtSerie"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/serie_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Numero de Orden -->
+                    <!-- Número de Orden -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -229,9 +239,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_numero_de_orden"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -239,14 +249,16 @@
 
                         <TextView
                             android:id="@+id/txtNumeroOrden"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/numero_orden_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Descripción dentro de un RelativeLayout para alinear correctamente -->
+                    <!-- Descripción -->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -265,20 +277,18 @@
 
                         <TextView
                             android:id="@+id/txtDescripcion"
-                            android:layout_width="306dp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginStart="38dp"
+                            android:layout_marginStart="7dp"
                             android:layout_toEndOf="@id/txtLabelDescripcion"
                             android:gravity="end"
-                            android:maxWidth="100dp"
                             android:text="@string/descripcion_value"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/azul_general"
-                            android:justificationMode="inter_word" />
+                            android:textColor="@color/azul_general" />
                     </RelativeLayout>
 
-                    <!-- Etiqueta y valor para Estado -->
+                    <!-- Estado -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -287,9 +297,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_estado"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -297,15 +307,16 @@
 
                         <TextView
                             android:id="@+id/txtEstado"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/estado_value"
-
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Código Patrimonial -->
+                    <!-- Código Patrimonial -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -314,9 +325,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_codigo_patrimonial"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -324,14 +335,16 @@
 
                         <TextView
                             android:id="@+id/txtCodigoPatrimonial"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/codigo_barra_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Código de Barra -->
+                    <!-- Código de Barra -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -341,9 +354,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_codigo_barras"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/negro"
@@ -351,14 +364,16 @@
 
                         <TextView
                             android:id="@+id/txtCodigoBarra"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/codigo_barra_value"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/azul_general" />
+                            android:textColor="@color/azul_general"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Fecha de Compra -->
+                    <!-- Fecha de Compra -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -367,9 +382,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_fecha_compra"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -377,11 +392,13 @@
 
                         <TextView
                             android:id="@+id/txtFechaCompra"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/fecha_compra_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -413,7 +430,7 @@
                         android:gravity="center"
                         android:layout_marginBottom="16dp"/>
 
-                    <!-- Etiqueta y valor para Nombre del Responsable -->
+                    <!-- Nombre del Responsable -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -422,9 +439,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_nombre"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -432,14 +449,16 @@
 
                         <TextView
                             android:id="@+id/txtNombreResponsable"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/nombre_responsable_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Cargo del Responsable -->
+                    <!-- Cargo del Responsable -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -448,9 +467,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_cargo"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -458,13 +477,14 @@
 
                         <TextView
                             android:id="@+id/txtCargoResponsable"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/cargo_responsable_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -495,7 +515,7 @@
                         android:gravity="center"
                         android:layout_marginBottom="16dp"/>
 
-                    <!-- Etiqueta y valor para Ambiente -->
+                    <!-- Ambiente -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -504,9 +524,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_ambiente"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -514,14 +534,16 @@
 
                         <TextView
                             android:id="@+id/txtAmbiente"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/ambiente_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
-                    <!-- Etiqueta y valor para Ubicación Física -->
+                    <!-- Ubicación Física -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -530,9 +552,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="@string/view_ubicacion_fisica"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -540,11 +562,13 @@
 
                         <TextView
                             android:id="@+id/txtUbicacionFisica"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="@string/ubicacion_fisica_value"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

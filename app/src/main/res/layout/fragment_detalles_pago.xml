@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="Buen.Pastor.app.Activity.ui.pagos.DetallePagoFragment"    android:background="@color/gris_claro"
+    tools:context="Buen.Pastor.app.Activity.ui.pagos.DetallePagoFragment"
+    android:background="@color/gris_claro"
     android:padding="16dp">
 
     <!-- Toolbar para Volver Atrás -->
@@ -84,9 +85,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="Nombre del Docente"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -94,11 +95,13 @@
 
                         <TextView
                             android:id="@+id/txtNombreDocente"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="Carlos Ruiz"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Monto -->
@@ -110,9 +113,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="Monto"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -120,11 +123,13 @@
 
                         <TextView
                             android:id="@+id/txtMonto"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="2000.00"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Fecha de Pago -->
@@ -136,9 +141,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="Fecha de Pago"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -146,11 +151,13 @@
 
                         <TextView
                             android:id="@+id/txtFechaPago"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="15/05/2023"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Estado del Pago -->
@@ -162,9 +169,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="Estado del Pago"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -172,11 +179,13 @@
 
                         <TextView
                             android:id="@+id/txtEstadoPago"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="Pendiente"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Referencia de Pago -->
@@ -188,9 +197,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="Referencia de Pago"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -198,11 +207,13 @@
 
                         <TextView
                             android:id="@+id/txtReferenciaPago"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="Ref456"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Días de Trabajo -->
@@ -214,9 +225,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="Días de Trabajo"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -224,11 +235,13 @@
 
                         <TextView
                             android:id="@+id/txtDiasTrabajo"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="22"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Nivel de Educación -->
@@ -240,9 +253,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="Nivel de Educación"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -250,11 +263,13 @@
 
                         <TextView
                             android:id="@+id/txtNivelEducacion"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="Secundaria"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
 
                     <!-- Código Modular -->
@@ -266,9 +281,9 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginEnd="7dp"
                             android:text="Código Modular"
                             android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -276,11 +291,13 @@
 
                         <TextView
                             android:id="@+id/txtCodigoModular"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="MOD002"
                             android:textColor="@color/azul_general"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:gravity="end" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
