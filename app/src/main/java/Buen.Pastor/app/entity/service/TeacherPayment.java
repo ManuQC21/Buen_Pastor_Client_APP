@@ -15,7 +15,7 @@ public class TeacherPayment {
     private int workDays;
     private String educationLevel;
     private String modularCode = "989873";
-
+    private Foto foto;
     public TeacherPayment() {
     }
 
@@ -107,5 +107,12 @@ public class TeacherPayment {
         this.modularCode = modularCode;
     }
 
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
 }
 

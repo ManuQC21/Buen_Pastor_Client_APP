@@ -2,6 +2,8 @@ package Buen.Pastor.app.entity.service.App;
 
 import java.math.BigDecimal;
 
+import Buen.Pastor.app.entity.service.Foto;
+
 public class TeacherPaymentDTO {
     private int id;
     private int teacherId;
@@ -13,7 +15,7 @@ public class TeacherPaymentDTO {
     private int workDays;
     private String educationLevel;
     private String modularCode;
-
+    private Foto foto;
     public TeacherPaymentDTO() {
     }
 
@@ -99,5 +101,13 @@ public class TeacherPaymentDTO {
 
     public void setModularCode(String modularCode) {
         this.modularCode = modularCode;
+    }
+
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
     }
 }

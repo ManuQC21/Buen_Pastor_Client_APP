@@ -1,12 +1,22 @@
 package Buen.Pastor.app.Activity.ui.pagos.agregarpago;
 
 import android.content.Context;
+import android.net.Uri;
+import android.widget.Toast;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AgregarPagoValidationHelper {
 
     public static boolean validarEntradas(Context context, TextInputEditText txtMonto, TextInputEditText edtFechaPago,
-                                          TextInputEditText txtReferenciaPago, TextInputEditText txtDiasTrabajo) {
+                                          TextInputEditText txtReferenciaPago, TextInputEditText txtDiasTrabajo, Uri imagenUri) {
+
+        // Validación de la imagen
+        if (imagenUri == null) {
+            // Mostrar error de alguna manera, por ejemplo, un Toast
+            Toast.makeText(context, "Debe seleccionar una imagen", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
         // Validación del monto
         if (txtMonto.getText().toString().isEmpty()) {

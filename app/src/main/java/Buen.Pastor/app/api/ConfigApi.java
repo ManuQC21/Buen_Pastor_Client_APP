@@ -17,10 +17,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConfigApi {
 
-    // Base URL de tu servidor backend
-    public static final String myHouse = "http://192.168.0.14:8080";
-    public static final String LocalHost = "http://10.0.2.2:8080";
-    public static final String baseUrlE = "https://elbuenpastor-back-production.up.railway.app";
+    // Base URLs de tu servidor backend
+    public static final String BASE_URL_MY_HOUSE = "http://192.168.0.14:8080";
+    public static final String BASE_URL_LOCAL_HOST = "http://10.0.2.2:8080";
+    public static final String BASE_URL_PRODUCTION = "https://elbuenpastor-back-production.up.railway.app";
+
+    private static final String BASE_URL = BASE_URL_PRODUCTION; // Cambiar según el entorno
 
     private static Retrofit retrofit;
 
@@ -32,6 +34,7 @@ public class ConfigApi {
     private static NotificacionesApi notificacionesApi;
     private static PagosApi pagosApi;
     private static UbicacionApi ubicacionApi;
+    private static FotoApi fotoApi;
 
     // Bloque estático para inicializar el cliente Retrofit al cargar la clase
     static {
@@ -48,14 +51,14 @@ public class ConfigApi {
 
         // Construcción del cliente Retrofit
         retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrlE)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(getClient())
                 .build();
     }
 
     // Método para obtener el cliente HTTP con configuraciones específicas
-    public static OkHttpClient getClient() {
+    private static OkHttpClient getClient() {
         // Interceptor para registrar las respuestas y peticiones HTTP
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -64,63 +67,45 @@ public class ConfigApi {
         StethoInterceptor stetho = new StethoInterceptor();
 
         // Configuración del cliente HTTP
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.addInterceptor(logging)
+        return new OkHttpClient.Builder()
+                .addInterceptor(logging)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
-                .addNetworkInterceptor(stetho);
-
-        return builder.build();
+                .addNetworkInterceptor(stetho)
+                .build();
     }
 
     // Métodos para obtener la instancia de cada API
     public static UsuarioApi getUsuarioApi() {
-        if (usuarioApi == null) {
-            usuarioApi = retrofit.create(UsuarioApi.class);
-        }
-        return usuarioApi;
+        return usuarioApi != null ? usuarioApi : (usuarioApi = retrofit.create(UsuarioApi.class));
     }
 
     public static EquipoApi getEquipoApi() {
-        if (equipoApi == null) {
-            equipoApi = retrofit.create(EquipoApi.class);
-        }
-        return equipoApi;
+        return equipoApi != null ? equipoApi : (equipoApi = retrofit.create(EquipoApi.class));
     }
 
     public static DocenteApi getDocenteApi() {
-        if (docenteApi == null) {
-            docenteApi = retrofit.create(DocenteApi.class);
-        }
-        return docenteApi;
+        return docenteApi != null ? docenteApi : (docenteApi = retrofit.create(DocenteApi.class));
     }
 
     public static AdministrativoApi getAdministrativoApi() {
-        if (administrativoApi == null) {
-            administrativoApi = retrofit.create(AdministrativoApi.class);
-        }
-        return administrativoApi;
+        return administrativoApi != null ? administrativoApi : (administrativoApi = retrofit.create(AdministrativoApi.class));
     }
 
     public static NotificacionesApi getNotificacionesApi() {
-        if (notificacionesApi == null) {
-            notificacionesApi = retrofit.create(NotificacionesApi.class);
-        }
-        return notificacionesApi;
+        return notificacionesApi != null ? notificacionesApi : (notificacionesApi = retrofit.create(NotificacionesApi.class));
     }
 
     public static PagosApi getPagosApi() {
-        if (pagosApi == null) {
-            pagosApi = retrofit.create(PagosApi.class);
-        }
-        return pagosApi;
+        return pagosApi != null ? pagosApi : (pagosApi = retrofit.create(PagosApi.class));
     }
 
     public static UbicacionApi getUbicacionApi() {
-        if (ubicacionApi == null) {
-            ubicacionApi = retrofit.create(UbicacionApi.class);
-        }
-        return ubicacionApi;
+        return ubicacionApi != null ? ubicacionApi : (ubicacionApi = retrofit.create(UbicacionApi.class));
+    }
+
+    public static FotoApi getFotoApi() {
+        return fotoApi != null ? fotoApi : (fotoApi = retrofit.create(FotoApi.class));
     }
 }

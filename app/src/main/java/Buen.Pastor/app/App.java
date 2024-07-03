@@ -2,7 +2,6 @@ package Buen.Pastor.app;
 
 import android.app.Application;
 import android.content.Context;
-
 import com.facebook.stetho.DumperPluginsProvider;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.dumpapp.DumperPlugin;

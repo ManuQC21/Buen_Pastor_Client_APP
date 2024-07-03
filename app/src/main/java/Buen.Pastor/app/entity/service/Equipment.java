@@ -138,16 +138,5 @@ public class Equipment {
         this.location = location;
     }
 
-    public void setResponsableId(int id) {
-        Teacher emp = new Teacher();
-        emp.setId(id);
-        this.responsible = emp;
-    }
-
-    public void setUbicacionId(int id) {
-        Location ubic = new Location();
-        ubic.setId(id);
-        this.location = ubic;
-    }
 
 }
